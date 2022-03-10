@@ -1,8 +1,7 @@
 package com.example.butlerchef_backend.Models;
 
-import java.time.LocalDateTime;
-
 public class User {
+
     private Long id;
     private String email;
     private String password;
@@ -10,13 +9,18 @@ public class User {
     private String last_name;
     private String image;
     private int role_id;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private String created_at;
+    private String updated_at;
 
     public User() {
     }
 
-    public User(Long id, String email, String password, String first_name, String last_name, String image, int role_id, LocalDateTime created_at, LocalDateTime updated_at) {
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Long id, String email, String password, String first_name, String last_name, String image, int role_id, String created_at, String updated_at) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -28,7 +32,7 @@ public class User {
         this.updated_at = updated_at;
     }
 
-    public User(String email, String password, String first_name, String last_name, String image, int role_id, LocalDateTime created_at, LocalDateTime updated_at) {
+    public User(String email, String password, String first_name, String last_name, String image, int role_id, String created_at, String updated_at) {
         this.email = email;
         this.password = password;
         this.first_name = first_name;
@@ -95,19 +99,19 @@ public class User {
         this.role_id = role_id;
     }
 
-    public LocalDateTime getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
-    public LocalDateTime getUpdated_at() {
+    public String getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
+    public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
 
@@ -125,4 +129,5 @@ public class User {
                 ", updated_at=" + updated_at +
                 '}';
     }
+
 }
