@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ButlerchefBackendApplication {
+public class ButlerChefBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ButlerchefBackendApplication.class, args);
+		SpringApplication.run(ButlerChefBackendApplication.class, args);
 	}
+
+
 
 }
