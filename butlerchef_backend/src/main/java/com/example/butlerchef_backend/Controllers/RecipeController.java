@@ -3,11 +3,14 @@ package com.example.butlerchef_backend.Controllers;
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
+@Validated
 @RequestMapping("/api/recipe")
 public class RecipeController {
 
@@ -19,7 +22,7 @@ public class RecipeController {
     }
 
     @PostMapping("/create")
-    public Recipe create(@RequestBody Recipe recipe){
+    public Recipe create(@Valid @RequestBody Recipe recipe){
         return recipeService.createRecipe(recipe);
     }
 
