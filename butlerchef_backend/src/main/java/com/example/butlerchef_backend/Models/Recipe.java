@@ -51,7 +51,8 @@ public class Recipe {
     private String created_at;
     private String updated_at;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
     private Collection<RecipeDirection> recipeDirections;
 
     public Collection<RecipeDirection> getRecipeDirections() {

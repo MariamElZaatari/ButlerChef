@@ -21,13 +21,12 @@ public class Measurement {
     private String created_at;
     private String updated_at;
 
-    @ManyToMany(cascade = { CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "quantities_measurements",
+            name = "quantity_measurement",
             joinColumns = { @JoinColumn(name = "measurement_id") },
             inverseJoinColumns = { @JoinColumn(name = "quantity_id") }
     )
-    @JsonIgnoreProperties("measurements")
     Set<Quantity> quantities = new HashSet<>();
 
     public Set<Quantity> getQuantities() {

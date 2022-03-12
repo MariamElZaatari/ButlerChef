@@ -40,7 +40,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<Recipe> recipes;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private Collection<Address> addresses;
 
     @ManyToOne(cascade = CascadeType.MERGE)

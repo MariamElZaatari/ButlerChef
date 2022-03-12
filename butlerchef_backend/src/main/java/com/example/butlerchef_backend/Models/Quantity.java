@@ -21,14 +21,6 @@ public class Quantity {
     private String created_at;
     private String updated_at;
 
-    @ManyToMany(mappedBy = "quantities")
-
-    private final Set<Measurement> measurements = new HashSet<>();
-
-    public Set<Measurement> getMeasurements() {
-        return measurements;
-    }
-
     public Quantity(){
         this.setCreated_at();
         this.setUpdated_at();

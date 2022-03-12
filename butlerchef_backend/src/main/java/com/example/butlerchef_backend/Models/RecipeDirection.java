@@ -15,10 +15,6 @@ public class RecipeDirection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
-    private Recipe recipe;
-
     @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Title")
     @NotEmpty(message = "Title is mandatory.")
     private String title;
@@ -35,17 +31,15 @@ public class RecipeDirection {
         this.setUpdated_at();
     }
 
-    public RecipeDirection(Recipe recipe, String title, String content, String created_at, String updated_at) {
-        this.recipe = recipe;
+    public RecipeDirection(String title, String content, String created_at, String updated_at) {
         this.title = title;
         this.content = content;
         this.setCreated_at();
         this.setUpdated_at();
     }
 
-    public RecipeDirection(Long id, Recipe recipe, String title, String content, String created_at, String updated_at) {
+    public RecipeDirection(Long id, String title, String content, String created_at, String updated_at) {
         this.id = id;
-        this.recipe = recipe;
         this.title = title;
         this.content = content;
         this.setCreated_at();
@@ -58,14 +52,6 @@ public class RecipeDirection {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public long getRecipe() {
-        return recipe.getId();
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
 
     public String getTitle() {

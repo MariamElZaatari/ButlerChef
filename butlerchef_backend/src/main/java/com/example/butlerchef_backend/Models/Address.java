@@ -16,11 +16,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
-
     @NotEmpty(message = "Street is mandatory.")
     private String street;
 
@@ -41,8 +36,7 @@ public class Address {
         this.setUpdated_at();
     }
 
-    public Address(User user, String street, String city, String phone, String created_at, String updated_at) {
-        this.user = user;
+    public Address(String street, String city, String phone, String created_at, String updated_at) {
         this.street = street;
         this.city = city;
         this.phone = phone;
@@ -52,7 +46,6 @@ public class Address {
 
     public Address(Long id, User user, String street, String city, String phone, String created_at, String updated_at) {
         this.id = id;
-        this.user = user;
         this.street = street;
         this.city = city;
         this.phone = phone;
@@ -66,14 +59,6 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUser() {
-        return user.getId();
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getStreet() {
