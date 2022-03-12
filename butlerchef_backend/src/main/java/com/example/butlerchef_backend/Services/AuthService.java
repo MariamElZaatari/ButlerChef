@@ -1,5 +1,6 @@
 package com.example.butlerchef_backend.Services;
 
+import com.example.butlerchef_backend.Exceptions.AuthenticateException;
 import com.example.butlerchef_backend.Models.User;
 import com.example.butlerchef_backend.Repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,22 +20,21 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> authenticateUser(User user) {
+    public User authenticateUser(User user) throws AuthenticateException  {
 
         Optional<User> u = userRepository.findUserByEmail(user.getEmail());
 
-        if(!u.isPresent()){
-            throw new IllegalStateException("Email Not Found");
-        }
+        if(!u.isPresent())
+            throw new AuthenticateException("Email Not Found");
 
         if(!BCrypt.checkpw(user.getPassword(), u.get().getPassword()))
-            throw new IllegalStateException("Wrong Password");
+            throw new AuthenticateException("Wrong Password");
 
-        return u;
+        return u.get();
 
     }
 
-    public User createNewUser(User user) {
+    public void createNewUser(User user) throws AuthenticateException {
 
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
 
@@ -43,17 +43,22 @@ public class AuthService {
 
         assert user.getEmail() != null;
         if(!pattern.matcher(user.getEmail()).matches())
-            throw new IllegalStateException("Invalid email format");
+            throw new AuthenticateException("Invalid email format");
 
         Optional<User> u = userRepository.findUserByEmail(user.getEmail());
-        if(u.isPresent()){
-            throw new IllegalStateException("Email Taken");
-        }
+        if(u.isPresent())
+            throw new AuthenticateException("Email Taken");
 
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
         user.setPassword(hashedPassword);
 
-        return userRepository.save(user);
+        try{
+            userRepository.save(user);
+        }
+        catch (Exception e){
+            throw new AuthenticateException("Failed to Create User, Please Try Again");
+        }
+
 
     }
 
