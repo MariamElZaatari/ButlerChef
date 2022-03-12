@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
     private final AuthService authService;
 
     @Autowired
@@ -21,12 +22,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(){
-        return "yes";
+    public Optional<User> login(@RequestBody User user){
+        return authService.authenticateUser(user);
     }
+
     @PostMapping("/register")
-    public Integer register(@RequestBody User user){
-        return authService.Register(user);
+    public User register(@RequestBody User user){
+        return authService.createNewUser(user);
     }
 
 }
