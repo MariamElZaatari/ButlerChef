@@ -3,7 +3,9 @@ package com.example.butlerchef_backend.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -17,25 +19,55 @@ public class Recipe {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("recipes")
+    @JsonIgnoreProperties({"userRole","email","password","created_at","updated_at", "recipes", "addresses"})
     private User user;
 
+
+    @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Name")
+    @NotEmpty(message = "Name is mandatory.")
     private String name;
-    private int rate;
+
+    @Digits(integer = 1,fraction = 1, message = "Invalid Rate")
+    @Min(0)
+    @Max(5)
+    @NotNull(message = "Rate is mandatory.")
+    private double rate;
+
+    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Level")
+    @NotEmpty(message = "Level is mandatory.")
     private String level;
+
+    @NotEmpty(message = "Time is mandatory.")
     private String time;
+
+    @NotEmpty(message = "Serving is mandatory.")
     private String serving;
+
+    @NotEmpty(message = "Image is mandatory.")
     private String image;
+
     private int visibility;
+
     private String created_at;
     private String updated_at;
+
+    @OneToMany(mappedBy = "recipe")
+    private Collection<RecipeDirection> recipeDirections;
+
+    public Collection<RecipeDirection> getRecipeDirections() {
+        return recipeDirections;
+    }
+
+    public void setRecipeDirections(Collection<RecipeDirection> recipeDirections) {
+        this.recipeDirections = recipeDirections;
+    }
 
     public Recipe() {
         this.setCreated_at();
         this.setUpdated_at();
     }
 
-    public Recipe(Long id, User user, String name, int rate, String level, String time, String serving, String image, int visibility) {
+    public Recipe(Long id, User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -49,7 +81,7 @@ public class Recipe {
         this.setUpdated_at();
     }
 
-    public Recipe(User user, String name, int rate, String level, String time, String serving, String image, int visibility) {
+    public Recipe(User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
         this.user = user;
         this.name = name;
         this.rate = rate;
@@ -86,11 +118,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
