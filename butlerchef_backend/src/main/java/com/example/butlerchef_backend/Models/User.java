@@ -1,7 +1,19 @@
 package com.example.butlerchef_backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+
+
+@Entity
+@Table
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String password;
@@ -12,7 +24,20 @@ public class User {
     private String created_at;
     private String updated_at;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Recipe> recipes;
+
+    public Collection<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Collection<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
     public User() {
+        this.setCreated_at();
+        this.setUpdated_at();
     }
 
     public User(String email, String password) {
@@ -20,7 +45,7 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String email, String password, String first_name, String last_name, String image, int role_id, String created_at, String updated_at) {
+    public User(Long id, String email, String password, String first_name, String last_name, String image, int role_id) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -28,19 +53,20 @@ public class User {
         this.last_name = last_name;
         this.image = image;
         this.role_id = role_id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.setCreated_at();
+        this.setUpdated_at();
+
     }
 
-    public User(String email, String password, String first_name, String last_name, String image, int role_id, String created_at, String updated_at) {
+    public User(String email, String password, String first_name, String last_name, String image, int role_id) {
         this.email = email;
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.image = image;
         this.role_id = role_id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.setCreated_at();
+        this.setUpdated_at();
     }
 
     public Long getId() {
@@ -103,16 +129,20 @@ public class User {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreated_at() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        Date now = new Date();
+        this.created_at = sdf.format(now);
     }
 
     public String getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdated_at() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        Date now = new Date();
+        this.updated_at = sdf.format(now);
     }
 
     @Override
