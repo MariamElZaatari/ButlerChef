@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -39,6 +41,38 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Collection<Recipe> recipes;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "cooked_recipe",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
+    )
+    Set<CookedRecipe> cookedRecipes = new HashSet<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "favorite_recipe",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
+    )
+    Set<CookedRecipe> favoriteRecipes = new HashSet<>();
+
+    public Set<CookedRecipe> getFavoriteRecipes() {
+        return favoriteRecipes;
+    }
+
+    public void setFavoriteRecipes(Set<CookedRecipe> favoriteRecipes) {
+        this.favoriteRecipes = favoriteRecipes;
+    }
+
+    public Set<CookedRecipe> getCookedRecipes() {
+        return cookedRecipes;
+    }
+
+    public void setCookedRecipes(Set<CookedRecipe> cookedRecipes) {
+        this.cookedRecipes = cookedRecipes;
+    }
 
     @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
