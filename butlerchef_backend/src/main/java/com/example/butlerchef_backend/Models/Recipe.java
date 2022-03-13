@@ -7,19 +7,36 @@ import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
-@Table
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        discriminatorType = DiscriminatorType.INTEGER,
+        name="recipe_type_id",
+        columnDefinition = "TINYINT(1)"
+)
+@DiscriminatorValue("0")
 public class Recipe {
+
+//    @Column(name="recipe_type_id", insertable = false, updatable = false)
+//    protected int recipeTypeId;
+//
+//    public void setRecipeTypeId(String recipeTypeId) {
+//        this.recipeTypeId = Integer.parseInt(recipeTypeId);
+//    }
+//
+//    public int getRecipeTypeId() {
+//        return recipeTypeId;
+//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"userRole","email","password","created_at","updated_at", "recipes", "addresses"})
+    @JsonIgnoreProperties({"userRole","email","password","created_at","updated_at", "recipes", "addresses", "cookedRecipes","favoriteRecipes"})
     private User user;
 
 
@@ -54,6 +71,18 @@ public class Recipe {
     @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     private Collection<RecipeDirection> recipeDirections;
+
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
+    private Collection<RecipeProduct> recipeProducts;
+
+    public Collection<RecipeProduct> getRecipeProducts() {
+        return recipeProducts;
+    }
+
+    public void setRecipeProducts(Collection<RecipeProduct> recipeProducts) {
+        this.recipeProducts = recipeProducts;
+    }
 
     public Collection<RecipeDirection> getRecipeDirections() {
         return recipeDirections;
