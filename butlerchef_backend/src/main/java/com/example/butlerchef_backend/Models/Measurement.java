@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,6 +17,8 @@ public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Unit")
     @NotEmpty(message = "Unit cannot be Empty or Null")
     private String unit;
     private String created_at;
