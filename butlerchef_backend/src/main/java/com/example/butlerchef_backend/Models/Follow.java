@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Follow {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "follower_id", referencedColumnName = "id")
