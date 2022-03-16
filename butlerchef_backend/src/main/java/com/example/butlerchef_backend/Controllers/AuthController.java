@@ -59,8 +59,8 @@ public class AuthController {
                 .setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY))
                 .claim("userId", user.getId())
                 .claim("email", user.getEmail())
-                .claim("firstName", user.getFirst_name())
-                .claim("lastName", user.getLast_name())
+                .claim("firstName", user.getFirstName())
+                .claim("lastName", user.getLastName())
                 .compact();
     }
 
