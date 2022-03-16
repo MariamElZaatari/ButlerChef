@@ -16,6 +16,14 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"email","firstName","lastName","imageUrl","password","userRole","email","password","created_at","updated_at"})
+    private User user;
+
+    @NotEmpty(message = "Title is mandatory.")
+    private String title;
+
     @NotEmpty(message = "Street is mandatory.")
     private String street;
 
@@ -28,29 +36,20 @@ public class Address {
     @Size(min = 8, max = 8)
     private String phone;
 
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
     public Address() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public Address(String street, String city, String phone, String created_at, String updated_at) {
-        this.street = street;
-        this.city = city;
-        this.phone = phone;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+    public User getUser() {
+        return user;
     }
 
-    public Address(Long id, User user, String street, String city, String phone, String created_at, String updated_at) {
-        this.id = id;
-        this.street = street;
-        this.city = city;
-        this.phone = phone;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -59,6 +58,14 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getStreet() {
@@ -85,23 +92,23 @@ public class Address {
         this.phone = phone;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at() {
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 }
