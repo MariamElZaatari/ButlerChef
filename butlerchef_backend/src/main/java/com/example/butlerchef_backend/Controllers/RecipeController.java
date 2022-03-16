@@ -1,13 +1,18 @@
 package com.example.butlerchef_backend.Controllers;
 
 import com.example.butlerchef_backend.Models.Recipe;
+import com.example.butlerchef_backend.Models.User;
 import com.example.butlerchef_backend.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -30,6 +35,7 @@ public class RecipeController {
     public Collection<Recipe> readUserRecipes(@PathVariable Long id){
         return recipeService.getRecipesByUserId(id);
     }
+
     @GetMapping("/search/{name}")
     public Collection<Recipe> readByName(@PathVariable String name){
         return recipeService.getRecipesByName(name);
@@ -38,5 +44,23 @@ public class RecipeController {
     @GetMapping("/search/{id}/{name}")
     public Collection<Recipe> readByUserAndRecipeName(@PathVariable Long id, @PathVariable String name){
         return recipeService.getRecipesByUserIdAndRecipeName(id, name);
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateRecipe(@Valid @RequestBody Recipe recipe){
+        Recipe r = recipeService.update(recipe);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", 200);
+        map.put("recipe updated successfully", r);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteRecipe(@PathVariable Long id){
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", 200);
+        map.put("message","Recipe deleted successfully");
+        recipeService.delete(id);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }
