@@ -9,13 +9,6 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(
-//        discriminatorType = DiscriminatorType.INTEGER,
-//        name="recipe_type_id",
-//        columnDefinition = "TINYINT(1)"
-//)
-//@DiscriminatorValue("0")
 public class Recipe {
 
 //    @Column(name="recipe_type_id", insertable = false, updatable = false)
@@ -31,7 +24,6 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -65,8 +57,8 @@ public class Recipe {
 
     private int visibility;
 
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
 //    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JoinColumn(name = "recipe_id")
@@ -93,8 +85,8 @@ public class Recipe {
 //    }
 
     public Recipe() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
     public Recipe(Long id, User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
@@ -107,8 +99,8 @@ public class Recipe {
         this.serving = serving;
         this.image = image;
         this.visibility = visibility;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
     public Recipe(User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
@@ -120,8 +112,8 @@ public class Recipe {
         this.serving = serving;
         this.image = image;
         this.visibility = visibility;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
     public Long getId() {
@@ -196,23 +188,23 @@ public class Recipe {
         this.visibility = visibility;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at() {
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 }
