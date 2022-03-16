@@ -27,15 +27,19 @@ public class RecipeService {
         Optional<User> temp_user=userRepository.findById(recipe.getUser().getId());
         User user=temp_user.get();
         recipe.setUser(user);
-
         return recipeRepository.save(recipe);
     }
 
     public Collection<Recipe> getRecipesByName(String name){
-        return recipeRepository.findByNameLikeIgnoreCase("%"+name+"%");
+        return recipeRepository.findByNameLikeIgnoreCaseOrderByNameAsc("%"+name+"%");
     }
 
     public Collection<Recipe> getRecipesByUserId(Long id){
-        return recipeRepository.findByUserId(id);
+        return recipeRepository.findByUserIdOrderByCreatedAtDesc(id);
+    }
+
+    public Collection<Recipe> getRecipesByUserIdAndRecipeName(Long id, String name){
+        return recipeRepository.findByUserIdAndNameLikeIgnoreCaseOrderByNameAsc(id,"%"+name+"%");
+
     }
 }
