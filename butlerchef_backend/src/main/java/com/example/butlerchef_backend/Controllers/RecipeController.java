@@ -26,14 +26,17 @@ public class RecipeController {
         return recipeService.createRecipe(recipe);
     }
 
-    @GetMapping("/q={name}")
-    public Collection<Recipe> readByName(@PathVariable String name){
-        return recipeService.getRecipesByName(name);
-    }
-
     @GetMapping("/{id}")
     public Collection<Recipe> readUserRecipes(@PathVariable Long id){
         return recipeService.getRecipesByUserId(id);
     }
+    @GetMapping("/search/{name}")
+    public Collection<Recipe> readByName(@PathVariable String name){
+        return recipeService.getRecipesByName(name);
+    }
 
+    @GetMapping("/search/{id}/{name}")
+    public Collection<Recipe> readByUserAndRecipeName(@PathVariable Long id, @PathVariable String name){
+        return recipeService.getRecipesByUserIdAndRecipeName(id, name);
+    }
 }
