@@ -16,42 +16,48 @@ public class RecipeProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"user","name","rate","level","imageUrl","time","serving","visibility","createdAt","updatedAt"})
+    private Recipe recipe;
+
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "quantity_id")
+    @JsonIgnoreProperties({"created_at","updated_at"})
     private Quantity quantity;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "measurement_id")
-    @JsonIgnoreProperties("quantities")
+    @JsonIgnoreProperties({"quantities","created_at","updated_at"})
     private Measurement measurement;
 
     @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Title")
     @NotEmpty(message = "Name is mandatory.")
     private String name;
 
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
     public RecipeProduct() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public RecipeProduct(Long id, Quantity quantity, Measurement measurement, String name, String created_at, String updated_at) {
+    public RecipeProduct(Long id, Quantity quantity, Measurement measurement, String name, String createdAt, String updatedAt) {
         this.id = id;
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public RecipeProduct(Quantity quantity, Measurement measurement, String name, String created_at, String updated_at) {
+    public RecipeProduct(Quantity quantity, Measurement measurement, String name, String createdAt, String updatedAt) {
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
     public Long getId() {
@@ -60,6 +66,14 @@ public class RecipeProduct {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public Quantity getQuantity() {
@@ -86,23 +100,23 @@ public class RecipeProduct {
         this.name = name;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at() {
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 }
