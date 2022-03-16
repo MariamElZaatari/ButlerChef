@@ -1,6 +1,7 @@
 package com.example.butlerchef_backend.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table
+@DynamicUpdate
 public class User {
 
     @Id
@@ -28,84 +30,70 @@ public class User {
 
     @Pattern(regexp="^[A-Za-z]*$",message = "Invalid First Name")
     @NotEmpty(message = "Invalid First Name")
-    private String first_name;
+    private String firstName;
 
     @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Last Name")
     @NotEmpty(message = "Invalid Last Name")
-    private String last_name;
+    private String lastName;
 
     private String image;
-
-    private String created_at;
-    private String updated_at;
-
-    @OneToMany(mappedBy = "user")
-    private Collection<Recipe> recipes;
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "cooked_recipe",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
-    )
-    Set<CookedRecipe> cookedRecipes = new HashSet<>();
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "favorite_recipe",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
-    )
-    Set<CookedRecipe> favoriteRecipes = new HashSet<>();
-
-    public Set<CookedRecipe> getFavoriteRecipes() {
-        return favoriteRecipes;
-    }
-
-    public void setFavoriteRecipes(Set<CookedRecipe> favoriteRecipes) {
-        this.favoriteRecipes = favoriteRecipes;
-    }
-
-    public Set<CookedRecipe> getCookedRecipes() {
-        return cookedRecipes;
-    }
-
-    public void setCookedRecipes(Set<CookedRecipe> cookedRecipes) {
-        this.cookedRecipes = cookedRecipes;
-    }
-
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private Collection<Address> addresses;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"created_at","updated_at"})
     private UserRole userRole;
 
-    public UserRole getUserRole() {
-        return userRole;
-    }
+    private String created_at;
+    private String updated_at;
+//
+//    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "user_id")
+//    private Collection<Address> addresses;
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
+//    @OneToMany(mappedBy = "user")
+//    private Collection<Recipe> recipes;
+//
+//    @ManyToMany(cascade = { CascadeType.ALL })
+//    @JoinTable(
+//            name = "cooked_recipe",
+//            joinColumns = { @JoinColumn(name = "user_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
+//    )
+//    Set<CookedRecipe> cookedRecipes = new HashSet<>();
 
-    public Collection<Address> getAddresses() {
-        return addresses;
-    }
+//    @ManyToMany(cascade = { CascadeType.ALL })
+//    @JoinTable(
+//            name = "favorite_recipe",
+//            joinColumns = { @JoinColumn(name = "user_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
+//    )
+//    Set<CookedRecipe> favoriteRecipes = new HashSet<>();
+//
+//    public Set<CookedRecipe> getFavoriteRecipes() {
+//        return favoriteRecipes;
+//    }
+//
+//    public void setFavoriteRecipes(Set<CookedRecipe> favoriteRecipes) {
+//        this.favoriteRecipes = favoriteRecipes;
+//    }
+//
+//    public Set<CookedRecipe> getCookedRecipes() {
+//        return cookedRecipes;
+//    }
+//
+//    public void setCookedRecipes(Set<CookedRecipe> cookedRecipes) {
+//        this.cookedRecipes = cookedRecipes;
+//    }
+//
+//    public Collection<Recipe> getRecipes() {
+//        return recipes;
+//    }
+//
+//    public void setRecipes(Collection<Recipe> recipes) {
+//        this.recipes = recipes;
+//    }
 
-    public void setAddresses(Collection<Address> addresses) {
-        this.addresses = addresses;
-    }
 
-    public Collection<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Collection<Recipe> recipes) {
-        this.recipes = recipes;
-    }
 
     public User() {
         this.setCreated_at();
@@ -117,23 +105,23 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String email, String password, String first_name, String last_name, String image) {
+    public User(Long id, String email, String password, String firstName, String lastName, String image) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.image = image;
         this.setCreated_at();
         this.setUpdated_at();
 
     }
 
-    public User(String email, String password, String first_name, String last_name, String image) {
+    public User(String email, String password, String firstName, String lastName, String image) {
         this.email = email;
         this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.image = image;
         this.setCreated_at();
         this.setUpdated_at();
@@ -163,20 +151,20 @@ public class User {
         this.password = password;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getImage() {
@@ -187,6 +175,21 @@ public class User {
         this.image = image;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+//    public Collection<Address> getAddresses() {
+//        return addresses;
+//    }
+//
+//    public void setAddresses(Collection<Address> addresses) {
+//        this.addresses = addresses;
+//    }
     public String getCreated_at() {
         return created_at;
     }
@@ -213,8 +216,8 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", first_name='" + firstName + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", image='" + image + '\'' +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
