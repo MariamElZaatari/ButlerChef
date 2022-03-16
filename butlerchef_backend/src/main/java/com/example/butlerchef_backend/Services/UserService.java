@@ -29,7 +29,7 @@ public class UserService {
         User oldUser=userRepository.findById(user.getId()).get();
         oldUser.setFirstName(user.getFirstName());
         oldUser.setLastName(user.getLastName());
-        oldUser.setImage(user.getImage());
+        oldUser.setImageUrl(user.getImageUrl());
         oldUser.setUpdated_at();
         return userRepository.save(oldUser);
     }

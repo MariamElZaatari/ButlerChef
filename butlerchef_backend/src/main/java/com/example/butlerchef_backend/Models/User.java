@@ -36,7 +36,7 @@ public class User {
     @NotEmpty(message = "Invalid Last Name")
     private String lastName;
 
-    private String image;
+    private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -105,24 +105,24 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String email, String password, String firstName, String lastName, String image) {
+    public User(Long id, String email, String password, String firstName, String lastName, String imageUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.setCreated_at();
         this.setUpdated_at();
 
     }
 
-    public User(String email, String password, String firstName, String lastName, String image) {
+    public User(String email, String password, String firstName, String lastName, String imageUrl) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.setCreated_at();
         this.setUpdated_at();
     }
@@ -167,12 +167,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public UserRole getUserRole() {
@@ -218,7 +218,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", first_name='" + firstName + '\'' +
                 ", last_name='" + lastName + '\'' +
-                ", image='" + image + '\'' +
+                ", image='" + imageUrl + '\'' +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 '}';

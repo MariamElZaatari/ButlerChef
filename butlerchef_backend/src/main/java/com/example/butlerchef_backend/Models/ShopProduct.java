@@ -33,7 +33,7 @@ public class ShopProduct {
     private int price;
 
     @NotEmpty(message = "Image is mandatory.")
-    private String image;
+    private String imageUrl;
 
     @Digits(integer = 10, fraction =2, message = "Invalid Stock")
     @PositiveOrZero(message = "Negative value not allowed.")
@@ -48,24 +48,24 @@ public class ShopProduct {
         this.setUpdated_at();
     }
 
-    public ShopProduct(Quantity quantity, Measurement measurement, String name, int price, String image, int stock, String created_at, String updated_at) {
+    public ShopProduct(Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String created_at, String updated_at) {
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.stock = stock;
         this.setCreated_at();
         this.setUpdated_at();
     }
 
-    public ShopProduct(Long id, Quantity quantity, Measurement measurement, String name, int price, String image, int stock, String created_at, String updated_at) {
+    public ShopProduct(Long id, Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String created_at, String updated_at) {
         this.id = id;
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.stock = stock;
         this.setCreated_at();
         this.setUpdated_at();

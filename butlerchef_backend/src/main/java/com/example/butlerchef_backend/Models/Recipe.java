@@ -53,7 +53,7 @@ public class Recipe {
     private String serving;
 
     @NotEmpty(message = "Image is mandatory.")
-    private String image;
+    private String imageUrl;
 
     private int visibility;
 
@@ -89,7 +89,7 @@ public class Recipe {
         this.setUpdatedAt();
     }
 
-    public Recipe(Long id, User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
+    public Recipe(Long id, User user, String name, double rate, String level, String time, String serving, String imageUrl, int visibility) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -97,20 +97,20 @@ public class Recipe {
         this.level = level;
         this.time = time;
         this.serving = serving;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.visibility = visibility;
         this.setCreatedAt();
         this.setUpdatedAt();
     }
 
-    public Recipe(User user, String name, double rate, String level, String time, String serving, String image, int visibility) {
+    public Recipe(User user, String name, double rate, String level, String time, String serving, String imageUrl, int visibility) {
         this.user = user;
         this.name = name;
         this.rate = rate;
         this.level = level;
         this.time = time;
         this.serving = serving;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.visibility = visibility;
         this.setCreatedAt();
         this.setUpdatedAt();
@@ -172,12 +172,12 @@ public class Recipe {
         this.serving = serving;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getVisibility() {
