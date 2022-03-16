@@ -15,35 +15,48 @@ public class RecipeDirection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Title")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"user","name","rate","level","imageUrl","time","serving","visibility","createdAt","updatedAt"})
+    private Recipe recipe;
+
+    @Pattern(regexp="^[a-zA-Z0-9\\s]+$",message = "Invalid Title")
     @NotEmpty(message = "Title is mandatory.")
     private String title;
 
-    @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Content")
+    @Pattern(regexp="^[a-zA-Z0-9\\s]+$",message = "Invalid Content")
     @NotEmpty(message = "Content is mandatory.")
     private String content;
 
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
     public RecipeDirection() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public RecipeDirection(String title, String content, String created_at, String updated_at) {
+    public RecipeDirection(String title, String content, String createdAt, String updatedAt) {
         this.title = title;
         this.content = content;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public RecipeDirection(Long id, String title, String content, String created_at, String updated_at) {
+    public RecipeDirection(Long id, String title, String content, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public Long getId() {
@@ -70,23 +83,23 @@ public class RecipeDirection {
         this.content = content;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at() {
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 }
