@@ -6,22 +6,22 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table
-public class Order {
+public class UserOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"email","firstName","lastName","imageUrl","password","userRole","email","password","created_at","updated_at"})
     private User user;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"user","createdAt","updatedAt"})
     private Address address;
 
     @Digits(integer = 10, fraction =2)
@@ -33,47 +33,31 @@ public class Order {
     @NotEmpty(message = "Status is mandatory.")
     private String status;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "order_product",
-            joinColumns = { @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "product_id") }
-    )
-    @JsonIgnoreProperties({"created_at","updated_at"})
-    Set<Quantity> products = new HashSet<>();
+    private String createdAt;
+    private String updatedAt;
 
-    private String created_at;
-    private String updated_at;
-
-    public Order() {
-        this.setCreated_at();
-        this.setUpdated_at();
+    public UserOrder() {
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public Order(User user, Address address, int total, String status, String created_at, String updated_at) {
+    public UserOrder(User user, Address address, int total, String status, String createdAt, String updatedAt) {
         this.user = user;
         this.address = address;
         this.total = total;
         this.status = status;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public Order(Long id, User user, Address address, int total, String status, String created_at, String updated_at) {
+    public UserOrder(Long id, User user, Address address, int total, String status, String createdAt, String updatedAt) {
         this.id = id;
         this.user = user;
         this.address = address;
         this.total = total;
         this.status = status;
-        this.setCreated_at();
-        this.setUpdated_at();
-    }
-
-    public Set<Quantity> getProducts() {       return products;
-    }
-
-    public void setProducts(Set<Quantity> products) {
-        this.products = products;
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
     public Long getId() {
@@ -116,23 +100,23 @@ public class Order {
         this.status = status;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at() {
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 }
