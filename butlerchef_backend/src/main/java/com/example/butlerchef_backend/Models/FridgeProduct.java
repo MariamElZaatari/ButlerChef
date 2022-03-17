@@ -17,67 +17,108 @@ public class FridgeProduct {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"email","firstName","lastName","imageUrl","password","userRole","email","password","created_at","updated_at"})
     private User user;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "quantity_id")
+    @JsonIgnoreProperties({"created_at","updated_at"})
     private Quantity quantity;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "measurement_id")
-    @JsonIgnoreProperties("quantities")
+    @JsonIgnoreProperties({"quantities","created_at","updated_at"})
     private Measurement measurement;
 
     @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Name")
     @NotEmpty(message = "Name is mandatory.")
     private String name;
 
-
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
     public FridgeProduct() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public FridgeProduct(User user, Quantity quantity, Measurement measurement, String name, String created_at, String updated_at) {
+    public FridgeProduct(User user, Quantity quantity, Measurement measurement, String name, String createdAt, String updatedAt) {
         this.user = user;
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public FridgeProduct(Long id, User user, Quantity quantity, Measurement measurement, String name, String created_at, String updated_at) {
+    public FridgeProduct(Long id, User user, Quantity quantity, Measurement measurement, String name, String createdAt, String updatedAt) {
         this.id = id;
         this.user = user;
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public Long getId() {
+        return id;
     }
 
-    public void setCreated_at() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
+    }
+
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 
 }
