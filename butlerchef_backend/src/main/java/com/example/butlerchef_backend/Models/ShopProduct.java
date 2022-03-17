@@ -14,13 +14,14 @@ public class ShopProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "quantity_id")
+    @JsonIgnoreProperties({"created_at","updated_at"})
     private Quantity quantity;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "measurement_id")
-    @JsonIgnoreProperties("quantities")
+    @JsonIgnoreProperties({"quantities","created_at","updated_at"})
     private Measurement measurement;
 
     @Pattern(regexp="^[a-zA-Z\\s]*$",message = "Invalid Name")
@@ -40,26 +41,26 @@ public class ShopProduct {
     @NotNull(message = "Stock is mandatory.")
     private int stock;
 
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
 
     public ShopProduct() {
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public ShopProduct(Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String created_at, String updated_at) {
+    public ShopProduct(Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String createdAt, String updatedAt) {
         this.quantity = quantity;
         this.measurement = measurement;
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
         this.stock = stock;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public ShopProduct(Long id, Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String created_at, String updated_at) {
+    public ShopProduct(Long id, Quantity quantity, Measurement measurement, String name, int price, String imageUrl, int stock, String createdAt, String updatedAt) {
         this.id = id;
         this.quantity = quantity;
         this.measurement = measurement;
@@ -67,28 +68,84 @@ public class ShopProduct {
         this.price = price;
         this.imageUrl = imageUrl;
         this.stock = stock;
-        this.setCreated_at();
-        this.setUpdated_at();
+        this.setCreatedAt();
+        this.setUpdatedAt();
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public Long getId() {
+        return id;
     }
 
-    public void setCreated_at() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
+    }
+
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.created_at = sdf.format(now);
+        this.createdAt = sdf.format(now);
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at() {
+    public void setUpdatedAt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date now = new Date();
-        this.updated_at = sdf.format(now);
+        this.updatedAt = sdf.format(now);
     }
 
 }
