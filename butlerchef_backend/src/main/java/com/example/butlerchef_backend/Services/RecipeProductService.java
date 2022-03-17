@@ -42,9 +42,11 @@ public class RecipeProductService {
 
     public RecipeProduct update(RecipeProduct recipeProduct){
         RecipeProduct oldRecipeProduct=recipeProductRepository.findById(recipeProduct.getId()).get();
-        oldRecipeProduct.setMeasurement(recipeProduct.getMeasurement());
+        Measurement measurement=measurementRepository.findMeasurementById(recipeProduct.getMeasurement().getId()).get();
+        Quantity quantity=quantityRepository.findById(recipeProduct.getQuantity().getId()).get();
+        oldRecipeProduct.setMeasurement(measurement);
+        oldRecipeProduct.setQuantity(quantity);
         oldRecipeProduct.setName(recipeProduct.getName());
-        oldRecipeProduct.setQuantity(recipeProduct.getQuantity());
         oldRecipeProduct.setUpdatedAt();
         return recipeProductRepository.save(oldRecipeProduct);
     }

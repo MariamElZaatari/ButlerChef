@@ -57,7 +57,7 @@ public class RecipeProductController {
 
 
     @GetMapping("/delete/{id}")
-    public ResponseEntity<Map<String, Object>> deleteAddress(@PathVariable Long id){
+    public ResponseEntity<Map<String, Object>> deleteRecipeProduct(@PathVariable Long id){
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
         map.put("message","Recipe Product deleted successfully");
