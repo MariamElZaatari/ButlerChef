@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
 
-class LargeRecipeWidget extends StatelessWidget {
-  const LargeRecipeWidget({
+class LargeRecipe extends StatelessWidget {
+  const LargeRecipe({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<String> entries = <String>['A', 'B', 'C'];
+    final List<Object> entries = <Object>['A', 'B', 'C'];
 //    final List<int> colorCodes = <int>[600, 500, 100];
     return Center(
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+        padding: const EdgeInsets.fromLTRB(15, 12, 0, 0),
         itemCount: entries.length,
         itemBuilder: (BuildContext context, int index) {
           return Stack(
@@ -65,7 +65,9 @@ class LargeRecipeWidget extends StatelessWidget {
                     Expanded(
                         child: Align(
                           alignment: Alignment.topCenter,
-                          child: TopRecipeBar(),
+                          child: TopRecipeBar(
+                            starSize: 28.0,
+                          ),
                         ),
                         flex: 1),
                     Expanded(
@@ -77,7 +79,12 @@ class LargeRecipeWidget extends StatelessWidget {
                     Expanded(
                         child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: BottomRecipeBar(),
+                          child: BottomRecipeBar(
+                            titleSize: 36.0,
+                            infoSize: 21.0,
+                            titleWidth: 400.0,
+                            isSmall: false,
+                          ),
                         ),
                         flex: 5),
                   ],
