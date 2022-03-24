@@ -3,9 +3,10 @@ import 'package:butler_chef/utilities/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RecipeInfo extends StatelessWidget {
+  final double _size;
   const RecipeInfo({
-    Key? key,
-  }) : super(key: key);
+    Key? key, required size
+  }) : _size=size, super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +17,13 @@ class RecipeInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               WidgetSpan(
                 child: FaIcon(FontAwesomeIcons.mountain,
-                    color: AppColors.green, size: 21),
+                    color: AppColors.green, size: _size),
               ),
-              TextSpan(
+              const TextSpan(
                   text: " Easy",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
             ],
