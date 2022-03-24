@@ -15,7 +15,7 @@ class BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(15, 30, 15, 15),
+      margin: EdgeInsets.fromLTRB(0, 30, 0, 15),
       child: Column(
 //        crossAxisAlignment: CrossAxisAlignment.start,
 //        mainAxisAlignment: MainAxisAlignment.center,
