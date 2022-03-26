@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
 
 class RecipeAuthor extends StatelessWidget {
   const RecipeAuthor({

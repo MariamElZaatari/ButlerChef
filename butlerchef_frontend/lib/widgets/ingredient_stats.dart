@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
 
 class IngredientStats extends StatelessWidget {
   const IngredientStats({

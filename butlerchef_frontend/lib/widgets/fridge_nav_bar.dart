@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/small_recipe.dart';
-import 'package:butler_chef/utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
 
 class FridgeNavBar extends StatefulWidget {
   const FridgeNavBar({Key? key}) : super(key: key);

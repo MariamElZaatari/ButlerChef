@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/fridge_nav_bar.dart';
-import 'package:butler_chef/utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
 
 class Fridge extends StatelessWidget {
   const Fridge({Key? key}) : super(key: key);
