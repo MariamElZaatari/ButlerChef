@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
 
-class Input extends StatelessWidget {
-  final String _value;
-  const Input({
-    Key? key, required value
-  }) : _value=value, super(key: key);
+class Input extends StatefulWidget {
+  final String _hint;
+  final Function(String) callback;
+
+  const Input({Key? key, required value, required this.callback})
+      : _hint = value,
+        super(key: key);
+
+  @override
+  _InputState createState() => _InputState();
+}
+
+class _InputState extends State<Input> {
+  var inputValue = TextEditingController();
+
+  String getText() {
+    return inputValue.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +31,19 @@ class Input extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
       child: Center(
         child: TextField(
+          controller: inputValue,
+          onChanged: (text) {
+            widget.callback(text);
+          },
           textAlign: TextAlign.center,
           decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: _value,
-              hintStyle: const TextStyle(color: AppColors.placeholder, fontWeight: FontWeight.normal, letterSpacing: 2, fontSize: 20)
-          ),
+              hintText: widget._hint,
+              hintStyle: const TextStyle(
+                  color: AppColors.placeholder,
+                  fontWeight: FontWeight.normal,
+                  letterSpacing: 2,
+                  fontSize: 20)),
         ),
       ),
     );
