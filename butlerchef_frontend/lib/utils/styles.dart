@@ -13,4 +13,10 @@ class ThemeText {
 
   static const TextStyle addressInput = TextStyle(
       fontWeight: FontWeight.normal, fontSize: 20, color: AppColors.brown);
+
+  static const TextStyle productName = TextStyle(
+      fontWeight: FontWeight.w500, fontSize: 20, color: AppColors.brown);
+
+  static const TextStyle quantityMeasurement = TextStyle(
+      fontWeight: FontWeight.normal, fontSize: 20, color: AppColors.green);
 }
