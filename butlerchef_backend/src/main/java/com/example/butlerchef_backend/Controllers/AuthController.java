@@ -1,6 +1,8 @@
 package com.example.butlerchef_backend.Controllers;
 
 import com.example.butlerchef_backend.Constants;
+import com.example.butlerchef_backend.Validators.AdvanceInfo;
+import com.example.butlerchef_backend.Validators.BasicInfo;
 import com.example.butlerchef_backend.Models.User;
 import com.example.butlerchef_backend.Services.AuthService;
 import io.jsonwebtoken.Jwts;
@@ -14,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @Validated
@@ -33,7 +33,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody User user){
+    public ResponseEntity<Map<String, Object>> login(@Validated(BasicInfo.class)  @RequestBody User user){
+
         User u = authService.authenticateUser(user);
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
@@ -43,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody User user){
+    public ResponseEntity<Map<String, Object>> register(@Validated(AdvanceInfo.class) @RequestBody User user){
         authService.createNewUser(user);
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
