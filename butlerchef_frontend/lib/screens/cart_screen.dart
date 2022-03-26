@@ -38,10 +38,8 @@ class CartScreenState extends State<CartScreen> {
   String dropdownValue = "Cash On Delivery";
   var paymentOptions = ["Cash On Delivery"];
 
-
   @override
   void initState() {
-
     count = [1, 1, 1];
     selected = [false, false, false];
     super.initState();
@@ -59,6 +57,7 @@ class CartScreenState extends State<CartScreen> {
         backgroundColor: AppColors.backgroundColor,
         body: Column(
           children: <Widget>[
+            //Image Banner and Title
             Stack(
               children: [
                 SizedBox(
@@ -117,14 +116,18 @@ class CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
+
+            //Cart Scroll List
             Expanded(
                 child: ListView(
               padding: const EdgeInsets.fromLTRB(15, 12, 15, 0),
               children: [
+                //Basket Title
                 const Text('Basket',
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                //Basket Items
                 SizedBox(
                   height: 235,
                   child: ListView.separated(
@@ -223,10 +226,13 @@ class CartScreenState extends State<CartScreen> {
                         const Divider(),
                   ),
                 ),
+
+                //Delivery To Title
                 const Text('Delivery To',
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                //Delivery To Items
                 SizedBox(
                   height: 307,
                   child: ListView.separated(
@@ -234,8 +240,7 @@ class CartScreenState extends State<CartScreen> {
                     padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                     itemCount: 3,
                     itemBuilder: (BuildContext context, int index) {
-                      return
-                           Address();
+                      return Address();
 //                          Align(
 //                              alignment: Alignment.topRight,
 //                              child: IconButton(
@@ -248,17 +253,18 @@ class CartScreenState extends State<CartScreen> {
 //                                                  !selected.elementAt(index)
 //                                            })
 //                                      })),
-
-
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(),
                   ),
                 ),
+
+                //Payment Method Title
                 const Text('Payment Method',
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                //Payment Method DropDown
                 Container(
                     padding: const EdgeInsets.symmetric(horizontal: 92),
                     decoration: BoxDecoration(
@@ -295,6 +301,8 @@ class CartScreenState extends State<CartScreen> {
                         },
                       ),
                     )),
+
+                //Place Order Button
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
