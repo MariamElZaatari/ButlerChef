@@ -1,7 +1,7 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/profile_nav_bar.dart';
-import 'package:butler_chef/utilities/app_colors.dart';
+import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/widgets/edit_button.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -31,8 +31,7 @@ class Profile extends StatelessWidget {
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.center,
-                    end: Alignment
-                        .bottomCenter,
+                    end: Alignment.bottomCenter,
                     colors: <Color>[
                       Color(0x00000000),
                       Color(0x66000000),
@@ -56,27 +55,8 @@ class Profile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
               height: 181,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                  icon: const FaIcon(
-                    FontAwesomeIcons.solidEdit,
-                    size: 25,
-                    color: AppColors.green,
-                  ),
-                  onPressed: () => {
-//                        Navigator.push(
-//                          context,
-//                          MaterialPageRoute(
-//                            builder: (context) {
-//                              return EditProfileScreen();
-//                            },
-//                          ),
-//                        )
-                  },
-                ),
-              ),
-            ),
+              child: const EditButton(),
+            )
           ],
         ),
         const Expanded(
