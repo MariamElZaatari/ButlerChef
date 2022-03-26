@@ -31,7 +31,7 @@ public class ShopProduct {
     @Digits(integer = 10, fraction =2, message = "Invalid Price")
     @PositiveOrZero(message = "Negative value not allowed.")
     @NotNull(message = "Price is mandatory.")
-    private int price;
+    private double price;
 
     @NotEmpty(message = "Image is mandatory.")
     private String imageUrl;
@@ -104,11 +104,11 @@ public class ShopProduct {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
