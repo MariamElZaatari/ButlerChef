@@ -35,7 +35,7 @@ class ShopProductModel {
   Quantity quantity;
   Measurement measurement;
   String name;
-  int price;
+  double price;
   String imageUrl;
   int stock;
   DateTime createdAt;
