@@ -26,7 +26,7 @@ class FridgeProductItem extends StatelessWidget {
           horizontal: 10,
         ),
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
             child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
