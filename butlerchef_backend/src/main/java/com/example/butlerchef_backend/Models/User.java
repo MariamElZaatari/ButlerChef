@@ -1,15 +1,14 @@
 package com.example.butlerchef_backend.Models;
 
+import com.example.butlerchef_backend.Validators.AdvanceInfo;
+import com.example.butlerchef_backend.Validators.BasicInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table
@@ -20,20 +19,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Invalid Email")
-    @NotEmpty(message = "Password is mandatory.")
+    @Email(message = "Invalid Email", groups = BasicInfo.class)
+    @NotEmpty(message = "Email is mandatory.", groups = BasicInfo.class)
     private String email;
 
-    @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",message = "Invalid Password")
-    @NotEmpty(message = "Password is mandatory.")
+    @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",message = "Invalid Password", groups = BasicInfo.class)
+    @NotEmpty(message = "Password is mandatory.", groups = BasicInfo.class)
     private String password;
 
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid First Name")
-    @NotEmpty(message = "Invalid First Name")
+    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid First Name", groups = AdvanceInfo.class)
+    @NotEmpty(message = "Invalid First Name", groups = AdvanceInfo.class)
     private String firstName;
 
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Last Name")
-    @NotEmpty(message = "Invalid Last Name")
+    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Last Name", groups = AdvanceInfo.class)
+    @NotEmpty(message = "Invalid Last Name", groups = AdvanceInfo.class)
     private String lastName;
 
     private String imageUrl;
@@ -45,55 +44,6 @@ public class User {
 
     private String created_at;
     private String updated_at;
-//
-//    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "user_id")
-//    private Collection<Address> addresses;
-
-//    @OneToMany(mappedBy = "user")
-//    private Collection<Recipe> recipes;
-//
-//    @ManyToMany(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//            name = "cooked_recipe",
-//            joinColumns = { @JoinColumn(name = "user_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
-//    )
-//    Set<CookedRecipe> cookedRecipes = new HashSet<>();
-
-//    @ManyToMany(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//            name = "favorite_recipe",
-//            joinColumns = { @JoinColumn(name = "user_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "recipe_id") }
-//    )
-//    Set<CookedRecipe> favoriteRecipes = new HashSet<>();
-//
-//    public Set<CookedRecipe> getFavoriteRecipes() {
-//        return favoriteRecipes;
-//    }
-//
-//    public void setFavoriteRecipes(Set<CookedRecipe> favoriteRecipes) {
-//        this.favoriteRecipes = favoriteRecipes;
-//    }
-//
-//    public Set<CookedRecipe> getCookedRecipes() {
-//        return cookedRecipes;
-//    }
-//
-//    public void setCookedRecipes(Set<CookedRecipe> cookedRecipes) {
-//        this.cookedRecipes = cookedRecipes;
-//    }
-//
-//    public Collection<Recipe> getRecipes() {
-//        return recipes;
-//    }
-//
-//    public void setRecipes(Collection<Recipe> recipes) {
-//        this.recipes = recipes;
-//    }
-
-
 
     public User() {
         this.setCreated_at();
@@ -183,13 +133,6 @@ public class User {
         this.userRole = userRole;
     }
 
-//    public Collection<Address> getAddresses() {
-//        return addresses;
-//    }
-//
-//    public void setAddresses(Collection<Address> addresses) {
-//        this.addresses = addresses;
-//    }
     public String getCreated_at() {
         return created_at;
     }
@@ -223,5 +166,4 @@ public class User {
                 ", updated_at=" + updated_at +
                 '}';
     }
-
 }
