@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
+import 'package:butler_chef/models/user_model.dart';
+import 'package:butler_chef/providers/token_provider.dart';
+import 'package:butler_chef/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class LargeRecipe extends StatelessWidget {
   const LargeRecipe({
@@ -9,6 +13,15 @@ class LargeRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    User user = Provider.of<UserProvider>(context).user;
+    String token = Provider.of<TokenProvider>(context).token;
+    print("from the first Page:");
+    print(user.email);
+    print("Token:");
+    print(token);
+
     final List<Object> entries = <Object>['A', 'B', 'C'];
 //    final List<int> colorCodes = <int>[600, 500, 100];
     return Center(
