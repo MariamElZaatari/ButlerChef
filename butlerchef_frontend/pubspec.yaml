@@ -29,6 +29,7 @@ environment:
 dependencies:
   font_awesome_flutter: ^8.0.0
   http: ^0.13.1
+  provider: ^5.0.0
   flutter:
     sdk: flutter
 
