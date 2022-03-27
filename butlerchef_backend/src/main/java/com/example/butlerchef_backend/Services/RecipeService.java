@@ -3,6 +3,7 @@ package com.example.butlerchef_backend.Services;
 import com.example.butlerchef_backend.Models.Address;
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Repositories.FavoriteRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeRepository;
 import com.example.butlerchef_backend.Repositories.UserRepository;
@@ -46,6 +47,11 @@ public class RecipeService {
 
     public Collection<RecipeDisplayInfo> getRecipesDisplayInfoForLoggedUser(Long id){
         return recipeRepository.getRecipesInfoForLoggedUser(id);
+    }
+
+
+    public Collection<FavoriteRecipeDisplayInfo> getFavoriteRecipesDisplayInfoForLoggedUser(Long id){
+        return recipeRepository.getFavoriteRecipesInfoForLoggedUser(id);
     }
 
     public Recipe update(Recipe recipe){
