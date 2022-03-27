@@ -5,6 +5,7 @@ import 'package:butler_chef/models/user_model.dart';
 import 'package:butler_chef/providers/token_provider.dart';
 import 'package:butler_chef/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:butler_chef/screens/RecipeScreen.dart';
 
 class LargeRecipe extends StatelessWidget {
   const LargeRecipe({
@@ -13,8 +14,6 @@ class LargeRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     User user = Provider.of<UserProvider>(context).user;
     String token = Provider.of<TokenProvider>(context).token;
     print("from the first Page:");
@@ -67,42 +66,51 @@ class LargeRecipe extends StatelessWidget {
                       ], // red to yellow // repeats the gradient over the canvas
                     ),
                   )),
-              Container(
-                height: 563,
-                width: 325,
-                margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
-                padding: const EdgeInsets.fromLTRB(18, 2, 18, 25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const <Widget>[
-                    Expanded(
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: TopRecipeBar(
-                            starSize: 28.0,
-                          ),
-                        ),
-                        flex: 1),
-                    Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(''),
-                        ),
-                        flex: 4),
-                    Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: BottomRecipeBar(
-                            titleSize: 36.0,
-                            infoSize: 21.0,
-                            titleWidth: 400.0,
-                            isSmall: false,
-                          ),
-                        ),
-                        flex: 5),
-                  ],
-                ),
-              ),
+              InkWell(
+                  onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RecipeScreen()),
+                        )
+                      },
+                  splashColor: Colors.grey,
+                  child: Container(
+                    height: 563,
+                    width: 325,
+                    margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
+                    padding: const EdgeInsets.fromLTRB(18, 2, 18, 25),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const <Widget>[
+                        Expanded(
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: TopRecipeBar(
+                                starSize: 28.0,
+                              ),
+                            ),
+                            flex: 1),
+                        Expanded(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(''),
+                            ),
+                            flex: 4),
+                        Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: BottomRecipeBar(
+                                titleSize: 36.0,
+                                infoSize: 21.0,
+                                titleWidth: 400.0,
+                                isSmall: false,
+                              ),
+                            ),
+                            flex: 5),
+                      ],
+                    ),
+                  )),
             ],
           );
         },

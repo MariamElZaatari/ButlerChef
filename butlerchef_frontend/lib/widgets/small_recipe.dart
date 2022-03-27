@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
+import 'package:butler_chef/screens/RecipeScreen.dart';
 
 class SmallRecipe extends StatelessWidget {
   const SmallRecipe({
@@ -54,7 +55,16 @@ class SmallRecipe extends StatelessWidget {
                       ], // red to yellow // repeats the gradient over the canvas
                     ),
                   )),
-              Container(
+          InkWell(
+          onTap: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+          builder: (context) => const RecipeScreen()),
+          )
+          },
+          splashColor: Colors.grey,
+          child: Container(
                 height: 280,
                 width: 281,
                 margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
@@ -82,7 +92,7 @@ class SmallRecipe extends StatelessWidget {
                         flex: 4),
                   ],
                 ),
-              ),
+              )),
             ],
           );
         },
