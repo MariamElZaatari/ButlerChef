@@ -2,6 +2,7 @@ package com.example.butlerchef_backend.Controllers;
 
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Repositories.CookedRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.FavoriteRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
 import com.example.butlerchef_backend.Services.RecipeService;
@@ -75,5 +76,10 @@ public class RecipeController {
     @GetMapping("display/favorite/{id}")
     public Collection<FavoriteRecipeDisplayInfo> readFavoriteRecipesByLoggedUser(@PathVariable Long id){
         return recipeService.getFavoriteRecipesDisplayInfoForLoggedUser(id);
+    }
+
+    @GetMapping("display/cooked/{id}")
+    public Collection<CookedRecipeDisplayInfo> readCookedRecipesByLoggedUser(@PathVariable Long id){
+        return recipeService.getCookedRecipesDisplayInfoForLoggedUser(id);
     }
 }
