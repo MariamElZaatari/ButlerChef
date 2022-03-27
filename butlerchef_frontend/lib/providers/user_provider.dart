@@ -1,5 +1,4 @@
 import 'package:butler_chef/models/user_model.dart';
-import 'package:butler_chef/models/user_role_model.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier{
@@ -10,7 +9,6 @@ class UserProvider extends ChangeNotifier{
     firstName: 'none',
     lastName: 'none',
     imageUrl: 'none',
-    userRole: UserRole(id: -1, role: 'none'),
   );
 
   User get user => _user;
