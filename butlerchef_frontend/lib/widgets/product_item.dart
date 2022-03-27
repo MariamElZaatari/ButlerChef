@@ -3,12 +3,12 @@ import 'package:butler_chef/utils/styles.dart';
 
 // ProductWidget
 
-class FridgeProductItem extends StatelessWidget {
+class ProductItem extends StatelessWidget {
   final String productName;
   final String quantity;
   final String measurement;
 
-  const FridgeProductItem({
+  const ProductItem({
     Key? key,
     required this.productName,
     required this.quantity,
