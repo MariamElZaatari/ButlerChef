@@ -11,17 +11,6 @@ import java.util.Date;
 @Entity
 public class Recipe {
 
-//    @Column(name="recipe_type_id", insertable = false, updatable = false)
-//    protected int recipeTypeId;
-//
-//    public void setRecipeTypeId(String recipeTypeId) {
-//        this.recipeTypeId = Integer.parseInt(recipeTypeId);
-//    }
-//
-//    public int getRecipeTypeId() {
-//        return recipeTypeId;
-//    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,30 +48,6 @@ public class Recipe {
 
     private String createdAt;
     private String updatedAt;
-
-//    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "recipe_id")
-//    private Collection<RecipeDirection> recipeDirections;
-//
-//    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "recipe_id")
-//    private Collection<RecipeProduct> recipeProducts;
-
-//    public Collection<RecipeProduct> getRecipeProducts() {
-//        return recipeProducts;
-//    }
-//
-//    public void setRecipeProducts(Collection<RecipeProduct> recipeProducts) {
-//        this.recipeProducts = recipeProducts;
-//    }
-//
-//    public Collection<RecipeDirection> getRecipeDirections() {
-//        return recipeDirections;
-//    }
-//
-//    public void setRecipeDirections(Collection<RecipeDirection> recipeDirections) {
-//        this.recipeDirections = recipeDirections;
-//    }
 
     public Recipe() {
         this.setCreatedAt();
