@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'package:butler_chef/models/shop_product_model.dart';
 import 'package:butler_chef/widgets/shop_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/address.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart' as http;
+import 'package:butler_chef/widgets/custom_back_button.dart';
 
 class CartScreen extends StatefulWidget {
 //  final List<ShopProductModel> _selectedProducts;
@@ -98,22 +95,7 @@ class CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 181,
-                  width: MediaQuery.of(context).size.width,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: 41,
-                        color: AppColors.black,
-                      ),
-                      padding: const EdgeInsets.fromLTRB(8, 18, 0, 0),
-                    ),
-                  ),
-                ),
+                CustomBackButton(),
               ],
             ),
 
