@@ -2,6 +2,7 @@ package com.example.butlerchef_backend.Controllers;
 
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Repositories.FavoriteRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
 import com.example.butlerchef_backend.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,10 @@ public class RecipeController {
     @GetMapping("display/{id}")
     public Collection<RecipeDisplayInfo> readRecipesByLoggedUser(@PathVariable Long id){
         return recipeService.getRecipesDisplayInfoForLoggedUser(id);
+    }
+
+    @GetMapping("display/favorite/{id}")
+    public Collection<FavoriteRecipeDisplayInfo> readFavoriteRecipesByLoggedUser(@PathVariable Long id){
+        return recipeService.getFavoriteRecipesDisplayInfoForLoggedUser(id);
     }
 }
