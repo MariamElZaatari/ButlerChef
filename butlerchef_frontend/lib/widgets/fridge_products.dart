@@ -1,5 +1,5 @@
 import 'package:butler_chef/utils/app_colors.dart';
-import 'package:butler_chef/widgets/fridge_product_item.dart';
+import 'package:butler_chef/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class FridgeProducts extends StatefulWidget {
@@ -22,7 +22,7 @@ class FridgeProductsState extends State<FridgeProducts> {
                 ),
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
-              return const FridgeProductItem(
+              return const ProductItem(
                   productName: "Name", quantity: "1", measurement: "Dz");
             }));
   }
