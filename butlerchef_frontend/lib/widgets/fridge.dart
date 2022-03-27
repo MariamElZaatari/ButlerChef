@@ -15,7 +15,7 @@ class Fridge extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 width: MediaQuery.of(context).size.width,
-                height: 181,
+                height: 141,
                 child: Image.asset(
                   'assets/images/fridge.jpg',
                   fit: BoxFit.cover,
@@ -24,7 +24,7 @@ class Fridge extends StatelessWidget {
               Container(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                   width: MediaQuery.of(context).size.width,
-                  height: 181,
+                  height: 141,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -39,7 +39,7 @@ class Fridge extends StatelessWidget {
                     ),
                   )),
               SizedBox(
-                height: 181,
+                height: 141,
                 width: MediaQuery.of(context).size.width,
                 child: const Center(
                   child: Text(
@@ -54,7 +54,7 @@ class Fridge extends StatelessWidget {
               ),
             ],
           ),
-          flex: 2,
+          flex: 1,
         ),
         const Expanded(
           child: FridgeNavBar(),
