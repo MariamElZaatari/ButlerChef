@@ -3,10 +3,7 @@ package com.example.butlerchef_backend.Services;
 import com.example.butlerchef_backend.Models.Address;
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
-import com.example.butlerchef_backend.Repositories.FavoriteRecipeDisplayInfo;
-import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
-import com.example.butlerchef_backend.Repositories.RecipeRepository;
-import com.example.butlerchef_backend.Repositories.UserRepository;
+import com.example.butlerchef_backend.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +49,10 @@ public class RecipeService {
 
     public Collection<FavoriteRecipeDisplayInfo> getFavoriteRecipesDisplayInfoForLoggedUser(Long id){
         return recipeRepository.getFavoriteRecipesInfoForLoggedUser(id);
+    }
+
+    public Collection<CookedRecipeDisplayInfo> getCookedRecipesDisplayInfoForLoggedUser(Long id){
+        return recipeRepository.getCookedRecipesInfoForLoggedUser(id);
     }
 
     public Recipe update(Recipe recipe){
