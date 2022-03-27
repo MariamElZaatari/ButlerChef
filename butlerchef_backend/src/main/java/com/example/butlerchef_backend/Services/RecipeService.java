@@ -3,6 +3,7 @@ package com.example.butlerchef_backend.Services;
 import com.example.butlerchef_backend.Models.Address;
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeRepository;
 import com.example.butlerchef_backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class RecipeService {
         return recipeRepository.findByUserIdAndNameLikeIgnoreCaseOrderByNameAsc(id,"%"+name+"%");
 
     }
+
+    public Collection<RecipeDisplayInfo> getRecipesDisplayInfoForLoggedUser(Long id){
+        return recipeRepository.getRecipesInfoForLoggedUser(id);
+    }
+
     public Recipe update(Recipe recipe){
         Recipe oldRecipe=recipeRepository.findById(recipe.getId()).get();
         oldRecipe.setName(recipe.getName());
