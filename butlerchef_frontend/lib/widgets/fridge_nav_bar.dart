@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:butler_chef/widgets/small_recipe.dart';
 import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/widgets/fridge_products.dart';
+import 'package:butler_chef/widgets/add_products.dart';
 
 class FridgeNavBar extends StatefulWidget {
   const FridgeNavBar({Key? key}) : super(key: key);
@@ -13,12 +14,9 @@ class FridgeNavBar extends StatefulWidget {
 class FridgeNavBarState extends State<FridgeNavBar> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    SmallRecipe(),
-    SmallRecipe(),
-    SmallRecipe(),
+    FridgeProducts(),
+    AddProducts(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,29 +28,29 @@ class FridgeNavBarState extends State<FridgeNavBar> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Expanded(
-        child: BottomNavigationBar(
+      BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.kitchen_rounded, color: AppColors.grayButton, size: 27,),
-              activeIcon: Icon(Icons.kitchen_rounded, color: AppColors.green, size: 27,),
+              icon: Icon(
+                Icons.kitchen_rounded,
+                size: 27,
+              ),
               label: 'Products',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.playlist_add_rounded, color: AppColors.grayButton, size: 27,),
-              activeIcon: Icon(Icons.playlist_add_rounded, color: AppColors.green, size: 27),
+              icon: Icon(
+                Icons.playlist_add_rounded,
+                size: 27,
+              ),
               label: 'Add Product',
             ),
           ],
           currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          selectedFontSize: 14,
+          unselectedItemColor: AppColors.grayButton,
           selectedItemColor: AppColors.green,
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
         ),
-        flex: 1,
-      ),
       Expanded(
         flex: 5,
         child: SizedBox(
