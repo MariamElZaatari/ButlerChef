@@ -2,6 +2,7 @@ package com.example.butlerchef_backend.Controllers;
 
 import com.example.butlerchef_backend.Models.Recipe;
 import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
 import com.example.butlerchef_backend.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,5 +63,11 @@ public class RecipeController {
         map.put("message","Recipe deleted successfully");
         recipeService.delete(id);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+
+    @GetMapping("display/{id}")
+    public Collection<RecipeDisplayInfo> readRecipesByLoggedUser(@PathVariable Long id){
+        return recipeService.getRecipesDisplayInfoForLoggedUser(id);
     }
 }
