@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:butler_chef/screens/post_recipe_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/body_widget.dart';
 import 'package:butler_chef/widgets/large_recipe.dart';
@@ -17,18 +18,21 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    LargeRecipe(),
-    Shop(),
-    Text(
-      'Index 2: Post',
-      style: optionStyle,
-    ),
-    Fridge(),
-    Profile(),
-  ];
+  late final List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+      LargeRecipe(),
+      Shop(),
+      PostRecipeScreen(
+        onPostSuccess: () => _onItemTapped(0),
+      ),
+      Fridge(),
+      Profile(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -41,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BodyWidget(
-          widgetOptions: _widgetOptions, selectedIndex: _selectedIndex),
+            widgetOptions: _widgetOptions, selectedIndex: _selectedIndex),
       bottomNavigationBar: SizedBox(
         height: 75,
         child: BottomNavigationBar(
@@ -52,8 +56,8 @@ class HomeScreenState extends State<HomeScreen> {
               label: 'Recipe',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_grocery_store_outlined , size: 35),
-              activeIcon: Icon(Icons.local_grocery_store_rounded , size: 35),
+              icon: Icon(Icons.local_grocery_store_outlined, size: 35),
+              activeIcon: Icon(Icons.local_grocery_store_rounded, size: 35),
               label: 'Shop',
             ),
             BottomNavigationBarItem(
