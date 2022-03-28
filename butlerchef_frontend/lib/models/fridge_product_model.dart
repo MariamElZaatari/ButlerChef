@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:butler_chef/models/quantity_model.dart';
 import 'package:butler_chef/models/measurement_model.dart';
+import 'package:butler_chef/models/user_model.dart';
 
 FridgeProductResponse welcomeFromJson(String str) =>
     FridgeProductResponse.fromJson(json.decode(str));
@@ -27,22 +28,22 @@ class FridgeProductResponse {
 
 class FridgeProduct {
   FridgeProduct({
-    required this.id,
+    this.id,
     required this.user,
     required this.quantity,
     required this.measurement,
     required this.name,
   });
 
-  int id;
-  FridgeProductUser user;
+  int? id;
+  User user;
   Quantity quantity;
   Measurement measurement;
   String name;
 
   factory FridgeProduct.fromJson(Map<String, dynamic> json) => FridgeProduct(
         id: json["id"],
-        user: FridgeProductUser.fromJson(json["user"]),
+        user: User.fromJson(json["user"]),
         quantity: Quantity.fromJson(json["quantity"]),
         measurement: Measurement.fromJson(json["measurement"]),
         name: json["name"],
