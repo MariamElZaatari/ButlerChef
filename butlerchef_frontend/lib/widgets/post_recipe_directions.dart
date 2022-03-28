@@ -2,6 +2,9 @@ import 'package:butler_chef/models/recipe_direction_model.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/add_direction_item.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../utils/styles.dart';
 
 class PostRecipeDirections extends StatefulWidget {
   const PostRecipeDirections({
@@ -63,7 +66,7 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                         ),
                       ],
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text.rich(
                         TextSpan(
                           text: '',
@@ -73,11 +76,11 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                           children: [
                             WidgetSpan(
                                 child: Icon(
-                                  Icons.add,
+                                  FontAwesomeIcons.plus,
                                   color: AppColors.white,
-                                ),
-                                alignment: PlaceholderAlignment.middle),
-                            TextSpan(text: 'Add Step'),
+                                  size: 20,
+                                ),),
+                            TextSpan(text: ' Add Direction', style: TextStyle(fontSize: 20)),
                           ],
                         ),
                       ),
@@ -94,7 +97,7 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                       ),
                     ),
                     onPressed: widget.onPostClick,
-                    child: Text('Post'),
+                    child: Text('Post', style: ThemeText.buttonText,),
                   ),
                 )
               ],
