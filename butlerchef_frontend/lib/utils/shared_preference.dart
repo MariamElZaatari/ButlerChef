@@ -6,11 +6,11 @@ class UserPreferences {
   Future<bool> saveUser(User user, String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.setInt('userId',user.id);
-    prefs.setString('firstName',user.firstName);
-    prefs.setString('lastName',user.lastName);
-    prefs.setString('email',user.email);
-    prefs.setString('imageUrl',user.imageUrl);
+    prefs.setInt('userId',user.id ??= 0);
+    prefs.setString('firstName',user.firstName ??= 'none');
+    prefs.setString('lastName',user.lastName ??= 'none');
+    prefs.setString('email',user.email ??= 'none');
+    prefs.setString('imageUrl',user.imageUrl ??= 'none');
     prefs.setString('token',token);
 
     return prefs.commit();
