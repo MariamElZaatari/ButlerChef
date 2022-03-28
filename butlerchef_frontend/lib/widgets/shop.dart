@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:butler_chef/screens/cart_screen.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/styles.dart';
+
 class Shop extends StatefulWidget {
   const Shop({Key? key}) : super(key: key);
 
@@ -135,11 +137,7 @@ class ShopState extends State<Shop> {
                           ),
                           TextSpan(
                               text: " View Basket",
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w300,
-                                  color: AppColors.white,
-                                  letterSpacing: 4)),
+                              style: ThemeText.buttonText),
                         ],
                       ),
                     ))))
