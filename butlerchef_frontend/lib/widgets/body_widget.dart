@@ -7,7 +7,9 @@ class BodyWidget extends StatelessWidget {
     Key? key,
     required List<Widget> widgetOptions,
     required int selectedIndex,
-  }) : _widgetOptions = widgetOptions, _selectedIndex = selectedIndex, super(key: key);
+  })  : _widgetOptions = widgetOptions,
+        _selectedIndex = selectedIndex,
+        super(key: key);
 
   final List<Widget> _widgetOptions;
   final int _selectedIndex;
@@ -20,6 +22,7 @@ class BodyWidget extends StatelessWidget {
 //        crossAxisAlignment: CrossAxisAlignment.start,
 //        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+//          if (_selectedIndex == 0)
           SearchBar(),
           Expanded(
             flex: 9,
@@ -32,4 +35,3 @@ class BodyWidget extends StatelessWidget {
     );
   }
 }
-
