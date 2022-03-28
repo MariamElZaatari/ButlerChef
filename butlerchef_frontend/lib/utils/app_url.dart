@@ -12,5 +12,10 @@ class AppUrl {
   static const String fridgeProductByUserId = baseUrl + '/fridgeProduct/';
   static const String createFridgeProduct = baseUrl + '/fridgeProduct/create/';
 
+  static const String getMeasurements = baseUrl + '/measurement/';
+  static const String getAllRecipesByUserId = baseUrl + '/recipe/display/';
+  static const String getFavoriteRecipesByUserId = baseUrl + '/recipe/display/favorite/';
+  static const String getCookedRecipesByUserId = baseUrl + '/recipe/display/cooked/';
+
 
 }
