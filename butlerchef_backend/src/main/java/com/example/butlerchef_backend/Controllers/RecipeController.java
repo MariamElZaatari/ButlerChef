@@ -82,4 +82,9 @@ public class RecipeController {
     public Collection<CookedRecipeDisplayInfo> readCookedRecipesByLoggedUser(@PathVariable Long id){
         return recipeService.getCookedRecipesDisplayInfoForLoggedUser(id);
     }
+
+    @GetMapping("display/profile/{id}")
+    public Collection<RecipeDisplayInfo> readProfileRecipesForLoggedUser(@PathVariable Long id){
+        return recipeService.getProfileRecipesDisplayInfoForLoggedUser(id);
+    }
 }
