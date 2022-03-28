@@ -2,6 +2,46 @@ import 'dart:convert';
 
 import 'package:butler_chef/models/user_model.dart';
 
+class RecipeCardModel {
+  RecipeCardModel({
+    this.total,
+    this.recipe,
+    this.favorite,
+    this.fridge,
+    this.cooked,
+  });
+
+  int? total;
+  RecipeModel? recipe;
+  int? favorite;
+  int? fridge;
+  int? cooked;
+
+  static List<RecipeCardModel> welcomeFromJson(String str) =>
+      List<RecipeCardModel>.from(
+          json.decode(str).map((x) => RecipeCardModel.fromJson(x)));
+
+  static String welcomeToJson(List<RecipeCardModel> data) =>
+      json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+  factory RecipeCardModel.fromJson(Map<String, dynamic> json) =>
+      RecipeCardModel(
+        total: json["total"],
+        recipe: RecipeModel.fromJson(json["recipe"]),
+        favorite: json["favorite"],
+        fridge: json["fridge"],
+        cooked: json["cooked"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "total": total,
+        "recipe": recipe?.toJson(),
+        "favorite": favorite,
+        "fridge": fridge,
+        "cooked": cooked,
+      };
+}
+
 class RecipeModel {
   RecipeModel({
     this.id,
@@ -25,11 +65,9 @@ class RecipeModel {
   int? visibility;
   User? user;
 
-  static List<RecipeModel> fromJsonList(String str) => List<RecipeModel>.from(
-      json.decode(str).map((x) => RecipeModel.fromJson(x)));
-
   factory RecipeModel.fromJson(Map<String, dynamic> json) => RecipeModel(
         id: json["id"],
+        user: User.fromJson(json["user"]),
         name: json["name"],
         rate: json["rate"],
         level: json["level"],
@@ -37,11 +75,11 @@ class RecipeModel {
         serving: json["serving"],
         imageUrl: json["imageUrl"],
         visibility: json["visibility"],
-        user: User.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "user": user?.toJson(),
         "name": name,
         "rate": rate,
         "level": level,
