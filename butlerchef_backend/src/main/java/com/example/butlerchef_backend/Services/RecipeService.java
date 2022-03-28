@@ -55,6 +55,10 @@ public class RecipeService {
         return recipeRepository.getCookedRecipesInfoForLoggedUser(id);
     }
 
+    public Collection<RecipeDisplayInfo> getProfileRecipesDisplayInfoForLoggedUser(Long id){
+        return recipeRepository.getProfileRecipesInfoForLoggedUser(id);
+    }
+
     public Recipe update(Recipe recipe){
         Recipe oldRecipe=recipeRepository.findById(recipe.getId()).get();
         oldRecipe.setName(recipe.getName());
