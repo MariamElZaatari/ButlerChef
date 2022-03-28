@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
-import 'package:butler_chef/screens/RecipeScreen.dart';
+import 'package:butler_chef/screens/recipe_screen.dart';
 
 class SmallRecipe extends StatelessWidget {
   const SmallRecipe({

@@ -5,7 +5,7 @@ import 'package:butler_chef/models/user_model.dart';
 import 'package:butler_chef/providers/token_provider.dart';
 import 'package:butler_chef/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:butler_chef/screens/RecipeScreen.dart';
+import 'package:butler_chef/screens/recipe_screen.dart';
 
 class LargeRecipe extends StatelessWidget {
   const LargeRecipe({
