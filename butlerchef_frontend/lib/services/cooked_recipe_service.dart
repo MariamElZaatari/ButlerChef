@@ -1,28 +1,23 @@
-import 'package:butler_chef/models/cooked_recipe_model.dart';
 import 'package:butler_chef/utils/app_url.dart';
 import 'package:http/http.dart';
-
+import '../models/recipe_model.dart';
+import '../utils/shared_preference.dart';
 
 class CookedRecipeService {
-
-  static Future<List<CookedRecipeModel>> fetchCookedRecipesByUserId(int id) async {
+  static Future<List<RecipeCardModel>> getCookedRecipesByUserId(
+      {int? id}) async {
+    // if id is not given, then take the logged user Id.
+    id ??= (await UserPreferences().getUser()).id;
 
     Response response =
-    await get(Uri.parse(AppUrl.cookedRecipesByUserId + id.toString()));
-
+    await get(Uri.parse(AppUrl.getCookedRecipesByUserId + id.toString()));
 
     if (response.statusCode == 200) {
+      List<RecipeCardModel> recipesCards =
+      RecipeCardModel.welcomeFromJson(response.body);
 
-      List<CookedRecipeModel> recipes = CookedRecipeModel.cookedRecipeModelFromJson(response.body);
-
-      // print("element Service");
-      // print(recipes[0].recipe.user.firstName);
-      // print(recipes[1].recipe.user.firstName);
-
-      return recipes;
+      return recipesCards;
     }
-
     return [];
   }
-
 }
