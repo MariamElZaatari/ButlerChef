@@ -2,6 +2,7 @@ import 'package:butler_chef/models/user_model.dart';
 import 'package:butler_chef/utils/app_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import '../utils/shared_preference.dart';
 
 class AuthService {
 
@@ -29,9 +30,11 @@ class AuthService {
       var userData = responseData['user'];
       var token = responseData['token'];
 
-      User authUser = User.fromJson(userData);
+      User user = User.fromJson(userData);
 
-      result = {'status': true, 'message': 'Successful', 'user': authUser, 'token': token};
+      UserPreferences().saveUser(user, token);
+
+      result = {'status': true, 'message': 'Successful', 'user': user, 'token': token};
     }
     else {
       result = {'status': false, 'message': 'Failed'};
