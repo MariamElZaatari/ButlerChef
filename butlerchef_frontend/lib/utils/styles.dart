@@ -25,4 +25,10 @@ class ThemeText {
 
   static const TextStyle directionContent = TextStyle(
       fontWeight: FontWeight.w300, fontSize: 20, color: AppColors.brown, letterSpacing: 1);
+
+  static const TextStyle buttonText = TextStyle(
+      fontSize: 21,
+      fontWeight: FontWeight.w300,
+      color: AppColors.white,
+      letterSpacing: 4);
 }
