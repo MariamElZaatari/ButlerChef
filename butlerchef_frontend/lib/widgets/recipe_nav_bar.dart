@@ -5,7 +5,14 @@ import 'package:butler_chef/widgets/recipe_directions.dart';
 import 'package:butler_chef/widgets/recipe_products.dart';
 
 class RecipeNavBar extends StatefulWidget {
-  const RecipeNavBar({Key? key}) : super(key: key);
+  const RecipeNavBar({
+    Key? key,
+    this.screens = const [
+      RecipeProducts(),
+      RecipeDirections(),
+    ],
+  }) : super(key: key);
+  final List<Widget> screens;
 
   @override
   RecipeNavBarState createState() => RecipeNavBarState();
@@ -14,10 +21,10 @@ class RecipeNavBar extends StatefulWidget {
 class RecipeNavBarState extends State<RecipeNavBar> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    RecipeProducts(),
-    RecipeDirections(),
-  ];
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   RecipeProducts(),
+  //   RecipeDirections(),
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,10 +39,13 @@ class RecipeNavBarState extends State<RecipeNavBar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.summarize_outlined ,
+              Icons.summarize_outlined,
               size: 27,
             ),
-            activeIcon: Icon(Icons.summarize_rounded, size: 27,),
+            activeIcon: Icon(
+              Icons.summarize_rounded,
+              size: 27,
+            ),
             label: 'Ingredients',
           ),
           BottomNavigationBarItem(
@@ -55,8 +65,14 @@ class RecipeNavBarState extends State<RecipeNavBar> {
       Expanded(
         flex: 5,
         child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Center(child: _widgetOptions.elementAt(_selectedIndex))),
+          height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: IndexedStack(
+              children: widget.screens,
+              index: _selectedIndex,
+            ),
+          ),
+        ),
       ),
     ]);
   }
