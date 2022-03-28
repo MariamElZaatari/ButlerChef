@@ -2,6 +2,9 @@ import 'package:butler_chef/models/recipe_ingredient.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/add_products_item.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../utils/styles.dart';
 
 class PostRecipeIngredients extends StatefulWidget {
   const PostRecipeIngredients({
@@ -41,22 +44,34 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
         itemBuilder: (BuildContext context, int index) {
           if (index == _ingredients.length) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ElevatedButton(
-                  onPressed: _addIngredient,
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add),
-                      Text('add ingradient'),
-                    ],
-                  )),
-            );
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ElevatedButton(
+                    onPressed: _addIngredient,
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0))),
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(AppColors.green),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                if (states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed)) {
+                return AppColors.white.withOpacity(0.12);
+                }
+                return null;
+                },
+                ),
+            ),
+                    child: RichText(
+                        text: const TextSpan(children: [
+                      WidgetSpan(
+                        child: FaIcon(FontAwesomeIcons.plus,
+                            color: AppColors.white, size: 21),
+                      ),
+                      TextSpan(
+                          text: " Add Ingredient", style: ThemeText.buttonText)
+                    ]))));
           }
           final item = _ingredients[index];
           Widget child = AddProductsItem(
@@ -107,11 +122,11 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
   }
 
   void _onItemChange(
-      int index, {
-        String? name,
-        String? measurement,
-        String? quantity,
-      }) {
+    int index, {
+    String? name,
+    String? measurement,
+    String? quantity,
+  }) {
     print('call');
     setState(() {
       final item = _ingredients[index];
