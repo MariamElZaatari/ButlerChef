@@ -11,23 +11,25 @@ import '../utils/shared_preference.dart';
 
 class RecipeService {
 
-  static Future<List<RecipeModel>> fetchRecipesByUserId(int id) async {
+  static Future<List<RecipeCardModel>> getAllRecipes() async {
+
+    int? loggedUserId = (await UserPreferences().getUser()).id;
 
     Response response =
-    await get(Uri.parse(AppUrl.recipesByUserId + id.toString()));
+    await get(Uri.parse(AppUrl.getAllRecipesByUserId + loggedUserId.toString()));
 
-    print(response.body);
     if (response.statusCode == 200) {
 
-      List<RecipeModel> recipes = RecipeModel.fromJsonList(response.body);
+      List<RecipeCardModel> recipesCards =
+      RecipeCardModel.welcomeFromJson(response.body);
 
-      return recipes;
+      // print(recipesCards);
+      return recipesCards;
     }
-
     return [];
   }
 
-  static Future<bool> crateRecipe(
+  static Future<bool> createRecipe(
       // RecipeModel recipe,
       // List<RecipeProduct> products,
       // List<RecipeDirection> directions,
