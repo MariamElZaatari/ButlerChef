@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:butler_chef/models/quantity_model.dart';
+import 'package:butler_chef/models/measurement_model.dart';
+
 ShopProductResponse shopProductResponseFromJson(String str) => ShopProductResponse.fromJson(json.decode(str));
 
 class ShopProductResponse {
@@ -51,38 +54,6 @@ class ShopProductModel {
     stock: json["stock"],
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
-  );
-
-}
-
-class Measurement {
-  int id;
-  String value;
-
-  Measurement({
-    required this.id,
-    required this.value,
-  });
-
-  factory Measurement.fromJson(Map<String, dynamic> json) => Measurement(
-    id: json["id"],
-    value: json["value"],
-  );
-
-}
-
-class Quantity {
-  int id;
-  String value;
-
-  Quantity({
-    required this.id,
-    required this.value,
-  });
-
-  factory Quantity.fromJson(Map<String, dynamic> json) => Quantity(
-    id: json["id"],
-    value: json["value"],
   );
 
 }
