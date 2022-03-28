@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:butler_chef/screens/post_recipe_screen.dart';
+import 'package:butler_chef/widgets/post_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/body_widget.dart';
 import 'package:butler_chef/widgets/large_recipe.dart';

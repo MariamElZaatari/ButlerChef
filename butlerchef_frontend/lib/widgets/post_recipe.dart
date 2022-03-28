@@ -1,7 +1,6 @@
 import 'package:butler_chef/models/recipe_direction_model.dart';
 import 'package:butler_chef/models/recipe_ingredient.dart';
 import 'package:butler_chef/utils/app_colors.dart';
-//import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/post_recipe_directions.dart';
 import 'package:butler_chef/widgets/post_recipe_products.dart';
 import 'package:butler_chef/widgets/recipe_info.dart';
@@ -44,8 +43,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
+    return Column(
         children: <Widget>[
           Expanded(
             child: Stack(
@@ -106,7 +104,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                                                   mainAxisSize:
                                                   MainAxisSize.min,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'Enter recipe name:',
                                                     ),
                                                     TextField(
@@ -121,8 +119,8 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                                               ),
                                             ));
                                       },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Icon(
                                           Icons.edit,
                                           color: AppColors.green,
@@ -134,7 +132,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                               ],
                             ),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 4,
@@ -142,10 +140,10 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
-                        SizedBox(width: 300, child: RecipeInfo(size: 21.0)),
+                        const SizedBox(width: 300, child: RecipeInfo(size: 21.0)),
                       ],
                     ),
                   ),
@@ -158,8 +156,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
             child: RecipeNavBar(screens: _screens),
             flex: 5,
           ),
-        ],
-      ),
+        ]
     );
   }
 
