@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/fridge_products.dart';
-import 'package:butler_chef/widgets/add_products.dart';
+import 'package:butler_chef/widgets/add_fridge_products.dart';
 
 class FridgeNavBar extends StatefulWidget {
   const FridgeNavBar({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class FridgeNavBarState extends State<FridgeNavBar> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     FridgeProducts(),
-    AddProducts(),
+    AddFridgeProducts(),
   ];
 
   void _onItemTapped(int index) {
