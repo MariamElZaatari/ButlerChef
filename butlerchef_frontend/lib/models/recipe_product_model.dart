@@ -3,13 +3,13 @@ import 'package:butler_chef/models/measurement_model.dart';
 
 class RecipeProduct {
   RecipeProduct({
-    required this.id,
+    this.id,
     required this.quantity,
     required this.measurement,
     required this.name,
   });
 
-  int id;
+  int? id;
   Quantity quantity;
   Measurement measurement;
   String name;
