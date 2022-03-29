@@ -123,6 +123,7 @@ class SmallRecipeState extends State<SmallRecipe> {
                                 serving: recipes[index].recipe?.serving,
                                 time: recipes[index].recipe?.time,
                                 user: recipes[index].recipe?.user,
+                                favorite: recipes[index].favorite,
                               ),
                             ),
                             flex: 4),
