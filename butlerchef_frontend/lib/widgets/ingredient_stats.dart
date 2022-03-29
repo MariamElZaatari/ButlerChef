@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 
 class IngredientStats extends StatelessWidget {
+  final int? total;
+  final int? fridge;
+
   const IngredientStats({
     Key? key,
+    required this.total,
+    required this.fridge,
   }) : super(key: key);
 
   @override
@@ -12,18 +17,18 @@ class IngredientStats extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <RichText>[
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              WidgetSpan(
+              const WidgetSpan(
                 child: Icon(Icons.kitchen_rounded,
                     color: AppColors.white, size: 28),
               ),
               TextSpan(
-                  text: "4",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500)),
+                  text: fridge.toString()+"/",
+                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500)),
               TextSpan(
-                  text: "/9",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  text: total.toString(),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ],
           ),
         )
