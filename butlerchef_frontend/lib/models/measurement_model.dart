@@ -1,6 +1,8 @@
+import 'package:butler_chef/models/measurement_quantity_model.dart';
+
 class Measurement {
-  int id;
-  String value;
+  int? id;
+  String? value;
 
   Measurement({
     required this.id,
@@ -16,4 +18,10 @@ class Measurement {
         "id": id,
         "value": value,
       };
+
+  factory Measurement.fromMeasurementWithQuantity(
+      MeasurementWithQuantities? measurementWithQuantity)  => Measurement(
+    id: measurementWithQuantity?.id,
+    value: measurementWithQuantity?.value,
+  );
 }
