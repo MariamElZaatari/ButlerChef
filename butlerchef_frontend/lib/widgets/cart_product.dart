@@ -1,34 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/shop_product_item.dart';
 import 'package:butler_chef/utils/app_colors.dart';
-
-// ProductWidget
+import 'package:butler_chef/models/measurement_model.dart';
+import 'package:butler_chef/models/quantity_model.dart';
 
 class CartProductItem extends StatefulWidget {
-//  final Product item;
   final Animation<double> _animation;
   final VoidCallback _onClicked;
-  final String? name;
-  final String? quantity;
-  final String? measurement;
-  final void Function(String name)? onNameChange;
-  final void Function(String measurement)? onMeasurementChange;
-  final void Function(String quantity)? onQuantityChange;
-  final List<String> measurements;
-  final List<String> quantities;
+  final String name;
+  final Quantity quantity;
+  final Measurement measurement;
+  final double price;
+  final String image;
 
   const CartProductItem({
     Key? key,
     required animation,
     required onClicked,
-    this.name,
-    this.quantity,
-    this.measurement,
-    this.onNameChange,
-    this.onMeasurementChange,
-    this.onQuantityChange,
-    this.measurements = const ['kg', 'dz', 'g', 'can'],
-    this.quantities = const ['1', '2', '3', '4'],
+    required this.name,
+    required this.image,
+    required this.quantity,
+    required this.measurement,
+    required this.price,
   })  : _animation = animation,
         _onClicked = onClicked,
         super(key: key);
@@ -39,15 +32,11 @@ class CartProductItem extends StatefulWidget {
 
 class CartProductItemState extends State<CartProductItem> {
   int count=1;
-  String dropdownQuantityValue = '1';
-  String dropdownMeasurementValue = 'kg';
 
   @override
   void initState() {
     super.initState();
     count = 1;
-    dropdownQuantityValue = widget.quantity ?? '1';
-    dropdownMeasurementValue = widget.measurement ?? 'kg';
   }
 
   @override
@@ -74,11 +63,11 @@ class CartProductItemState extends State<CartProductItem> {
                   alignment: Alignment.center,
                   child: Column(
                     children: <Widget>[
-                      const ShopProductItem(
+                      ShopProductItem(
                           productName: "test",
                           image: "",
-                          quantity: "test",
-                          measurement: "test",
+                          quantity: widget.quantity,
+                          measurement: widget.measurement,
                           price: 21.0),
                       Container(
                         width: 171,
