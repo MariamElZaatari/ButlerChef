@@ -61,8 +61,8 @@ class ShopState extends State<Shop> {
         .map((item) => ShopProductItem(
             productName: item.name,
             image: item.imageUrl,
-            quantity: item.quantity.value,
-            measurement: item.measurement.value,
+            quantity: item.quantity,
+            measurement: item.measurement,
             price: item.price))
         .toList();
 

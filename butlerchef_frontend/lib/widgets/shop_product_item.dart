@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 
+import '../models/measurement_model.dart';
+import '../models/quantity_model.dart';
+
 // ProductWidget
 
 class ShopProductItem extends StatelessWidget {
   final String productName;
   final String image;
-  final String quantity;
-  final String measurement;
+  final Quantity quantity;
+  final Measurement measurement;
   final double price;
 
   const ShopProductItem({
@@ -91,7 +94,7 @@ class ShopProductItem extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      quantity + measurement,
+                      quantity.value + measurement.value.toString(),
                       style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           color: AppColors.brown,
