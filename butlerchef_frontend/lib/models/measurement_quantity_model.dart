@@ -8,7 +8,7 @@ class MeasurementResponse {
     this.status,
   });
 
-  List<Measurement> measurement;
+  List<MeasurementWithQuantities> measurement;
   int? status;
 
   // static MeasurementResponse welcomeFromJson(String str) =>
@@ -18,7 +18,7 @@ class MeasurementResponse {
   //     json.encode(data.toJson());
 
   factory MeasurementResponse.fromJson(Map<String, dynamic> json) => MeasurementResponse(
-    measurement: List<Measurement>.from(json["measurement"].map((x) => Measurement.fromJson(x))),
+    measurement: List<MeasurementWithQuantities>.from(json["measurement"].map((x) => MeasurementWithQuantities.fromJson(x))),
     status: json["status"],
   );
 
@@ -28,8 +28,8 @@ class MeasurementResponse {
   };
 }
 
-class Measurement {
-  Measurement({
+class MeasurementWithQuantities {
+  MeasurementWithQuantities({
     this.id,
     this.value,
     required this.quantities,
@@ -39,7 +39,7 @@ class Measurement {
   List<Quantity> quantities;
   String? value;
 
-  factory Measurement.fromJson(Map<String, dynamic> json) => Measurement(
+  factory MeasurementWithQuantities.fromJson(Map<String, dynamic> json) => MeasurementWithQuantities(
     id: json["id"],
     value: json["value"],
     quantities: List<Quantity>.from(json["quantities"].map((x) => Quantity.fromJson(x))),
