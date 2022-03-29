@@ -4,18 +4,21 @@ import 'package:butler_chef/utils/app_colors.dart';
 class RecipeTitle extends StatelessWidget {
   final double _size;
   final double _width;
+  final String? title;
+
   const RecipeTitle({
     Key? key,
-    required size, required width
+    required size, required width, required this.title
   })  : _size = size, _width=width,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
         width: _width,
+        margin: EdgeInsets.only(bottom: 12),
         child: Text(
-          "Hot Shakshuka with Eggs",
+          title.toString(),
           style: TextStyle(
             fontSize: _size,
             fontWeight: FontWeight.w900,
