@@ -2,8 +2,12 @@ import 'package:butler_chef/models/recipe_ingredient.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/add_products_item.dart';
 import 'package:flutter/material.dart';
+import 'package:butler_chef/models/measurement_quantity_model.dart';
+import 'package:butler_chef/models/quantity_model.dart';
+import 'package:butler_chef/models/measurement_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../models/recipe_product_model.dart';
 import '../utils/styles.dart';
 
 class PostRecipeIngredients extends StatefulWidget {
@@ -12,8 +16,8 @@ class PostRecipeIngredients extends StatefulWidget {
     this.ingredients = const [],
     this.onIngredientsChange,
   }) : super(key: key);
-  final List<RecipeIngredient> ingredients;
-  final void Function(List<RecipeIngredient> ingredients)? onIngredientsChange;
+  final List<RecipeProduct> ingredients;
+  final void Function(List<RecipeProduct> ingredients)? onIngredientsChange;
 
   @override
   PostRecipeIngredientsState createState() => PostRecipeIngredientsState();
@@ -21,7 +25,7 @@ class PostRecipeIngredients extends StatefulWidget {
 
 class PostRecipeIngredientsState extends State<PostRecipeIngredients>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  late final List<RecipeIngredient> _ingredients = [];
+  late final List<RecipeProduct> _ingredients = [];
   late final Animation<double> _animation;
 
   @override
@@ -47,22 +51,22 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ElevatedButton(
                     onPressed: _addIngredient,
-                  style: ButtonStyle(
+                    style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50.0))),
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(AppColors.green),
+                          MaterialStateProperty.all<Color>(AppColors.green),
                       overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                      (Set<MaterialState> states) {
-                if (states.contains(MaterialState.focused) ||
-                states.contains(MaterialState.pressed)) {
-                return AppColors.white.withOpacity(0.12);
-                }
-                return null;
-                },
-                ),
-            ),
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.focused) ||
+                              states.contains(MaterialState.pressed)) {
+                            return AppColors.white.withOpacity(0.12);
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
                     child: RichText(
                         text: const TextSpan(children: [
                       WidgetSpan(
@@ -77,8 +81,6 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
           Widget child = AddProductsItem(
             key: UniqueKey(),
             name: item.name,
-            quantity: item.quantity.toString(),
-            measurement: item.measurement,
             animation: _animation,
             onClicked: () => _removeIngredient(index),
             onNameChange: (name) => _onItemNameChange(index, name),
@@ -95,10 +97,10 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
 
   void _addIngredient() {
     _ingredients.add(
-      RecipeIngredient(
+      RecipeProduct(
         name: '',
-        measurement: 'kg',
-        quantity: '0',
+        measurement: Measurement(id: 1, value: "kg"),
+        quantity: Quantity(id: 1, value: "1"),
       ),
     );
     setState(() {});
@@ -113,27 +115,28 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
     _onItemChange(index, name: name);
   }
 
-  void _onItemMeasurementChange(int index, String measurement) {
+  void _onItemMeasurementChange(
+      int index, MeasurementWithQuantities measurement) {
     _onItemChange(index, measurement: measurement);
   }
 
-  void _onItemQuantityChange(int index, String quantity) {
+  void _onItemQuantityChange(int index, Quantity quantity) {
     _onItemChange(index, quantity: quantity);
   }
 
   void _onItemChange(
     int index, {
     String? name,
-    String? measurement,
-    String? quantity,
+    MeasurementWithQuantities? measurement,
+    Quantity? quantity,
   }) {
     print('call');
     setState(() {
       final item = _ingredients[index];
-      _ingredients[index] = RecipeIngredient(
+      _ingredients[index] = RecipeProduct(
           name: name ?? item.name,
           quantity: quantity ?? item.quantity,
-          measurement: measurement ?? item.measurement);
+          measurement: Measurement.fromMeasurementWithQuantity(measurement));
     });
     print(_ingredients[index].name);
     widget.onIngredientsChange?.call(_ingredients);
