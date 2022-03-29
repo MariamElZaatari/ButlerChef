@@ -37,9 +37,9 @@ class RecipeInfo extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              const WidgetSpan(
+              WidgetSpan(
                 child: FaIcon(FontAwesomeIcons.solidClock,
-                    color: AppColors.green, size: 21),
+                    color: AppColors.green, size: _size),
               ),
               TextSpan(
                   text: " "+time.toString(),
@@ -51,9 +51,9 @@ class RecipeInfo extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              const WidgetSpan(
+              WidgetSpan(
                 child: FaIcon(FontAwesomeIcons.utensils,
-                    color: AppColors.green, size: 21),
+                    color: AppColors.green, size: _size),
               ),
               TextSpan(
                   text: " "+serving.toString(),
