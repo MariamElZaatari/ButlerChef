@@ -5,14 +5,14 @@ import '../models/measurement_quantity_model.dart';
 
 class MeasurementService {
 
-  static Future<List<Measurement>> getMeasurements() async {
+  static Future<List<MeasurementWithQuantities>> getMeasurements() async {
 
     Response response =
     await get(Uri.parse(AppUrl.getMeasurements));
 
     if (response.statusCode == 200) {
 
-      List<Measurement> measurements =
+      List<MeasurementWithQuantities> measurements =
           MeasurementResponse.fromJson(json.decode(response.body)).measurement;
 
       return measurements;
