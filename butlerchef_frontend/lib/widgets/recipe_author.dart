@@ -3,16 +3,36 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:butler_chef/utils/app_colors.dart';
 
-class RecipeAuthor extends StatelessWidget {
+import '../models/user_model.dart';
+
+class RecipeAuthor extends StatefulWidget {
+  final User? user;
+
   const RecipeAuthor({
     Key? key,
+    required this.user,
   }) : super(key: key);
+
+  LargeRecipeState createState() => LargeRecipeState();
+}
+
+class LargeRecipeState extends State<RecipeAuthor> {
+  String? name;
+  String? name1;
+
+  @override
+  void initState() {
+    if (widget.user?.firstName != null && widget.user?.lastName != null) {
+      name = widget.user?.firstName;
+      name1 = widget.user?.lastName;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const <Widget>[
-        Expanded(
+      children: <Widget>[
+        const Expanded(
             flex: 2,
             child: Align(
               alignment: Alignment.centerLeft,
@@ -25,15 +45,23 @@ class RecipeAuthor extends StatelessWidget {
             flex: 5,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Mike Cruz',
-                style: TextStyle(
+              child:
+//                  () {
+//    if(user?.firstName!=null && user?.lastName!=null){
+//      name=user?.firstName;
+//      name1=user?.lastName;
+//    }
+//    }())
+
+                  Text(
+                name.toString() + " " + name1.toString(),
+                style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
                     color: AppColors.white),
               ),
             )),
-        Expanded(
+        const Expanded(
           flex: 3,
           child: Align(
             alignment: Alignment.centerRight,
