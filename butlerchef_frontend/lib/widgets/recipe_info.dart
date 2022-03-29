@@ -4,8 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RecipeInfo extends StatelessWidget {
   final double _size;
+  final String? level;
+  final String? time;
+  final String? serving;
+
   const RecipeInfo({
-    Key? key, required size
+    Key? key, required size, required this.level, required this.time, required this.serving,
   }) : _size=size, super(key: key);
 
   @override
@@ -23,37 +27,37 @@ class RecipeInfo extends StatelessWidget {
                 child: FaIcon(FontAwesomeIcons.mountain,
                     color: AppColors.green, size: _size),
               ),
-              const TextSpan(
-                  text: " Easy",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              TextSpan(
+                  text: " "+level.toString(),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
             ],
           ),
         ),
         const SizedBox(width:12,),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              WidgetSpan(
+              const WidgetSpan(
                 child: FaIcon(FontAwesomeIcons.solidClock,
                     color: AppColors.green, size: 21),
               ),
               TextSpan(
-                  text: " 15 min",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  text: " "+time.toString(),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
             ],
           ),
         ),
         const SizedBox(width:12,),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              WidgetSpan(
+              const WidgetSpan(
                 child: FaIcon(FontAwesomeIcons.utensils,
                     color: AppColors.green, size: 21),
               ),
               TextSpan(
-                  text: " 1 srv",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  text: " "+serving.toString(),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
             ],
           ),
         ),
