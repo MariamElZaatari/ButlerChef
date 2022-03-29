@@ -31,4 +31,12 @@ class ThemeText {
       fontWeight: FontWeight.w300,
       color: AppColors.white,
       letterSpacing: 4);
+
+  static const TextStyle dialogInput = TextStyle(
+      fontSize: 18,
+      fontWeight:
+      FontWeight.w500,
+      color:
+      AppColors.brown);
+
 }
