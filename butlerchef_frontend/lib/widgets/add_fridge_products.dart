@@ -2,8 +2,12 @@ import 'package:butler_chef/models/recipe_ingredient.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/add_products_item.dart';
 import 'package:flutter/material.dart';
+import 'package:butler_chef/models/measurement_quantity_model.dart';
+import 'package:butler_chef/models/measurement_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../models/quantity_model.dart';
+import '../models/recipe_product_model.dart';
 import '../utils/styles.dart';
 
 class AddFridgeProducts extends StatefulWidget {
@@ -12,8 +16,8 @@ class AddFridgeProducts extends StatefulWidget {
     this.products = const [],
     this.onProductsChange,
   }) : super(key: key);
-  final List<RecipeIngredient> products;
-  final void Function(List<RecipeIngredient> products)? onProductsChange;
+  final List<RecipeProduct> products;
+  final void Function(List<RecipeProduct> products)? onProductsChange;
 
   @override
   AddFridgeProductsState createState() => AddFridgeProductsState();
@@ -21,7 +25,7 @@ class AddFridgeProducts extends StatefulWidget {
 
 class AddFridgeProductsState extends State<AddFridgeProducts>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  late final List<RecipeIngredient> _products = [];
+  late final List<RecipeProduct> _products = [];
   late final Animation<double> _animation;
 
   @override
@@ -77,8 +81,6 @@ class AddFridgeProductsState extends State<AddFridgeProducts>
           Widget child = AddProductsItem(
             key: UniqueKey(),
             name: item.name,
-            quantity: item.quantity.toString(),
-            measurement: item.measurement,
             animation: _animation,
             onClicked: () => _removeIngredient(index),
             onNameChange: (name) => _onItemNameChange(index, name),
@@ -95,10 +97,10 @@ class AddFridgeProductsState extends State<AddFridgeProducts>
 
   void _addIngredient() {
     _products.add(
-      RecipeIngredient(
+      RecipeProduct(
         name: '',
-        measurement: 'kg',
-        quantity: '0',
+        measurement: Measurement(id: 1, value: "kg"),
+        quantity: Quantity(id: 1, value: "1"),
       ),
     );
     setState(() {});
@@ -113,27 +115,28 @@ class AddFridgeProductsState extends State<AddFridgeProducts>
     _onItemChange(index, name: name);
   }
 
-  void _onItemMeasurementChange(int index, String measurement) {
+  void _onItemMeasurementChange(
+      int index, MeasurementWithQuantities measurement) {
     _onItemChange(index, measurement: measurement);
   }
 
-  void _onItemQuantityChange(int index, String quantity) {
+  void _onItemQuantityChange(int index, Quantity quantity) {
     _onItemChange(index, quantity: quantity);
   }
 
   void _onItemChange(
     int index, {
     String? name,
-    String? measurement,
-    String? quantity,
+    MeasurementWithQuantities? measurement,
+    Quantity? quantity,
   }) {
     print('call');
     setState(() {
       final item = _products[index];
-      _products[index] = RecipeIngredient(
+      _products[index] = RecipeProduct(
           name: name ?? item.name,
           quantity: quantity ?? item.quantity,
-          measurement: measurement ?? item.measurement);
+          measurement: Measurement.fromMeasurementWithQuantity(measurement));
     });
     print(_products[index].name);
     widget.onProductsChange?.call(_products);
