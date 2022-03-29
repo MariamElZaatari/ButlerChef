@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/small_recipe.dart';
 import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/widgets/small_recipe_favorite.dart';
+import 'package:butler_chef/widgets/small_recipe_cooked.dart';
 
 class ProfileNavBar extends StatefulWidget {
   const ProfileNavBar({Key? key}) : super(key: key);
@@ -18,8 +20,8 @@ class ProfileNavBarState extends State<ProfileNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     SmallRecipe(),
-    SmallRecipe(),
-    SmallRecipe(),
+    SmallRecipeFavorite(),
+    SmallRecipeCooked(),
   ];
 
   void _onItemTapped(int index) {
