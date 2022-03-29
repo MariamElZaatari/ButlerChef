@@ -10,6 +10,7 @@ class BottomRecipeBar extends StatelessWidget {
   final double _infoSize;
   final double _titleWidth;
   final bool _isSmall;
+  final bool _isFavorite;
   final String? name;
   final String? level;
   final String? time;
@@ -24,6 +25,7 @@ class BottomRecipeBar extends StatelessWidget {
     required infoSize,
     required titleWidth,
     required isSmall,
+    required isFavorite,
     required this.name,
     required this.level,
     required this.time,
@@ -34,7 +36,8 @@ class BottomRecipeBar extends StatelessWidget {
         _infoSize = infoSize,
         _titleWidth = titleWidth,
         _isSmall = isSmall,
-        super(key: key);
+        _isFavorite = isFavorite,
+      super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +74,7 @@ class BottomRecipeBar extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: RecipeAuthor(
               user: user,
-              favorite: favorite,
+              favorite: _isFavorite? 1: favorite,
             ),
           ),
         ),
