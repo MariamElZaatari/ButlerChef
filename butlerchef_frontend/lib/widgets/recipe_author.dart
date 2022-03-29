@@ -7,11 +7,10 @@ import '../models/user_model.dart';
 
 class RecipeAuthor extends StatefulWidget {
   final User? user;
+  final int? favorite;
 
-  const RecipeAuthor({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const RecipeAuthor({Key? key, required this.user, required this.favorite})
+      : super(key: key);
 
   LargeRecipeState createState() => LargeRecipeState();
 }
@@ -19,6 +18,15 @@ class RecipeAuthor extends StatefulWidget {
 class LargeRecipeState extends State<RecipeAuthor> {
   String? name;
   String? name1;
+
+  FaIcon notFavoriteIcon = const FaIcon(
+    FontAwesomeIcons.heart,
+    color: AppColors.white,
+  );
+  FaIcon favoriteIcon = const FaIcon(
+    FontAwesomeIcons.solidHeart,
+    color: AppColors.white,
+  );
 
   @override
   void initState() {
@@ -45,15 +53,7 @@ class LargeRecipeState extends State<RecipeAuthor> {
             flex: 5,
             child: Align(
               alignment: Alignment.centerLeft,
-              child:
-//                  () {
-//    if(user?.firstName!=null && user?.lastName!=null){
-//      name=user?.firstName;
-//      name1=user?.lastName;
-//    }
-//    }())
-
-                  Text(
+              child: Text(
                 name.toString() + " " + name1.toString(),
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -61,16 +61,13 @@ class LargeRecipeState extends State<RecipeAuthor> {
                     color: AppColors.white),
               ),
             )),
-        const Expanded(
+        Expanded(
           flex: 3,
           child: Align(
             alignment: Alignment.centerRight,
-            child: FaIcon(
-              FontAwesomeIcons.heart,
-              color: AppColors.white,
+            child: widget.favorite==1? favoriteIcon: notFavoriteIcon,
             ),
           ),
-        )
       ],
     );
   }
