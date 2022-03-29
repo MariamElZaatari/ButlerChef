@@ -118,6 +118,7 @@ class SmallRecipeState extends State<SmallRecipe> {
                                 infoSize: 18.0,
                                 titleWidth: 200.0,
                                 isSmall: true,
+                                isFavorite: false,
                                 name: recipes[index].recipe?.name,
                                 level: recipes[index].recipe?.level,
                                 serving: recipes[index].recipe?.serving,

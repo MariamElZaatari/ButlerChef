@@ -115,6 +115,7 @@ class LargeRecipeState extends State<LargeRecipe> {
                                 infoSize: 21.0,
                                 titleWidth: 400.0,
                                 isSmall: false,
+                                isFavorite: false,
                                 name: recipes[index].recipe?.name,
                                 level: recipes[index].recipe?.level,
                                 serving: recipes[index].recipe?.serving,
