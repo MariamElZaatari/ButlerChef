@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
-import 'package:butler_chef/models/user_model.dart';
-import 'package:butler_chef/providers/token_provider.dart';
-import 'package:butler_chef/providers/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:butler_chef/models/recipe_model.dart';
 import 'package:butler_chef/screens/recipe_screen.dart';
+import 'package:butler_chef/services/recipe_service.dart';
 
-class LargeRecipe extends StatelessWidget {
+class LargeRecipe extends StatefulWidget {
   const LargeRecipe({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context).user;
-    String token = Provider.of<TokenProvider>(context).token;
-    print("from the first Page:");
-    print(user.email);
-    print("Token:");
-    print(token);
+  LargeRecipeState createState() => LargeRecipeState();
+}
 
-    final List<Object> entries = <Object>['A', 'B', 'C'];
-//    final List<int> colorCodes = <int>[600, 500, 100];
+class LargeRecipeState extends State<LargeRecipe> {
+  late List<RecipeCardModel> recipes = <RecipeCardModel>[];
+
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      await RecipeService.getAllRecipes().then((data) {
+        setState(() {
+          recipes = data;
+        });
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.fromLTRB(15, 12, 0, 0),
-        itemCount: entries.length,
+        itemCount: recipes.length,
         itemBuilder: (BuildContext context, int index) {
           return Stack(
             children: [
@@ -38,6 +47,7 @@ class LargeRecipe extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(18, 2, 18, 25),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
+//                  TODO recipes[index].recipe.imageUrl
                     image: NetworkImage(
                         'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
                     fit: BoxFit.fill,
@@ -61,7 +71,7 @@ class LargeRecipe extends StatelessWidget {
                         Color(0x66000000),
                         Color(0x0D000000),
                         Color(0x00000000),
-                        Color(0x00000000),
+                        Color(0x0D000000),
                         Color(0x66000000),
                       ], // red to yellow // repeats the gradient over the canvas
                     ),
@@ -82,16 +92,16 @@ class LargeRecipe extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(18, 2, 18, 25),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: TopRecipeBar(
-                                starSize: 28.0,
+                                starSize: 28.0, fridge: recipes[index].fridge, total: recipes[index].total, rate: recipes[index].recipe?.rate,
                               ),
                             ),
                             flex: 1),
-                        Expanded(
+                        const Expanded(
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(''),
@@ -105,7 +115,11 @@ class LargeRecipe extends StatelessWidget {
                                 infoSize: 21.0,
                                 titleWidth: 400.0,
                                 isSmall: false,
-                              ),
+                                name: recipes[index].recipe?.name,
+                                level: recipes[index].recipe?.level,
+                                serving: recipes[index].recipe?.serving,
+                                time: recipes[index].recipe?.time,
+                                user: recipes[index].recipe?.user,                              ),
                             ),
                             flex: 5),
                       ],
