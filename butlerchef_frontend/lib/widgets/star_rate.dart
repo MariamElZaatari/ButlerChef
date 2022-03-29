@@ -44,7 +44,7 @@ class StarRateState extends State<StarRate> {
   List<double> getFillPercent(double rate) {
     double temp;
     double lastValue = rate % rate.floor();
-    int emptyStars=5-rate.ceil();
+    int emptyStars = 5 - rate.ceil();
 
     if (rate < 1) {
       fillPercents.add(rate);
@@ -62,8 +62,8 @@ class StarRateState extends State<StarRate> {
       }
     }
     fillPercents.add(lastValue);
-    if (emptyStars!=0){
-      for (int i=0; i<emptyStars;i++){
+    if (emptyStars != 0) {
+      for (int i = 0; i < emptyStars; i++) {
         fillPercents.add(0);
       }
     }
@@ -75,7 +75,7 @@ class StarRateState extends State<StarRate> {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
       ListView.builder(
-        physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
+        physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: 5,
@@ -97,58 +97,6 @@ class StarRateState extends State<StarRate> {
           );
         },
       ),
-
-//          return ShaderMask(
-////            shaderCallback: (bounds) {
-////              return RadialGradient(
-////                center: Alignment.centerRight,
-////                radius: 1,
-////                colors: gradient,
-////                stops: getStops(0.5),
-////                tileMode: TileMode.mirror,
-////              ).createShader(bounds);
-////            },
-////            child: Icon(
-////              Icons.star_rounded,
-////              size: widget._size,
-////              color: Colors.white,
-////            ),
-////          );
-//      }
-    ]
-//
-//        ShaderMask(
-//          shaderCallback: (bounds) {
-//            return RadialGradient(
-//              center: Alignment.centerRight,
-//              radius: 1,
-//              colors: gradient,
-//              stops: getStops(1),
-//              tileMode: TileMode.mirror,
-//            ).createShader(bounds);
-//          },
-//          child: Icon(
-//            Icons.star_rounded,
-//            size: widget._size,
-//            color: Colors.white,
-//          ),
-//        ),
-//        Icon(
-//          Icons.star_rounded,
-//          color: AppColors.star,
-//          size: widget._size,
-//        ),
-//        Icon(
-//          Icons.star_rounded,
-//          color: AppColors.star,
-//          size: widget._size,
-//        ),
-//        Icon(
-//          Icons.star_rounded,
-//          color: AppColors.star,
-//          size: widget._size,
-//        ),
-//      ],
-        );
+    ]);
   }
 }
