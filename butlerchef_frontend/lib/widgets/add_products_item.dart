@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:butler_chef/utils/styles.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 
+import '../models/measurement_quantity_model.dart';
+import '../models/quantity_model.dart';
+import '../services/measurement_service.dart';
+
 // ProductWidget
 
 class AddProductsItem extends StatefulWidget {
@@ -9,26 +13,18 @@ class AddProductsItem extends StatefulWidget {
   final Animation<double> _animation;
   final VoidCallback _onClicked;
   final String? name;
-  final String? quantity;
-  final String? measurement;
   final void Function(String name)? onNameChange;
-  final void Function(String measurement)? onMeasurementChange;
-  final void Function(String quantity)? onQuantityChange;
-  final List<String> measurements;
-  final List<String> quantities;
+  final void Function(MeasurementWithQuantities measurement)? onMeasurementChange;
+  final void Function(Quantity quantity)? onQuantityChange;
 
   const AddProductsItem({
     Key? key,
     required animation,
     required onClicked,
     this.name,
-    this.quantity,
-    this.measurement,
     this.onNameChange,
     this.onMeasurementChange,
     this.onQuantityChange,
-    this.measurements = const ['kg', 'dz', 'g', 'can'],
-    this.quantities = const ['1', '2', '3', '4'],
   })  : _animation = animation,
         _onClicked = onClicked,
         super(key: key);
@@ -38,16 +34,27 @@ class AddProductsItem extends StatefulWidget {
 }
 
 class AddProductsItemState extends State<AddProductsItem> {
-  String dropdownQuantityValue = '1';
-  String dropdownMeasurementValue = 'kg';
+  late List<MeasurementWithQuantities> measurements = <MeasurementWithQuantities>[];
+  late List<Quantity> quantities = <Quantity>[];
+  MeasurementWithQuantities dropdownMeasurementValue = MeasurementWithQuantities(
+      id: 1, value: 'kg', quantities: [Quantity(id: 1, value: "2")]);
+  Quantity dropdownQuantityValue = Quantity(id: 1, value: "2");
   late final TextEditingController _controller;
 
   @override
   void initState() {
-    super.initState();
+    Future.delayed(Duration.zero, () async {
+      await MeasurementService.getMeasurements().then((data) {
+        setState(() {
+          measurements = data;
+          quantities = data[0].quantities;
+        });
+        dropdownMeasurementValue = measurements[0];
+        dropdownQuantityValue = quantities[0];
+      });
+    });
     _controller = TextEditingController(text: widget.name ?? '');
-    dropdownQuantityValue = widget.quantity ?? '1';
-    dropdownMeasurementValue = widget.measurement ?? 'kg';
+    super.initState();
   }
 
   @override
@@ -84,7 +91,7 @@ class AddProductsItemState extends State<AddProductsItem> {
                         widget.onNameChange?.call(_controller.text),
                     textAlign: TextAlign.left,
                     style: ThemeText.productName,
-                    decoration: InputDecoration(
+                    decoration:const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Product...",
                       hintStyle: TextStyle(
@@ -114,14 +121,15 @@ class AddProductsItemState extends State<AddProductsItem> {
                     ),
                     Row(
                       children: [
-                        PopupMenuButton<String>(
+                        //Quantity
+                        PopupMenuButton<Quantity>(
                           itemBuilder: (context) {
-                            return widget.quantities
-                                .map<PopupMenuItem<String>>((String value) {
-                              return PopupMenuItem<String>(
-                                value: value,
+                            return quantities
+                                .map<PopupMenuItem<Quantity>>((Quantity quantity) {
+                              return PopupMenuItem<Quantity>(
+                                value: quantity,
                                 child: Text(
-                                  value,
+                                  quantity.value.toString(),
                                   style: ThemeText.quantityMeasurement,
                                 ),
                               );
@@ -130,7 +138,7 @@ class AddProductsItemState extends State<AddProductsItem> {
                           child: Row(
                             children: [
                               Text(
-                                dropdownQuantityValue,
+                                dropdownQuantityValue.value.toString(),
                                 style: ThemeText.quantityMeasurement,
                               ),
                               const Icon(
@@ -140,23 +148,24 @@ class AddProductsItemState extends State<AddProductsItem> {
                               ),
                             ],
                           ),
-                          onSelected: (String? newValue) {
-                        setState(() {
-                        dropdownQuantityValue = newValue!;
-                        });
-                        widget.onQuantityChange?.call(newValue ?? '1');
-                        FocusScope.of(context).unfocus();
-                        },
+                          onSelected: (Quantity newValue) {
+                            setState(() {
+                              dropdownQuantityValue = newValue;
+                            });
+                            widget.onQuantityChange?.call(newValue);
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
-                        const SizedBox(width: 12),
-                        PopupMenuButton<String>(
+
+                        //Measurement
+                        PopupMenuButton<MeasurementWithQuantities>(
                           itemBuilder: (context) {
-                            return widget.measurements
-                                .map<PopupMenuItem<String>>((String value) {
-                              return PopupMenuItem<String>(
-                                value: value,
+                            return measurements
+                                .map<PopupMenuItem<MeasurementWithQuantities>>((MeasurementWithQuantities measurement) {
+                              return PopupMenuItem<MeasurementWithQuantities>(
+                                value: measurement,
                                 child: Text(
-                                  value,
+                                  measurement.value.toString(),
                                   style: ThemeText.quantityMeasurement,
                                 ),
                               );
@@ -165,7 +174,7 @@ class AddProductsItemState extends State<AddProductsItem> {
                           child: Row(
                             children: [
                               Text(
-                                dropdownMeasurementValue,
+                                dropdownMeasurementValue.value.toString(),
                                 style: ThemeText.quantityMeasurement,
                               ),
                               const Icon(
@@ -175,12 +184,20 @@ class AddProductsItemState extends State<AddProductsItem> {
                               ),
                             ],
                           ),
-                          onSelected: (String? newValue) {
+                          onSelected: (MeasurementWithQuantities? newValue) {
                         setState(() {
+                        if (newValue != null) {
+                        quantities = newValue.quantities;
+                        }
+                        dropdownQuantityValue = quantities[0];
                         dropdownMeasurementValue = newValue!;
                         });
+                        widget.onMeasurementChange?.call(newValue ??
+                        MeasurementWithQuantities(
+                        id: 1,
+                        value: 'kg',
+                        quantities: [Quantity(id: 1, value: "2")]));
                         FocusScope.of(context).unfocus();
-                        widget.onMeasurementChange?.call(newValue ?? 'kg');
                         },
                         ),
                       ],
