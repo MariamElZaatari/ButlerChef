@@ -25,7 +25,7 @@ public class Recipe {
     @NotEmpty(message = "Name is mandatory.")
     private String name;
 
-    @Digits(integer = 1,fraction = 1, message = "Invalid Rate")
+    @Digits(integer = 1,fraction = 2, message = "Invalid Rate")
     @Min(0)
     @Max(5)
     @NotNull(message = "Rate is mandatory.")
