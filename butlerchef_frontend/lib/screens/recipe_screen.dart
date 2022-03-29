@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
 import '../utils/app_colors.dart';
-import 'package:butler_chef/widgets/recipe_info.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 
 class RecipeScreen extends StatefulWidget {
@@ -63,7 +62,6 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 color: AppColors.white,
                               ),
                             )),
-                        SizedBox(width: 300, child: RecipeInfo(size: 21.0)),
                       ],
                     ),
                   ),
