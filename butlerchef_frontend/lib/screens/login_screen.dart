@@ -1,5 +1,6 @@
+import 'package:butler_chef/screens/recipe_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/screens/home_screen.dart';
 import 'package:butler_chef/widgets/input.dart';
 import 'package:butler_chef/screens/sign_up_screen.dart';
@@ -9,6 +10,10 @@ import '../models/user_model.dart';
 import '../providers/user_provider.dart';
 import 'package:butler_chef/providers/token_provider.dart';
 import 'package:butler_chef/services/auth_service.dart';
+
+import 'package:butler_chef/screens/test_screen.dart';
+
+import '../widgets/post_recipe.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -118,33 +123,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: AppColors.white),
                             ),
                             onPressed: () {
-                              AuthService.login(email, password).then((response) {
-                                if (response['status']) {
-                                  User user = response['user'];
-                                  String token = response['token'];
-
-                                  Provider.of<UserProvider>(context, listen: false)
-                                      .setUser(user);
-                                  Provider.of<TokenProvider>(context, listen: false)
-                                      .setToken(token);
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const HomeScreen();
-                                      },
-                                    ),
-                                  );
-                                } else {
-                                  print("Wrong Email/Password");
-                                  // Flushbar(
-                                  //   title: "Failed Login",
-                                  //   message: "Failed Login",
-                                  //   duration: Duration(seconds: 3),
-                                  // ).show(context);
-                                }
-                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const HomeScreen();
+                                  },
+                                ),
+                              );
+//                              AuthService.login("ttt@gmail.com", "Mariam@97").then((response) {
+//                                if (response['status']) {
+//                                  User user = response['user'];
+//                                  String token = response['token'];
+//
+//                                  Provider.of<UserProvider>(context, listen: false)
+//                                      .setUser(user);
+//                                  Provider.of<TokenProvider>(context, listen: false)
+//                                      .setToken(token);
+//
+//                                  Navigator.push(
+//                                    context,
+//                                    MaterialPageRoute(
+//                                      builder: (context) {
+//                                        return const HomeScreen();
+//                                      },
+//                                    ),
+//                                  );
+//                                } else {
+//                                  print("Wrong Email/Password");
+//                                  // Flushbar(
+//                                  //   title: "Failed Login",
+//                                  //   message: "Failed Login",
+//                                  //   duration: Duration(seconds: 3),
+//                                  // ).show(context);
+//                                }
+//                              });
                             },
                           )),
                       SizedBox(

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:butler_chef/utils/app_url.dart';
+import 'package:butler_chef/constants/app_url.dart';
 import 'package:http/http.dart';
 import '../models/measurement_quantity_model.dart';
 

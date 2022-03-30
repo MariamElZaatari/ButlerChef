@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
-import '../utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 
 class RecipeScreen extends StatefulWidget {

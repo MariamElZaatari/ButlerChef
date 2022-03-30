@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 // ProductWidget
 

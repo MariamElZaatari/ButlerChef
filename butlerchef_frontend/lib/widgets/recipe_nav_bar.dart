@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/recipe_directions.dart';
 import 'package:butler_chef/widgets/recipe_products.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 
 import '../models/user_model.dart';
 

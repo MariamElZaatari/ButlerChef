@@ -1,10 +1,10 @@
 import 'package:butler_chef/models/recipe_direction_model.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/add_direction_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 class PostRecipeDirections extends StatefulWidget {
   const PostRecipeDirections({

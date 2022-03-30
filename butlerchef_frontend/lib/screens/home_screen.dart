@@ -3,7 +3,7 @@ import 'package:butler_chef/widgets/post_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/body_widget.dart';
 import 'package:butler_chef/widgets/large_recipe.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/profile.dart';
 import 'package:butler_chef/widgets/fridge.dart';
 import 'package:butler_chef/widgets/shop.dart';

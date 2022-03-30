@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:butler_chef/models/shop_product_model.dart';
 import 'package:butler_chef/widgets/shop_product_item.dart';
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:butler_chef/screens/cart_screen.dart';
 import 'package:http/http.dart' as http;
 
-import '../utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 class Shop extends StatefulWidget {
   const Shop({Key? key}) : super(key: key);

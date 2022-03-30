@@ -1,15 +1,13 @@
 import 'package:butler_chef/models/recipe_direction_model.dart';
-import 'package:butler_chef/models/recipe_ingredient.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/post_recipe_directions.dart';
 import 'package:butler_chef/widgets/post_recipe_products.dart';
-import 'package:butler_chef/widgets/recipe_info.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/recipe_product_model.dart';
-import '../utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 class PostRecipeScreen extends StatefulWidget {
   final String? difficulty;

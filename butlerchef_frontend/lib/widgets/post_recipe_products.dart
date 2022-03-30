@@ -1,5 +1,4 @@
-import 'package:butler_chef/models/recipe_ingredient.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/add_products_item.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/models/measurement_quantity_model.dart';
@@ -8,7 +7,7 @@ import 'package:butler_chef/models/measurement_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/recipe_product_model.dart';
-import '../utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 class PostRecipeIngredients extends StatefulWidget {
   const PostRecipeIngredients({

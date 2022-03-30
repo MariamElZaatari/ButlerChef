@@ -1,5 +1,5 @@
 import 'package:butler_chef/models/recipe_model.dart';
-import 'package:butler_chef/utils/app_url.dart';
+import 'package:butler_chef/constants/app_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 

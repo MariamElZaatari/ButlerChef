@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/address_list.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/cart_product_list.dart';

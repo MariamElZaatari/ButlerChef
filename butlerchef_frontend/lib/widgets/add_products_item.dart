@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:butler_chef/utils/styles.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/styles.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 
 import '../models/measurement_quantity_model.dart';
 import '../models/quantity_model.dart';

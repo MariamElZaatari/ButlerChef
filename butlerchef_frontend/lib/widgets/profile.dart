@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/profile_nav_bar.dart';
-import 'package:butler_chef/utils/app_colors.dart';
+import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/edit_button.dart';
 
-import '../utils/styles.dart';
+import 'package:butler_chef/constants/styles.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
