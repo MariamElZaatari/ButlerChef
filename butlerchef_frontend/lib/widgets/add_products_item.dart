@@ -76,7 +76,7 @@ class AddProductsItemState extends State<AddProductsItem> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(

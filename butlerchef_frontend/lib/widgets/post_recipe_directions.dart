@@ -48,11 +48,9 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                 InkWell(
                   onTap: _onAddClicked,
                   child: Container(
-                    height: 387,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 61),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 21),
+                    height: 221,
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.fromLTRB(15,41,15,21),
                     decoration: BoxDecoration(
                       color: AppColors.green,
                       borderRadius: const BorderRadius.all(Radius.circular(25)),

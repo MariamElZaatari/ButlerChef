@@ -13,7 +13,6 @@ class Fridge extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 width: MediaQuery.of(context).size.width,
                 height: 141,
                 child: Image.asset(
@@ -22,7 +21,6 @@ class Fridge extends StatelessWidget {
                 ),
               ),
               Container(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                   width: MediaQuery.of(context).size.width,
                   height: 141,
                   decoration: const BoxDecoration(

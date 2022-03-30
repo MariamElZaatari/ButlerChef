@@ -54,7 +54,9 @@ class AddressListState extends State<AddressList>
               onTap: _onAddClicked,
               child: Container(
                 height: 241,
-                margin: const EdgeInsets.symmetric(vertical: 15),
+                margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+
+//                margin: const EdgeInsets.symmetric(vertical: 15),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 61, vertical: 21),
                 decoration: BoxDecoration(
