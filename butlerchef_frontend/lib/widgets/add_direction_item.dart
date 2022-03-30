@@ -7,7 +7,7 @@ class Direction extends StatefulWidget {
     Key? key,
     this.title = 'Title',
     this.body =
-    'Spray large skillet with cooking spray. Heat over medium-high heat until hot. Add onion and bell pepper; cook and stir 5 to 7 minutes or until onion begins to brown. Reduce heat to medium; cook 8 to 10 minutes or until bell pepper is softened, stirring occasionally.',
+    'Spray large skillet with cooking spray. Heat over medium-high heat until hot. Add onion and bell pepper; cook and stir 5 to 7 minutes or until onion begins to brown. Reduce heat to medium; cook 8 to 10 minutes.',
     this.editable = false,
     this.onTitleChange,
     this.onBodyChange,
@@ -36,9 +36,9 @@ class DirectionState extends State<Direction> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 387,
-      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 61),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 21),
+      height: 221,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.fromLTRB(15,41,15,21),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: const BorderRadius.all(Radius.circular(25)),
@@ -60,9 +60,10 @@ class DirectionState extends State<Direction> {
                   child: TextField(
                     controller: _titleController,
                     decoration: InputDecoration(
+                      hintStyle: TextStyle(fontSize: 20),
                         enabled: widget.editable,
                         border: InputBorder.none,
-                        hintText: 'Write the title'
+                        hintText: 'Title'
                     ),
                     onEditingComplete: () => widget.onTitleChange?.call(
                       _titleController.text,
@@ -71,14 +72,12 @@ class DirectionState extends State<Direction> {
                     textAlign: TextAlign.center,
                   ))),
           Expanded(
-            flex: 8,
+            flex: 7,
             child: Align(
               alignment: Alignment.topCenter,
-              child: Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: TextField(
+              child: TextField(
                   controller: _bodyController,
-                  maxLines: 400,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     enabled: widget.editable,
                     border: InputBorder.none,
@@ -92,7 +91,7 @@ class DirectionState extends State<Direction> {
                 ),
               ),
             ),
-          ),
+
         ],
       ),
     );
