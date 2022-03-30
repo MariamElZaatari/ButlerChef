@@ -17,6 +17,7 @@ class BottomRecipeBar extends StatelessWidget {
   final User? user;
   final String? serving;
   final int? favorite;
+  final int? recipeId;
 
 
   const BottomRecipeBar({
@@ -32,6 +33,7 @@ class BottomRecipeBar extends StatelessWidget {
     required this.user,
     required this.serving,
     required this.favorite,
+    required this.recipeId
   })  : _titleSize = titleSize,
         _infoSize = infoSize,
         _titleWidth = titleWidth,
@@ -74,7 +76,8 @@ class BottomRecipeBar extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: RecipeAuthor(
               user: user,
-              favorite: _isFavorite? 1: favorite,
+              retrievedFavorite: _isFavorite? 1: favorite,
+              recipeId: recipeId,
             ),
           ),
         ),
