@@ -4,13 +4,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 
 import '../models/user_model.dart';
+import '../services/favorite_recipe_service.dart';
 
 class RecipeAuthor extends StatefulWidget {
   final User? user;
-  final int? favorite;
-  final bool? fav;
+  final int? retrievedFavorite;
+  final int? recipeId;
   const RecipeAuthor(
-      {Key? key, required this.user, required this.favorite, this.fav})
+      {Key? key,
+      required this.user,
+      required this.retrievedFavorite,
+      required this.recipeId})
       : super(key: key);
 
   LargeRecipeState createState() => LargeRecipeState();
@@ -34,12 +38,24 @@ class LargeRecipeState extends State<RecipeAuthor> {
   void initState() {
     if (widget.user?.firstName != null &&
         widget.user?.lastName != null &&
-        widget.favorite != null) {
+        widget.retrievedFavorite != null) {
       name = widget.user?.firstName;
       name1 = widget.user?.lastName;
-      _favorite = widget.favorite == 1 ? true : false;
+      _favorite = widget.retrievedFavorite == 1 ? true : false;
     }
     super.initState();
+  }
+
+  void onFavoriteChange() {
+    if (_favorite) {
+      Future.delayed(Duration.zero, () async {
+        await FavoriteRecipeService.createFavoriteByRecipeId(widget.recipeId);
+      });
+    } else {
+      Future.delayed(Duration.zero, () async {
+        await FavoriteRecipeService.deleteFavoriteById(widget.recipeId);
+      });
+    }
   }
 
   @override
@@ -74,7 +90,8 @@ class LargeRecipeState extends State<RecipeAuthor> {
               child: IconButton(
                   icon: _favorite ? heartSolid : heartOutlined,
                   onPressed: () => {
-                        setState(() => {_favorite = !_favorite})
+                        setState(() => {_favorite = !_favorite}),
+                        onFavoriteChange()
                       })),
         ),
       ],
