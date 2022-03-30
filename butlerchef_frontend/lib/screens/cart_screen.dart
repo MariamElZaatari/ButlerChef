@@ -36,8 +36,8 @@ class CartScreenState extends State<CartScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
+        padding: EdgeInsets.zero,
         shrinkWrap: true,
-        padding: const EdgeInsets.fromLTRB(15, 12, 15, 0),
         children: [
           //Image Banner and Title
           Stack(
@@ -80,131 +80,151 @@ class CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              CustomBackButton(),
+              const CustomBackButton(),
             ],
           ),
-          //Basket Title
-          const Text('Basket',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
-          //Basket Items
-          const SizedBox(
-            height: 245,
-            child: CartProductList(),
-          ),
-
-          //Delivery To Title
-          const Text('Delivery To',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
-          //Delivery To Items
-          SizedBox(
-            height: 370,
-            child: AddressList(),
-          ),
-
-          //Payment Method Title
-          const Text('Payment Method',
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
-          //Payment Method DropDown
           Container(
-              padding: const EdgeInsets.symmetric(horizontal: 92),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(6)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  // Initial Value
-                  value: dropdownValue,
-
-                  // Down Arrow Icon
-                  icon: const Icon(Icons.arrow_drop_down_rounded,
-                      color: AppColors.green, size: 41),
-
-                  // Array list of items
-                  items: paymentOptions.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(
-                        items,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                            color: AppColors.brown),
-                      ),
-                    );
-                  }).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(children: [
+                //Basket Title
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Basket',
+                      textAlign: TextAlign.left,
+                      style:
+                          TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
-              )),
+                //Basket Items
+                const SizedBox(
+                  height: 245,
+                  child: CartProductList(),
+                ),
 
-          //Place Order Button
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  width: 341,
-                  height: 41,
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.0))),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(AppColors.green),
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.focused) ||
-                                states.contains(MaterialState.pressed)) {
-                              return AppColors.white.withOpacity(0.12);
-                            }
-                            return null;
-                          },
-                        ),
+                //Delivery To Title
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Delivery To',
+                      textAlign: TextAlign.left,
+                      style:
+                          TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                ),
+                //Delivery To Items
+                const SizedBox(
+                  height: 350,
+                  child: AddressList(),
+                ),
+
+                //Payment Method Title
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Payment Method',
+                      textAlign: TextAlign.left,
+                      style:
+                          TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                ),
+                //Payment Method DropDown
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 92),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        // Initial Value
+                        value: dropdownValue,
+
+                        // Down Arrow Icon
+                        icon: const Icon(Icons.arrow_drop_down_rounded,
+                            color: AppColors.green, size: 41),
+
+                        // Array list of items
+                        items: paymentOptions.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: AppColors.brown),
+                            ),
+                          );
+                        }).toList(),
+                        // After selecting the desired option,it will
+                        // change button value to selected value
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CartScreen()),
-                        );
-                      },
-                      child: RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                                text: "Total",
-                                style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w300,
-                                  color: AppColors.white,
-                                )),
-                            TextSpan(text: "        "),
-                            TextSpan(
-                                text: "Place Order",
-                                style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.white,
-                                    letterSpacing: 4)),
-                            TextSpan(text: "        "),
-                            TextSpan(
-                                text: "\$9.00",
-                                style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w300,
-                                  color: AppColors.white,
-                                )),
-                          ],
-                        ),
-                      ))))
+                    )),
+
+                //Place Order Button
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 15),
+                        width: 341,
+                        height: 41,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50.0))),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.green),
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color?>(
+                                (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.focused) ||
+                                      states.contains(MaterialState.pressed)) {
+                                    return AppColors.white.withOpacity(0.12);
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CartScreen()),
+                              );
+                            },
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: "Total",
+                                      style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.w300,
+                                        color: AppColors.white,
+                                      )),
+                                  TextSpan(text: "        "),
+                                  TextSpan(
+                                      text: "Place Order",
+                                      style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.white,
+                                          letterSpacing: 4)),
+                                  TextSpan(text: "        "),
+                                  TextSpan(
+                                      text: "\$9.00",
+                                      style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.w300,
+                                        color: AppColors.white,
+                                      )),
+                                ],
+                              ),
+                            )))),
+              ])),
         ],
       ),
     );
