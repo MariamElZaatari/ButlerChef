@@ -35,13 +35,13 @@ class SmallRecipeState extends State<SmallRecipe> {
     return Center(
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.fromLTRB(15, 12, 0, 0),
+        padding: const EdgeInsets.fromLTRB(15, 18, 0, 0),
         itemCount: recipes.length,
         itemBuilder: (BuildContext context, int index) {
           return Stack(
             children: [
               Container(
-                height: 280,
+                height: 361,
                 width: 281,
                 margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
                 padding: const EdgeInsets.fromLTRB(18, 2, 18, 12),
@@ -56,7 +56,7 @@ class SmallRecipeState extends State<SmallRecipe> {
                 ),
               ),
               Container(
-                  height: 280,
+                  height: 361,
                   width: 281,
                   margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
                   padding: const EdgeInsets.fromLTRB(18, 2, 18, 12),
@@ -66,12 +66,12 @@ class SmallRecipeState extends State<SmallRecipe> {
                       begin: Alignment.topCenter,
                       end: Alignment
                           .bottomCenter, // 10% of the width, so there are ten blinds.
-                      stops: [0.01, 0.2, 0.3, 0.4, 0.9],
+                      stops: [0.01, 0.3, 0.4, 0.5, 0.9],
                       colors: <Color>[
                         Color(0x66000000),
                         Color(0x0D000000),
                         Color(0x00000000),
-                        Color(0x00000000),
+                        Color(0x0D000000),
                         Color(0x66000000),
                       ], // red to yellow // repeats the gradient over the canvas
                     ),
@@ -81,12 +81,12 @@ class SmallRecipeState extends State<SmallRecipe> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RecipeScreen()),
+                              builder: (context) => RecipeScreen(cooked: recipes[index].cooked, recipeId: recipes[index].recipe?.id, image: recipes[index].recipe?.imageUrl, name: recipes[index].recipe?.name,)),
                         )
                       },
                   splashColor: Colors.grey,
                   child: Container(
-                    height: 280,
+                    height: 361,
                     width: 281,
                     margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
                     padding: const EdgeInsets.fromLTRB(18, 2, 12, 12),
@@ -125,6 +125,7 @@ class SmallRecipeState extends State<SmallRecipe> {
                                 time: recipes[index].recipe?.time,
                                 user: recipes[index].recipe?.user,
                                 favorite: recipes[index].favorite,
+                                recipeId: recipes[index].recipe?.id,
                               ),
                             ),
                             flex: 4),

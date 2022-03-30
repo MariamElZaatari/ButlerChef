@@ -5,7 +5,6 @@ import 'package:butler_chef/screens/recipe_screen.dart';
 
 import '../models/recipe_model.dart';
 import '../services/favorite_recipe_service.dart';
-import '../services/recipe_service.dart';
 
 class SmallRecipeFavorite extends StatefulWidget {
   const SmallRecipeFavorite({
@@ -36,13 +35,13 @@ class SmallRecipeFavoriteState extends State<SmallRecipeFavorite> {
     return Center(
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.fromLTRB(15, 12, 0, 0),
+        padding: const EdgeInsets.fromLTRB(15, 18, 0, 0),
         itemCount: recipes.length,
         itemBuilder: (BuildContext context, int index) {
           return Stack(
             children: [
               Container(
-                height: 280,
+                height: 361,
                 width: 281,
                 margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
                 padding: const EdgeInsets.fromLTRB(18, 2, 18, 12),
@@ -57,7 +56,7 @@ class SmallRecipeFavoriteState extends State<SmallRecipeFavorite> {
                 ),
               ),
               Container(
-                  height: 280,
+                  height: 361,
                   width: 281,
                   margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
                   padding: const EdgeInsets.fromLTRB(18, 2, 18, 12),
@@ -82,12 +81,12 @@ class SmallRecipeFavoriteState extends State<SmallRecipeFavorite> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const RecipeScreen()),
+                        builder: (context) => RecipeScreen(cooked: recipes[index].cooked, recipeId: recipes[index].recipe?.id, image: recipes[index].recipe?.imageUrl, name: recipes[index].recipe?.name,)),
                   )
                   },
                   splashColor: Colors.grey,
                   child: Container(
-                    height: 280,
+                    height: 361,
                     width: 281,
                     margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
                     padding: const EdgeInsets.fromLTRB(18, 2, 12, 12),
@@ -126,6 +125,7 @@ class SmallRecipeFavoriteState extends State<SmallRecipeFavorite> {
                                 time: recipes[index].recipe?.time,
                                 user: recipes[index].recipe?.user,
                                 favorite: recipes[index].favorite,
+                                recipeId: recipes[index].recipe?.id,
                               ),
                             ),
                             flex: 4),
