@@ -23,10 +23,10 @@ class CookedRecipeService {
     return [];
   }
 
-  static Future<bool> createCookedByRecipeId(int recipeId) async {
+  static Future<bool> createCookedByRecipeId(int? recipeId) async {
     int? id = (await UserPreferences().getUser()).id ?? 0;
 
-    final Map<String, int> data = {'userId': id, 'recipeId': recipeId};
+    final Map<String, int?> data = {'userId': id, 'recipeId': recipeId};
 
     Response response = await post(
       Uri.parse(AppUrl.createCooked),
@@ -42,7 +42,7 @@ class CookedRecipeService {
     return false;
   }
 
-  static Future<bool> deleteCookedById(int recipeId) async {
+  static Future<bool> deleteCookedById(int? recipeId) async {
     Response response =
     await get(Uri.parse(AppUrl.deleteCooked + recipeId.toString()));
 

@@ -23,10 +23,10 @@ class FavoriteRecipeService {
     return [];
   }
 
-  static Future<bool> createFavoriteByRecipeId(int recipeId) async {
+  static Future<bool> createFavoriteByRecipeId(int? recipeId) async {
     int? id = (await UserPreferences().getUser()).id ?? 0;
 
-    final Map<String, int> data = {'userId': id, 'recipeId': recipeId};
+    final Map<String, int?> data = {'userId': id, 'recipeId': recipeId};
 
     Response response = await post(
       Uri.parse(AppUrl.createFavorite),
@@ -42,7 +42,7 @@ class FavoriteRecipeService {
     return false;
   }
 
-  static Future<bool> deleteFavoriteById(int recipeId) async {
+  static Future<bool> deleteFavoriteById(int? recipeId) async {
     Response response =
     await get(Uri.parse(AppUrl.deleteFavorite + recipeId.toString()));
 

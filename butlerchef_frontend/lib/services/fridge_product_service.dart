@@ -9,7 +9,7 @@ import '../models/fridge_product_model.dart';
 
 class FridgeProductService {
 
-  static Future<List<FridgeProduct>> fetchFridgeProductByUserId(int id) async {
+  static Future<List<FridgeProduct>> fetchFridgeProductByUserId(int? id) async {
 
     Response response =
     await get(Uri.parse(AppUrl.fridgeProductByUserId + id.toString()));
