@@ -7,8 +7,9 @@ import 'package:butler_chef/widgets/recipe_products.dart';
 class RecipeNavBar extends StatefulWidget {
   final int? recipeId;
   final int? cooked;
+  final List<Widget> screens;
   const RecipeNavBar({
-    Key? key, this.recipeId, this.cooked
+    Key? key, this.recipeId, this.cooked,this.screens=const[],
   }) : super(key: key);
 
   @override
@@ -21,15 +22,20 @@ class RecipeNavBarState extends State<RecipeNavBar> {
 
   @override
   void initState() {
-    _widgetOptions = [
-      RecipeProducts(
-        recipeId: widget.recipeId,
-      ),
-      RecipeDirections(
-        recipeId: widget.recipeId,
-        retrievedCooked: widget.cooked,
-      ),
-    ];
+    if(widget.screens.isEmpty){
+      _widgetOptions = [
+        RecipeProducts(
+          recipeId: widget.recipeId,
+        ),
+        RecipeDirections(
+          recipeId: widget.recipeId,
+          retrievedCooked: widget.cooked,
+        ),
+      ];
+    } else{
+      _widgetOptions=widget.screens;
+    }
+
   }
 
   void _onItemTapped(int index) {
