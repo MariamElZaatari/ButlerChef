@@ -53,131 +53,132 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.green,
+      backgroundColor: AppColors.logoBackground,
       body: Center(
-          child: ListView(
-            children: [
-              const Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
+            child: ListView(
+              children: [
+                Expanded(
                   flex: 1,
-                  child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 61, 0, 0),
-                      child: Text(
-                        'ButlerChef',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 38,
-                            fontWeight: FontWeight.w100,
-                            letterSpacing: 18),
-                      ))),
-              Expanded(
-                  flex: 1,
-                  child: Column(children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 41, 0, 0),
-                      child: Text(
-                        "Let's Get Started",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 2),
-                      ),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(21,61,21,0),
+                    width: MediaQuery.of(context).size.width,
+                    height: 141,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      fit: BoxFit.contain,
                     ),
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 41),
+                  ),),
+                Expanded(
+                    flex: 1,
+                    child: Column(children: const [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 41, 0, 0),
                         child: Text(
-                          'You are one click away from joining our food lovers community.',
+                          "Let's Get Started",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 21,
-                              fontWeight: FontWeight.w300,
+                              color: AppColors.black,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w400,
                               letterSpacing: 2),
-                        )),
-                  ])),
-              Expanded(
-                  flex: 2,
-                  child: Column(children: [
-                    Input(value: "Email", callback: setEmail),
-                    Input(value: "Password", callback: setPassword),
-                    Input(value: "Repeat Password", callback: setRepeatPassword),
-                    Input(value: "First Name", callback: setFirstName),
-                    Input(value: "Last Name", callback: setLastName),
-                  ])),
-              Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Container(
-                          width: 295,
-                          height: 89,
-                          margin: const EdgeInsets.fromLTRB(0, 26, 0, 0),
-                          child: TextButton(
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.all(21),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)),
-                                backgroundColor: AppColors.darkGreen,
-                              ),
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 41),
+                          child: Text(
+                            'You are one click away from joining our food lovers community.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 21,
+                                fontWeight: FontWeight.w300,
+                                letterSpacing: 2),
+                          )),
+                    ])),
+                Expanded(
+                    flex: 2,
+                    child: Column(children: [
+                      Input(value: "Email", callback: setEmail, isPassword: false,),
+                      Input(value: "Password", callback: setPassword, isPassword: false,),
+                      Input(value: "Repeat Password", callback: setRepeatPassword,isPassword: false,),
+                      Input(value: "First Name", callback: setFirstName, isPassword: false,),
+                      Input(value: "Last Name", callback: setLastName, isPassword: false,),
+                    ])),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Container(
+                            width: 295,
+                            height: 89,
+                            margin: const EdgeInsets.fromLTRB(0, 26, 0, 0),
+                            child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.all(21),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  backgroundColor: AppColors.darkGreen,
+                                ),
+                                child: const Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w900,
+                                      letterSpacing: 2,
+                                      color: AppColors.white),
+                                ),
+                                onPressed: () {
+
+                                  AuthService.register(email, password, repeatPassword, firstName, lastName).then((response) {
+
+                                    if (response['status']) {
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const LoginScreen();
+                                          },
+                                        ),
+                                      );
+
+                                    }
+                                    else {
+                                      print("Failed to Create a User");
+                                    }
+
+                                  });
+
+                                }
+                            )),
+                        SizedBox(
+                            width: 295,
+                            height: 41,
+                            child: TextButton(
                               child: const Text(
-                                "Sign Up",
+                                "Already have an account?",
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w900,
-                                    letterSpacing: 2,
-                                    color: AppColors.white),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.black),
                               ),
-                              onPressed: () {
-
-                                AuthService.register(email, password, repeatPassword, firstName, lastName).then((response) {
-
-                                  if (response['status']) {
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return const LoginScreen();
-                                        },
-                                      ),
-                                    );
-
-                                  }
-                                  else {
-                                    print("Failed to Create a User");
-                                  }
-
-                                });
-
-                              }
-                          )),
-                      SizedBox(
-                          width: 295,
-                          height: 41,
-                          child: TextButton(
-                            child: const Text(
-                              "Already have an account?",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.white),
-                            ),
-                            onPressed: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const LoginScreen();
-                                },
-                              ),
-                            )
-                            },
-                          )),
-                    ],
-                  ))
-            ],
+                              onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const LoginScreen();
+                                  },
+                                ),
+                              )
+                              },
+                            )),
+                      ],
+                    ))
+              ],
+            ),
           )),
     );
   }

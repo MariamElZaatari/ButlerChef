@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color backgroundColor = Color(0xFFF2F2F2);
+  static const Color logoBackground=Color(0xFFFDFDFB);
   static const Color grayButton = Color(0xFFC8CBD2);
   static const Color placeholder = Color(0xFFC6CACC);
   static const Color green = Color(0xFF5ACE7F);
