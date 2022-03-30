@@ -12,11 +12,11 @@ class CookedRecipeService {
     id ??= (await UserPreferences().getUser()).id;
 
     Response response =
-    await get(Uri.parse(AppUrl.getCookedRecipesByUserId + id.toString()));
+        await get(Uri.parse(AppUrl.getCookedRecipesByUserId + id.toString()));
 
     if (response.statusCode == 200) {
       List<RecipeCardModel> recipesCards =
-      RecipeCardModel.welcomeFromJson(response.body);
+          RecipeCardModel.welcomeFromJson(response.body);
 
       return recipesCards;
     }
@@ -43,8 +43,9 @@ class CookedRecipeService {
   }
 
   static Future<bool> deleteCookedById(int? recipeId) async {
-    Response response =
-    await get(Uri.parse(AppUrl.deleteCooked + recipeId.toString()));
+    int? userId = (await UserPreferences().getUser()).id ?? 0;
+    Response response = await get(Uri.parse(
+        AppUrl.deleteCooked + userId.toString() + "/" + recipeId.toString()));
 
     if (response.statusCode == 200) {
       return true;

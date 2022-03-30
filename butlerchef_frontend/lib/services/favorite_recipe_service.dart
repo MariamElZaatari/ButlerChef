@@ -11,11 +11,11 @@ class FavoriteRecipeService {
     int? id = (await UserPreferences().getUser()).id;
 
     Response response =
-    await get(Uri.parse(AppUrl.getFavoriteRecipesByUserId + id.toString()));
+        await get(Uri.parse(AppUrl.getFavoriteRecipesByUserId + id.toString()));
 
     if (response.statusCode == 200) {
       List<RecipeCardModel> recipesCards =
-      RecipeCardModel.welcomeFromJson(response.body);
+          RecipeCardModel.welcomeFromJson(response.body);
 
       print(recipesCards);
       return recipesCards;
@@ -43,8 +43,10 @@ class FavoriteRecipeService {
   }
 
   static Future<bool> deleteFavoriteById(int? recipeId) async {
-    Response response =
-    await get(Uri.parse(AppUrl.deleteFavorite + recipeId.toString()));
+    int? userId = (await UserPreferences().getUser()).id ?? 0;
+
+    Response response = await get(Uri.parse(
+        AppUrl.deleteFavorite + userId.toString() + "/" + recipeId.toString()));
 
     if (response.statusCode == 200) {
       return true;
