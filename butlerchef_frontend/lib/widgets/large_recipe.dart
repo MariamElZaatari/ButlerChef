@@ -81,7 +81,7 @@ class LargeRecipeState extends State<LargeRecipe> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RecipeScreen()),
+                              builder: (context) => RecipeScreen(recipeId: recipes[index].recipe?.id, image: recipes[index].recipe?.imageUrl, name: recipes[index].recipe?.name, cooked: recipes[index].cooked,)),
                         )
                       },
                   splashColor: Colors.grey,
@@ -122,6 +122,7 @@ class LargeRecipeState extends State<LargeRecipe> {
                                 time: recipes[index].recipe?.time,
                                 user: recipes[index].recipe?.user,
                                 favorite: recipes[index].favorite,
+                                recipeId: recipes[index].recipe?.id,
                               ),
                             ),
                             flex: 5),
