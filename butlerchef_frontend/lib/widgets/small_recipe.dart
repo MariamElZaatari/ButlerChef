@@ -21,7 +21,7 @@ class SmallRecipeState extends State<SmallRecipe> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      await RecipeService.getAllRecipes().then((data) {
+      await RecipeService.getRecipesForLoggedUser().then((data) {
         setState(() {
           recipes = data;
         });
