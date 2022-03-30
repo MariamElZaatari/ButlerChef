@@ -8,8 +8,9 @@ import '../models/user_model.dart';
 class RecipeAuthor extends StatefulWidget {
   final User? user;
   final int? favorite;
-
-  const RecipeAuthor({Key? key, required this.user, required this.favorite})
+  final bool? fav;
+  const RecipeAuthor(
+      {Key? key, required this.user, required this.favorite, this.fav})
       : super(key: key);
 
   LargeRecipeState createState() => LargeRecipeState();
@@ -18,22 +19,27 @@ class RecipeAuthor extends StatefulWidget {
 class LargeRecipeState extends State<RecipeAuthor> {
   String? name;
   String? name1;
+  late bool _favorite = false;
 
-  FaIcon notFavoriteIcon = const FaIcon(
+  FaIcon heartOutlined = const FaIcon(
     FontAwesomeIcons.heart,
     color: AppColors.white,
   );
-  FaIcon favoriteIcon = const FaIcon(
+  FaIcon heartSolid = const FaIcon(
     FontAwesomeIcons.solidHeart,
     color: AppColors.white,
   );
 
   @override
   void initState() {
-    if (widget.user?.firstName != null && widget.user?.lastName != null) {
+    if (widget.user?.firstName != null &&
+        widget.user?.lastName != null &&
+        widget.favorite != null) {
       name = widget.user?.firstName;
       name1 = widget.user?.lastName;
+      _favorite = widget.favorite == 1 ? true : false;
     }
+    super.initState();
   }
 
   @override
@@ -64,10 +70,13 @@ class LargeRecipeState extends State<RecipeAuthor> {
         Expanded(
           flex: 3,
           child: Align(
-            alignment: Alignment.centerRight,
-            child: widget.favorite==1? favoriteIcon: notFavoriteIcon,
-            ),
-          ),
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                  icon: _favorite ? heartSolid : heartOutlined,
+                  onPressed: () => {
+                        setState(() => {_favorite = !_favorite})
+                      })),
+        ),
       ],
     );
   }
