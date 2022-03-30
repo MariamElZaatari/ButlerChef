@@ -1,13 +1,13 @@
 package com.example.butlerchef_backend.Services;
 
-import com.example.butlerchef_backend.Models.Address;
-import com.example.butlerchef_backend.Models.Recipe;
-import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Models.*;
 import com.example.butlerchef_backend.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,11 +15,15 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
+    private final RecipeDirectionRepository recipeDirectionRepository;
+    private final RecipeProductRepository recipeProductRepository;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository, UserRepository userRepository) {
+    public RecipeService(RecipeRepository recipeRepository, UserRepository userRepository, RecipeDirectionRepository recipeDirectionRepository, RecipeProductRepository recipeProductRepository) {
         this.recipeRepository = recipeRepository;
         this.userRepository = userRepository;
+        this.recipeDirectionRepository = recipeDirectionRepository;
+        this.recipeProductRepository = recipeProductRepository;
     }
 
     public Recipe createRecipe(Recipe recipe) {
@@ -74,5 +78,47 @@ public class RecipeService {
 
     public void delete(Long id){
         recipeRepository.deleteById(id);
+    }
+
+    @Transactional
+    public boolean createFullRecipe(Recipe recipe,
+                                    List<RecipeProduct> products,
+                                    List<RecipeDirection> directions) {
+
+        try{
+            Recipe createdRecipe = recipeRepository.save(recipe);
+
+            for (RecipeProduct product : products) {
+                product.setRecipe(createdRecipe);
+                recipeProductRepository.addProduct(
+                        product.getRecipe().getId(),
+                        product.getQuantity().getId(),
+                        product.getMeasurement().getId(),
+                        product.getName(),
+                        product.getCreatedAt(),
+                        product.getUpdatedAt()
+                );
+                System.out.println("Product Added");
+
+            }
+
+            for (RecipeDirection direction : directions) {
+                direction.setRecipe(createdRecipe);
+                recipeDirectionRepository.addDirection(
+                        direction.getRecipe().getId(),
+                        direction.getTitle(),
+                        direction.getContent(),
+                        direction.getCreatedAt(),
+                        direction.getUpdatedAt()
+                );
+                System.out.println("Direction Added");
+
+            }
+            return true;
+
+        }catch (Exception e){
+            System.out.println("Error: " + e.toString());
+            return false;
+        }
     }
 }
