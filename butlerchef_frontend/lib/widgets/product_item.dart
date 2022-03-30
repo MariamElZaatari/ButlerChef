@@ -5,8 +5,8 @@ import 'package:butler_chef/constants/styles.dart';
 
 class ProductItem extends StatelessWidget {
   final String productName;
-  final String quantity;
-  final String measurement;
+  final String? quantity;
+  final String? measurement;
 
   const ProductItem({
     Key? key,
@@ -42,12 +42,12 @@ class ProductItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  quantity,
+                  quantity!,
                   style: ThemeText.quantityMeasurement,
                 ),
                 SizedBox(width: 12),
                 Text(
-                  measurement,
+                  measurement!,
                   style: ThemeText.quantityMeasurement,
                 ),
               ],
