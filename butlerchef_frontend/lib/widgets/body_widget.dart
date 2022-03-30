@@ -17,12 +17,12 @@ class BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 30, 0, 15),
+      margin: _selectedIndex == 0? EdgeInsets.fromLTRB(0, 30, 0, 15): EdgeInsets.fromLTRB(0, 0, 0, 15),
       child: Column(
 //        crossAxisAlignment: CrossAxisAlignment.start,
 //        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-//          if (_selectedIndex == 0)
+          if (_selectedIndex == 0)
           SearchBar(),
           Expanded(
             flex: 9,
