@@ -3,8 +3,21 @@ import 'package:butler_chef/widgets/profile_nav_bar.dart';
 import 'package:butler_chef/utils/app_colors.dart';
 import 'package:butler_chef/widgets/edit_button.dart';
 
-class Profile extends StatelessWidget {
+import '../utils/styles.dart';
+
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
+  @override
+  ProfileState createState() => ProfileState();
+}
+
+class ProfileState extends State<Profile> {
+  late final TextEditingController _controller;
+
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: "Mike Cruz");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +27,6 @@ class Profile extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 width: MediaQuery.of(context).size.width,
                 height: 181,
                 child: Image.network(
@@ -25,7 +37,6 @@ class Profile extends StatelessWidget {
               flex: 2,
             ),
             Container(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 width: MediaQuery.of(context).size.width,
                 height: 181,
                 decoration: const BoxDecoration(
@@ -39,18 +50,82 @@ class Profile extends StatelessWidget {
                   ),
                 )),
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 5, 0, 8),
+              width: MediaQuery.of(context).size.width,
               height: 181,
-              child: const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Mike Cruz',
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 8,
-                        color: AppColors.white),
-                  )),
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text.rich(
+                  TextSpan(
+                    text: _controller.text,
+                    children: [
+                      //Edit Button
+                      WidgetSpan(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(
+                                        backgroundColor: AppColors.white,
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: AppColors.green, width: 3),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 21, horizontal: 50),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              TextField(
+                                                maxLength: 26,
+                                                textAlign: TextAlign.center,
+                                                style: ThemeText.dialogInput,
+                                                decoration: const InputDecoration(
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: AppColors.brown),
+                                                    ),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: AppColors.green),
+                                                    ),
+                                                    hintText: 'First and Last Name'),
+                                                controller: _controller,
+                                                onSubmitted: (text) =>
+                                                    Navigator.pop(context),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: AppColors.green,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4,
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
