@@ -1,7 +1,6 @@
 package com.example.butlerchef_backend.Controllers;
 
-import com.example.butlerchef_backend.Models.Recipe;
-import com.example.butlerchef_backend.Models.User;
+import com.example.butlerchef_backend.Models.*;
 import com.example.butlerchef_backend.Repositories.CookedRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.FavoriteRecipeDisplayInfo;
 import com.example.butlerchef_backend.Repositories.RecipeDisplayInfo;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,11 +27,6 @@ public class RecipeController {
     @Autowired
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
-    }
-
-    @PostMapping("/create")
-    public Recipe create(@Valid @RequestBody Recipe recipe){
-        return recipeService.createRecipe(recipe);
     }
 
     @GetMapping("/{id}")
@@ -86,5 +81,15 @@ public class RecipeController {
     @GetMapping("display/profile/{id}")
     public Collection<RecipeDisplayInfo> readProfileRecipesForLoggedUser(@PathVariable Long id){
         return recipeService.getProfileRecipesDisplayInfoForLoggedUser(id);
+    }
+
+    @PostMapping("/create")
+    public boolean create(@Valid @RequestBody RecipeFullCard data){
+
+        @Valid Recipe recipe = data.recipe;
+        @Valid List<RecipeProduct> products = data.products;
+        @Valid List<RecipeDirection> directions = data.directions;
+
+        return recipeService.createFullRecipe(recipe, products, directions);
     }
 }
