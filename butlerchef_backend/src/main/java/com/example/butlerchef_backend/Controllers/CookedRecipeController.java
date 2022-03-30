@@ -29,41 +29,40 @@ public class CookedRecipeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Map<String, Object>> createCookedRecipe(@Valid @RequestBody Map<String, Long> map){
+    public ResponseEntity<Map<String, Object>> createCookedRecipe(@Valid @RequestBody Map<String, Long> map) {
 
-        CookedRecipe cookedRecipe=cookedRecipeService.create(map.get("userId"),map.get("recipeId"));
+        CookedRecipe cookedRecipe = cookedRecipeService.create(map.get("userId"), map.get("recipeId"));
 
 //        int userId, int recipeId
 //        return map.get("userId") + ", " + map.get("recipeId");
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("status", 200);
-        responseMap.put("message","cooked recipe created successfully");
+        responseMap.put("message", "cooked recipe created successfully");
         responseMap.put("data", cookedRecipe);
 
         return new ResponseEntity<>(responseMap, HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public Collection<CookedRecipe> readUserCookedRecipes(@PathVariable Long id){
+    public Collection<CookedRecipe> readUserCookedRecipes(@PathVariable Long id) {
         return cookedRecipeService.read(id);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<Map<String, Object>> deleteCookedRecipe(@PathVariable Long id){
+    @GetMapping("/delete/{userId}/{recipeId}")
+    public ResponseEntity<Map<String, Object>> deleteCookedRecipe(
+            @PathVariable Long userId,
+            @PathVariable Long recipeId
+    ) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
-        map.put("message","cooked recipe deleted successfully");
-        cookedRecipeService.delete(id);
+        map.put("message", "cooked recipe deleted successfully");
+        cookedRecipeService.delete(userId, recipeId);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/search/{id}/{name}")
-    public Collection<CookedRecipe> searchCookedRecipeByUserIdAndName(@PathVariable Long id, @PathVariable String name){
+    public Collection<CookedRecipe> searchCookedRecipeByUserIdAndName(@PathVariable Long id, @PathVariable String name) {
         return cookedRecipeService.getByUserIdAndRecipeName(id, name);
     }
-//    @GetMapping("/search/{name}")
-//    public Collection<Recipe> readByName(@PathVariable String name){
-//        return recipeService.getRecipesByName(name);
-//    }
 
 }

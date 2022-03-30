@@ -9,6 +9,7 @@ import com.example.butlerchef_backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -50,15 +51,8 @@ public class CookedRecipeService {
         return cookedRecipeRepository.findByUserIdAndRecipeNameLikeIgnoreCaseOrderByRecipeNameAsc(id, "%"+name+"%");
     }
 
-//    public User update(User user){
-//        User oldUser=userRepository.findById(user.getId()).get();
-//        oldUser.setFirstName(user.getFirstName());
-//        oldUser.setLastName(user.getLastName());
-//        oldUser.setImage(user.getImage());
-//        oldUser.setUpdated_at();
-//        return userRepository.save(oldUser);
-//    }
-    public void delete(Long id){
-        cookedRecipeRepository.deleteById(id);
+    @Transactional
+    public void delete(Long userId, Long recipeId){
+        cookedRecipeRepository.deleteByRecipeIdAndUserId(userId, recipeId);
     }
 }
