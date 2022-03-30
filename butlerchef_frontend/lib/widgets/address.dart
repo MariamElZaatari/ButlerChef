@@ -49,7 +49,7 @@ class AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 307,
+      height: 281,
       width: 241,
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 21),
@@ -167,9 +167,8 @@ class AddressState extends State<Address> {
             ),
           ),
           Expanded(
-            flex: 2,
-            child: Column(
-              children: [
+              flex: 2,
+              child: Column(children: [
                 const Expanded(
                     flex: 1,
                     child: Align(
@@ -201,24 +200,22 @@ class AddressState extends State<Address> {
                         textAlign: TextAlign.left,
                       ),
                     )),
-                Expanded(
-                    flex: 1,
-                    child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: IconButton(
-                            icon: FaIcon(
-                              FontAwesomeIcons.solidEdit,
-                              size: 25,
-                              color: AppColors.green,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isEnable = true;
-                              });
-                            })))
-              ],
-            ),
-          ),
+              ])),
+          Expanded(
+              flex: 1,
+              child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.solidEdit,
+                        size: 25,
+                        color: AppColors.green,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isEnable = true;
+                        });
+                      })))
         ],
       ),
     );
