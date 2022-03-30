@@ -11,6 +11,7 @@ import com.example.butlerchef_backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -50,8 +51,9 @@ public class FavoriteRecipeService {
         return favoriteRecipeRepository.findByUserIdAndRecipeNameLikeIgnoreCaseOrderByRecipeNameAsc(id, "%"+name+"%");
     }
 
-    public void delete(Long id){
-        favoriteRecipeRepository.deleteById(id);
+    @Transactional
+    public void delete(Long userId, Long recipeId){
+        favoriteRecipeRepository.deleteByRecipeIdAndUserId(userId, recipeId);
     }
 }
 

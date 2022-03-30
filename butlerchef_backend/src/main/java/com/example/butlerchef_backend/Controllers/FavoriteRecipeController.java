@@ -27,36 +27,39 @@ public class FavoriteRecipeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Map<String, Object>> createFavoriteRecipe(@Valid @RequestBody Map<String, Long> map){
+    public ResponseEntity<Map<String, Object>> createFavoriteRecipe(@Valid @RequestBody Map<String, Long> map) {
 
-        FavoriteRecipe favoriteRecipe=favoriteRecipeService.create(map.get("userId"),map.get("recipeId"));
+        FavoriteRecipe favoriteRecipe = favoriteRecipeService.create(map.get("userId"), map.get("recipeId"));
 
 //        int userId, int recipeId
 //        return map.get("userId") + ", " + map.get("recipeId");
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("status", 200);
-        responseMap.put("message","Favorite recipe created successfully");
+        responseMap.put("message", "Favorite recipe created successfully");
         responseMap.put("data", favoriteRecipe);
 
         return new ResponseEntity<>(responseMap, HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public Collection<FavoriteRecipe> readUserFavoriteRecipes(@PathVariable Long id){
+    public Collection<FavoriteRecipe> readUserFavoriteRecipes(@PathVariable Long id) {
         return favoriteRecipeService.read(id);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<Map<String, Object>> deleteFavoriteRecipe(@PathVariable Long id){
+    @GetMapping("/delete/{userId}/{recipeId}")
+    public ResponseEntity<Map<String, Object>> deleteFavoriteRecipe(
+            @PathVariable Long userId,
+            @PathVariable Long recipeId
+    ) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
-        map.put("message","Favorite recipe deleted successfully");
-        favoriteRecipeService.delete(id);
+        map.put("message", "Favorite recipe deleted successfully");
+        favoriteRecipeService.delete(userId, recipeId);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/search/{id}/{name}")
-    public Collection<FavoriteRecipe> searchFavoriteRecipeByUserIdAndName(@PathVariable Long id, @PathVariable String name){
+    public Collection<FavoriteRecipe> searchFavoriteRecipeByUserIdAndName(@PathVariable Long id, @PathVariable String name) {
         return favoriteRecipeService.getByUserIdAndRecipeName(id, name);
     }
 }
