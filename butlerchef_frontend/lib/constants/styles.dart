@@ -39,4 +39,10 @@ class ThemeText {
       color:
       AppColors.brown);
 
+  static const TextStyle errorMessage = TextStyle(
+      color: AppColors.white,
+      fontSize: 18,
+      letterSpacing: 3,
+      fontWeight: FontWeight.w300);
+
 }
