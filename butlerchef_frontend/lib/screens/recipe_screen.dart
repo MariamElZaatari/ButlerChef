@@ -4,13 +4,18 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 
 class RecipeScreen extends StatefulWidget {
-  const RecipeScreen({Key? key}) : super(key: key);
+  final int? recipeId;
+  final String? name;
+  final String? image;
+  final int? cooked;
+  const RecipeScreen({Key? key, required this.recipeId, required this.name, required this.image, required this.cooked}) : super(key: key);
 
   @override
   RecipeScreenState createState() => RecipeScreenState();
 }
 
 class RecipeScreenState extends State<RecipeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +28,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
+                  //TODO widget.image.toString()
                   child: Image.network(
                     'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
                     fit: BoxFit.cover,
@@ -49,13 +55,13 @@ class RecipeScreenState extends State<RecipeScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      children: [
                         SizedBox(
                             width: 300,
                             child: Text(
-                              "Hot Shakshuka with Eggs",
+                              widget.name.toString(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 4,
@@ -71,8 +77,8 @@ class RecipeScreenState extends State<RecipeScreen> {
             ),
             flex: 2,
           ),
-          const Expanded(
-            child: RecipeNavBar(),
+          Expanded(
+            child: RecipeNavBar(recipeId: widget.recipeId, cooked: widget.cooked),
             flex: 5,
           ),
         ],
