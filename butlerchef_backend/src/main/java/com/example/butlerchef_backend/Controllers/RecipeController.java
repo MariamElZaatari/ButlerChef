@@ -34,12 +34,8 @@ public class RecipeController {
         return recipeService.getRecipesByUserId(id);
     }
 
-    @GetMapping("/search/{name}")
-    public Collection<Recipe> readByName(@PathVariable String name){
-        return recipeService.getRecipesByName(name);
-    }
 
-    @GetMapping("/search/{id}/{name}")
+    @GetMapping("/search/profile/{id}/{name}")
     public Collection<Recipe> readByUserAndRecipeName(@PathVariable Long id, @PathVariable String name){
         return recipeService.getRecipesByUserIdAndRecipeName(id, name);
     }
@@ -67,6 +63,12 @@ public class RecipeController {
     public Collection<RecipeDisplayInfo> readRecipesByLoggedUser(@PathVariable Long id){
         return recipeService.getRecipesDisplayInfoForLoggedUser(id);
     }
+
+    @GetMapping("/search/{id}/{name}")
+    public Collection<RecipeDisplayInfo> readByName(@PathVariable Long id, @PathVariable String name ){
+        return recipeService.getRecipesByName(id, name);
+    }
+
 
     @GetMapping("display/favorite/{id}")
     public Collection<FavoriteRecipeDisplayInfo> readFavoriteRecipesByLoggedUser(@PathVariable Long id){
