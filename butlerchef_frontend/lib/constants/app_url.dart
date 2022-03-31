@@ -11,6 +11,8 @@ class AppUrl {
 
   static const String getMeasurements = baseUrl + '/measurement/';
   static const String getAllRecipesByUserId = baseUrl + '/recipe/display/';
+  static const String getAllRecipesForLoggedUserId = baseUrl + '/recipe/display/profile/';
+  static const String getAllRecipesByRecipeName = baseUrl + '/recipe/search/';
   static const String getProductsByRecipeId = baseUrl + '/recipeProduct/';
   static const String getDirectionsByRecipeId = baseUrl + '/recipeDirection/';
 
