@@ -2,7 +2,7 @@
 import 'package:butler_chef/widgets/post_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/body_widget.dart';
-import 'package:butler_chef/widgets/large_recipe.dart';
+import 'package:butler_chef/widgets/home_recipe.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/profile.dart';
 import 'package:butler_chef/widgets/fridge.dart';
@@ -24,7 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-      LargeRecipe(),
+      HomeRecipe(),
       Shop(),
       PostRecipeScreen(
         onPostSuccess: () => _onItemTapped(0),
