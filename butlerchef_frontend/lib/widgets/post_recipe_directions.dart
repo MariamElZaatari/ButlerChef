@@ -3,17 +3,20 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/add_direction_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:butler_chef/constants/styles.dart';
 
 class PostRecipeDirections extends StatefulWidget {
+  final Function(List<RecipeDirection>) callback;
+
   const PostRecipeDirections({
     Key? key,
     this.onPostClick,
-    this.onDirectionsChange, this.directions = const [],
+    this.onDirectionsChange,
+    this.directions = const [],
+    required this.callback,
   }) : super(key: key);
   final List<RecipeDirection> directions;
-  final VoidCallback? onPostClick;
+  final void Function(List<RecipeDirection> directions)? onPostClick;
   final void Function(List<RecipeDirection> directions)? onDirectionsChange;
 
   @override
@@ -49,8 +52,9 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                   onTap: _onAddClicked,
                   child: Container(
                     height: 221,
-                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    padding: const EdgeInsets.fromLTRB(15,41,15,21),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.fromLTRB(15, 41, 15, 21),
                     decoration: BoxDecoration(
                       color: AppColors.green,
                       borderRadius: const BorderRadius.all(Radius.circular(25)),
@@ -60,7 +64,7 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                           spreadRadius: 0,
                           blurRadius: 8,
                           offset:
-                          const Offset(0, 4), // changes position of shadow
+                              const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -73,12 +77,15 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                           ),
                           children: [
                             WidgetSpan(
-                                child: Icon(
-                                  FontAwesomeIcons.plus,
-                                  color: AppColors.white,
-                                  size: 20,
-                                ),),
-                            TextSpan(text: ' Add Direction', style: TextStyle(fontSize: 20)),
+                              child: Icon(
+                                FontAwesomeIcons.plus,
+                                color: AppColors.white,
+                                size: 20,
+                              ),
+                            ),
+                            TextSpan(
+                                text: ' Add Direction',
+                                style: TextStyle(fontSize: 20)),
                           ],
                         ),
                       ),
@@ -94,8 +101,14 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: widget.onPostClick,
-                    child: Text('Post', style: ThemeText.buttonText,),
+                    onPressed: () {
+                      // widget.callback(_directions);
+                      widget.onPostClick!(_directions);
+                    },
+                    child: Text(
+                      'Post',
+                      style: ThemeText.buttonText,
+                    ),
                   ),
                 )
               ],
@@ -159,17 +172,24 @@ class PostRecipeDirectionsState extends State<PostRecipeDirections>
   }
 
   void _onDirectionChange(
-      int index, {
-        String? title,
-        String? body,
-      }) {
-    final item = _directions[index];
+    int index, {
+    String? title,
+    String? body,
+  }) {
+
     setState(() {
-      _directions[index] = RecipeDirection(
-        title: title ?? item.title,
-        content: body ?? item.content,
-      );
+      //
+      if (title != null) {
+        print("_directions[index].title");
+        print(_directions[index].title);
+        _directions[index].title = title;
+      }
+      //
+      if (body != null) {
+        print("_directions[index].content");
+        print(_directions[index].content);
+        _directions[index].content = body;
+      }
     });
-    widget.onDirectionsChange?.call(_directions);
   }
 }
