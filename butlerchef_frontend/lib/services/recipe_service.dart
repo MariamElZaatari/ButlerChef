@@ -28,23 +28,32 @@ class RecipeService {
     int? loggedUserId = (await UserPreferences().getUser()).id;
 
     Response response = await get(
-        Uri.parse(AppUrl.getAllRecipesByUserId + loggedUserId.toString()));
+        Uri.parse(AppUrl.getAllRecipesForLoggedUserId + loggedUserId.toString()));
 
     if (response.statusCode == 200) {
-      List<RecipeCardModel> tempRecipesCards =
-          RecipeCardModel.welcomeFromJson(response.body);
+      List<RecipeCardModel> recipesCards =
+      RecipeCardModel.welcomeFromJson(response.body);
 
-      List<RecipeCardModel> recipesCards = <RecipeCardModel>[];
-
-      for (var card in tempRecipesCards) {
-        if (card.recipe?.user?.id == loggedUserId) {
-          recipesCards.add(card);
-        }
-      }
-
+      // print(recipesCards);
       return recipesCards;
     }
 
+    return [];
+  }
+
+  static Future<List<RecipeCardModel>> getRecipesByRecipeName(String recipeName) async {
+    int? loggedUserId = (await UserPreferences().getUser()).id;
+
+    Response response = await get(
+        Uri.parse(AppUrl.getAllRecipesByRecipeName + loggedUserId.toString()+"/"+recipeName));
+
+    if (response.statusCode == 200) {
+      List<RecipeCardModel> recipesCards =
+      RecipeCardModel.welcomeFromJson(response.body);
+
+      // print(recipesCards);
+      return recipesCards;
+    }
     return [];
   }
 
