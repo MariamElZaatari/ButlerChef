@@ -33,9 +33,6 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
-    public Collection<Recipe> getRecipesByName(String name){
-        return recipeRepository.findByNameLikeIgnoreCaseOrderByNameAsc("%"+name+"%");
-    }
 
     public Collection<Recipe> getRecipesByUserId(Long id){
         return recipeRepository.findByUserIdOrderByCreatedAtDesc(id);
@@ -50,6 +47,9 @@ public class RecipeService {
         return recipeRepository.getRecipesInfoForLoggedUser(id);
     }
 
+    public Collection<RecipeDisplayInfo> getRecipesByName(Long id, String name){
+        return recipeRepository.getRecipesInfoByName(id, name);
+    }
 
     public Collection<FavoriteRecipeDisplayInfo> getFavoriteRecipesDisplayInfoForLoggedUser(Long id){
         return recipeRepository.getFavoriteRecipesInfoForLoggedUser(id);
