@@ -1,5 +1,8 @@
 import 'package:butler_chef/models/recipe_direction_model.dart';
 import 'package:butler_chef/constants/app_colors.dart';
+import 'package:butler_chef/models/recipe_model.dart';
+import 'package:butler_chef/screens/home_screen.dart';
+import 'package:butler_chef/services/recipe_service.dart';
 import 'package:butler_chef/widgets/post_recipe_directions.dart';
 import 'package:butler_chef/widgets/post_recipe_products.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
@@ -70,6 +73,30 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
   List<RecipeProduct> _ingredients = [];
   List<RecipeDirection> _directions = [];
 
+  List<RecipeProduct> getIngredients() {
+    return _ingredients;
+  }
+
+  void setIngredients(List<RecipeProduct> i) {
+    setState(() {
+      _ingredients = i;
+    });
+  }
+
+  void setDirections(List<RecipeDirection> i) {
+    setState(() {
+      _directions = i;
+    });
+  }
+
+  List<RecipeDirection> getDirections() {
+    return _directions;
+  }
+
+  String getRecipeName() {
+    return _controller.text;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,16 +104,18 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
     dropdownTimeValue = widget.time ?? '5min';
     dropdownServingValue = widget.serving ?? '1srv';
 
-    _controller = TextEditingController(text: "Hot Shakshuka with Eggs");
+    _controller = TextEditingController(text: "Set Recipe Name");
     _screens = [
       PostRecipeIngredients(
         onIngredientsChange: _onIngredientsChange,
         ingredients: _ingredients,
+        callback: setIngredients,
       ),
       PostRecipeDirections(
         onDirectionsChange: _onDirectionsChange,
-        onPostClick: _onPostClick,
+        onPostClick: (recipeDirections) => _onPostClick(recipeDirections),
         directions: _directions,
+        callback: setDirections,
       ),
     ];
   }
@@ -145,7 +174,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                                         builder: (context) => Dialog(
                                               backgroundColor: AppColors.white,
                                               shape: RoundedRectangleBorder(
-                                                side: BorderSide(
+                                                side: const BorderSide(
                                                     color: AppColors.green,
                                                     width: 3),
                                                 borderRadius:
@@ -183,9 +212,9 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                                                               hintText:
                                                                   'Recipe Name'),
                                                       controller: _controller,
-                                                      onSubmitted: (text) =>
-                                                          Navigator.pop(
-                                                              context),
+                                                      onSubmitted: (text) {
+                                                        Navigator.pop(context);
+                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -382,11 +411,53 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
     ]);
   }
 
-  void _onPostClick() {
-    // TODO: 28/03/2022 Handle post request
+  void _onPostClick(List<RecipeDirection> recipeDirections) async {
+    RecipeModel recipeModel = RecipeModel(
+      name: getRecipeName(),
+      level: dropdownDifficultyValue,
+      time: dropdownTimeValue,
+      rate: 3,
+      imageUrl: "no Img",
+      serving: dropdownServingValue,
+      visibility: 1,
+    );
+
+    List<RecipeProduct> products = getIngredients();
+
+    bool success=false;
+
+
+    success=(await RecipeService.createRecipe(recipeModel, products, recipeDirections));
+
+
+    success? Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const HomeScreen();
+        },
+      ),
+    ): _showAlertDialog("Failed to create recipe.");
+  }
+
+  void _showAlertDialog(String message) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.red,
+          title: Text(
+            message,
+            style: ThemeText.errorMessage,
+            textAlign: TextAlign.center,
+          ),
+        );
+      },
+    );
   }
 
   void _onDirectionsChange(List<RecipeDirection> directions) {
+    print(directions);
     setState(() {
       _directions = directions;
     });
@@ -396,5 +467,5 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
     setState(() {
       _ingredients = ingredients;
     });
-}
+  }
 }
