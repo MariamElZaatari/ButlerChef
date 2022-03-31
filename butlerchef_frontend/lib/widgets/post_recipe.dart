@@ -19,16 +19,12 @@ class PostRecipeScreen extends StatefulWidget {
   final String? time;
   final List<String> times = const [
     '5min',
-    '10min',
     '15min',
-    '20min',
     '25min',
-    '30min',
     '45min',
     '60min',
     '90min',
     '120min',
-    '150min',
     '180min'
   ];
   final void Function(String time)? onTimeChange;
@@ -40,10 +36,6 @@ class PostRecipeScreen extends StatefulWidget {
     '4srv',
     '5srv',
     '6srv',
-    '7srv',
-    '8srv',
-    '9srv',
-    '10srv'
   ];
   final void Function(String serving)? onServingChange;
 

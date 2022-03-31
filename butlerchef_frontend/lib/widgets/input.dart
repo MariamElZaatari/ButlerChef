@@ -86,10 +86,10 @@ class _InputState extends State<Input> {
           },
           textAlign: TextAlign.center,
           decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: AppColors.black),
               ),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: AppColors.green),
               ),
               hintText: widget._hint,
