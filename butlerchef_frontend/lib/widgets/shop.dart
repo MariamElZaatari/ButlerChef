@@ -70,7 +70,7 @@ class ShopState extends State<Shop> {
         child: Stack(
       children: [
         GridView.builder(
-            padding: const EdgeInsets.fromLTRB(18, 10, 0, 21),
+            padding: const EdgeInsets.fromLTRB(18, 41, 0, 21),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 crossAxisSpacing: 1,

@@ -55,7 +55,6 @@ class RecipeDirectionsState extends State<RecipeDirections> {
       await CookedRecipeService.createCookedByRecipeId(widget.recipeId);
     });
     } else{
-      print("no");
       Future.delayed(Duration.zero, () async {
         await CookedRecipeService.deleteCookedById(widget.recipeId);
       });
