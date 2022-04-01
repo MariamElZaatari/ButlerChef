@@ -12,7 +12,7 @@ class Fridge extends StatelessWidget {
         Expanded(
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 141,
                 child: Image.asset(

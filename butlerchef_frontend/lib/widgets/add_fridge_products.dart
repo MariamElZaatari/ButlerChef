@@ -69,45 +69,39 @@ class AddFridgeProductsState extends State<AddFridgeProducts>
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: _addIngredient,
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50.0))),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(AppColors.green),
-                          overlayColor:
-                              MaterialStateProperty.resolveWith<Color?>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.focused) ||
-                                  states.contains(MaterialState.pressed)) {
-                                return AppColors.white.withOpacity(0.12);
-                              }
-                              return null;
-                            },
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                          onPressed: _addIngredient,
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.green),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed)) {
+                                  return AppColors.white.withOpacity(0.12);
+                                }
+                                return null;
+                              },
+                            ),
                           ),
-                        ),
-                        child: RichText(
-                            text: const TextSpan(children: [
-                          WidgetSpan(
-                            child: FaIcon(FontAwesomeIcons.plus,
-                                color: AppColors.white, size: 21),
-                          ),
-                          TextSpan(
-                              text: " Add Ingredient",
-                              style: ThemeText.buttonText)
-                        ]))),
-                    Container(
-                      height: 21.0,
-                      width: 321,
-                      margin: const EdgeInsets.only(bottom: 21, right: 30),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: FittedBox(
-                            child: IconButton(
+                          child: RichText(
+                              text: const TextSpan(children: [
+                            WidgetSpan(
+                              child: FaIcon(FontAwesomeIcons.plus,
+                                  color: AppColors.white, size: 21),
+                            ),
+                          ]))),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
                           onPressed: () async {
                             bool success = false;
                             for (var fridgeProduct in _products) {
@@ -128,15 +122,37 @@ class AddFridgeProductsState extends State<AddFridgeProducts>
                                       },
                                     ),
                                   )
-                                : _showAlertDialog("Failed to add Fridge Product.");
+                                : _showAlertDialog(
+                                    "Failed to add Fridge Product.");
                           },
-                          icon: const Icon(
-                            Icons.check_circle_rounded,
-                            color: AppColors.green,
-                            size: 121,
+                          style: ButtonStyle(
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(321, 2)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.green),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed)) {
+                                  return AppColors.white.withOpacity(0.12);
+                                }
+                                return null;
+                              },
+                            ),
                           ),
-                        )),
-                      ),
+                          child: RichText(
+                              text: const TextSpan(children: [
+                            WidgetSpan(
+                              child: FaIcon(FontAwesomeIcons.check,
+                                  color: AppColors.white, size: 21),
+                            ),
+                            TextSpan(text: " Done", style: ThemeText.buttonText)
+                          ]))),
                     ),
                   ],
                 ));

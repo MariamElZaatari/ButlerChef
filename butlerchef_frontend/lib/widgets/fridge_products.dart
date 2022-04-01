@@ -44,7 +44,7 @@ class FridgeProductsState extends State<FridgeProducts> {
             padding: const EdgeInsets.symmetric(vertical: 15),
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(
-                  color: AppColors.backgroundColor,
+                  color: AppColors.fridge,
                 ),
             itemCount: fridgeProducts.length,
             itemBuilder: (BuildContext context, int index) {

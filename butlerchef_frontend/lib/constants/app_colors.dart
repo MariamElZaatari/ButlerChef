@@ -7,7 +7,7 @@ class AppColors {
   static const Color placeholder = Color(0xFFC6CACC);
   static const Color green = Color(0xFF5ACE7F);
   static const Color darkGreen = Color(0xFF14281D);
-
+  static const Color fridge = Color(0xFFe2e5f0);
   static const Color white = Color(0xFFFFFFFF);
   static const Color grayIcon = Color(0xFF8F9195);
   static const Color black = Color(0xFF000000);
