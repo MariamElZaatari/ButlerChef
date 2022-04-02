@@ -41,8 +41,14 @@ public class UserController {
         User u = userService.update(user);
         Map<String, Object> map = new HashMap<>();
         map.put("status", 200);
-        map.put("user updated successfully", u);
+        map.put("message", "user updated successfully");
+        map.put("data", u);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PatchMapping("/update/name/{id}/{name}")
+    public User updateUserName(@PathVariable Long id,@PathVariable String name){
+        return userService.updateName(id,name);
     }
 
     @GetMapping("/search/{name}")
