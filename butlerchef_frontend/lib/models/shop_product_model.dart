@@ -23,26 +23,28 @@ class ShopProductResponse {
 
 class ShopProductModel {
   ShopProductModel({
-    required this.id,
+    this.id,
     required this.quantity,
     required this.measurement,
     required this.name,
     required this.price,
     required this.imageUrl,
-    required this.stock,
-    required this.createdAt,
-    required this.updatedAt,
+    this.stock,
+    this.createdAt,
+    this.updatedAt,
+    this.count,
   });
 
-  int id;
+  int? id;
   Quantity quantity;
   Measurement measurement;
   String name;
   double price;
   String imageUrl;
-  int stock;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? stock;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? count;
 
   factory ShopProductModel.fromJson(Map<String, dynamic> json) => ShopProductModel(
     id: json["id"],
