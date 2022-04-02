@@ -3,13 +3,12 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/address_list.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/cart_product_list.dart';
+import '../widgets/shop_product_item.dart';
 
 class CartScreen extends StatefulWidget {
-//  final List<ShopProductModel> _selectedProducts;
-//  const CartScreen({Key? key, required selectedProducts})
-//      : _selectedProducts = selectedProducts,
-//        super(key: key);
-  const CartScreen({Key? key}) : super(key: key);
+  final List<ShopProductItem> selectedProducts;
+  const CartScreen({Key? key, required this.selectedProducts})
+      : super(key: key);
 
   @override
   CartScreenState createState() => CartScreenState();
@@ -18,6 +17,13 @@ class CartScreen extends StatefulWidget {
 class CartScreenState extends State<CartScreen> {
   String dropdownValue = "Cash On Delivery";
   var paymentOptions = ["Cash On Delivery"];
+  double total = 0.0;
+
+  void setTotal(newTotal) {
+    setState(() {
+      total = newTotal;
+    });
+  }
 
   @override
   void initState() {
@@ -96,9 +102,11 @@ class CartScreenState extends State<CartScreen> {
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
                 //Basket Items
-                const SizedBox(
+                SizedBox(
                   height: 245,
-                  child: CartProductList(),
+                  child: CartProductList(
+                      selectedProducts: widget.selectedProducts,
+                      callback: setTotal),
                 ),
 
                 //Delivery To Title
@@ -111,7 +119,7 @@ class CartScreenState extends State<CartScreen> {
                 ),
                 //Delivery To Items
                 const SizedBox(
-                  height: 350,
+                  height: 200,
                   child: AddressList(),
                 ),
 
@@ -123,6 +131,7 @@ class CartScreenState extends State<CartScreen> {
                       style:
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
+
                 //Payment Method DropDown
                 Container(
                     padding: const EdgeInsets.symmetric(horizontal: 92),
@@ -189,34 +198,36 @@ class CartScreenState extends State<CartScreen> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const CartScreen()),
-                              );
+                              for (ShopProductItem product
+                                  in widget.selectedProducts) {}
+//                              Navigator.push(
+//                                context,
+//                                MaterialPageRoute(
+//                                    builder: (context) => const CartScreen()),
+//                              );
                             },
                             child: RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                       text: "Total",
                                       style: TextStyle(
                                         fontSize: 21,
                                         fontWeight: FontWeight.w300,
                                         color: AppColors.white,
                                       )),
-                                  TextSpan(text: "        "),
-                                  TextSpan(
+                                  const TextSpan(text: "        "),
+                                  const TextSpan(
                                       text: "Place Order",
                                       style: TextStyle(
                                           fontSize: 21,
                                           fontWeight: FontWeight.w700,
                                           color: AppColors.white,
                                           letterSpacing: 4)),
-                                  TextSpan(text: "        "),
+                                  const TextSpan(text: "        "),
                                   TextSpan(
-                                      text: "\$9.00",
-                                      style: TextStyle(
+                                      text: "\$" + total.toString(),
+                                      style: const TextStyle(
                                         fontSize: 21,
                                         fontWeight: FontWeight.w300,
                                         color: AppColors.white,

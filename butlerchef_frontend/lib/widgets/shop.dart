@@ -32,7 +32,7 @@ Future<List<ShopProductModel>> fetchShopProducts() async {
 
 class ShopState extends State<Shop> {
   late List<ShopProductModel> shopProducts = <ShopProductModel>[];
-  late List<ShopProductModel> selectedProducts = <ShopProductModel>[];
+  late List<ShopProductItem> selectedProducts = <ShopProductItem>[];
   late List<bool> selected = <bool>[];
 
   @override
@@ -88,10 +88,14 @@ class ShopState extends State<Shop> {
                               ? selectedIcon
                               : notSelectedIcon,
                           onPressed: () => {
-                                setState(() => {
-                                      selected[index] =
-                                          !selected.elementAt(index)
-                                    })
+                                setState(() {
+                                  selected[index] = !selected.elementAt(index);
+                                  selected[index]
+                                      ? selectedProducts
+                                          .add(shopProductItems[index])
+                                      : selectedProducts.removeWhere(
+                                          (item) => item.productName == shopProductItems[index].productName);
+                                })
                               })),
                 ],
               ));
@@ -121,11 +125,11 @@ class ShopState extends State<Shop> {
                     onPressed: () {
                       Navigator.push(
                         context,
-//                        MaterialPageRoute(
-//                            builder: (context) => CartScreen(
-//                                  selectedProducts: selectedProducts,
-//                                )),
-                        MaterialPageRoute(builder: (context) => const CartScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => CartScreen(
+                                  selectedProducts: selectedProducts,
+                                )),
+//                        MaterialPageRoute(builder: (context) => const CartScreen()),
                       );
                     },
                     child: RichText(
