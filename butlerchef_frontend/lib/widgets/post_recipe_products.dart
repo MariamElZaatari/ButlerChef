@@ -11,6 +11,8 @@ import 'package:butler_chef/constants/styles.dart';
 class PostRecipeIngredients extends StatefulWidget {
 
   final Function(List<RecipeProduct>) callback;
+  final List<RecipeProduct> ingredients;
+  final void Function(List<RecipeProduct> ingredients)? onIngredientsChange;
 
   const PostRecipeIngredients({
     Key? key,
@@ -18,8 +20,6 @@ class PostRecipeIngredients extends StatefulWidget {
     this.onIngredientsChange,
     required this.callback,
   }) : super(key: key);
-  final List<RecipeProduct> ingredients;
-  final void Function(List<RecipeProduct> ingredients)? onIngredientsChange;
 
   @override
   PostRecipeIngredientsState createState() => PostRecipeIngredientsState();
