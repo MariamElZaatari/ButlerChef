@@ -17,8 +17,6 @@ class RecipeService {
     if (response.statusCode == 200) {
       List<RecipeCardModel> recipesCards =
           RecipeCardModel.welcomeFromJson(response.body);
-
-      // print(recipesCards);
       return recipesCards;
     }
     return [];
@@ -33,8 +31,6 @@ class RecipeService {
     if (response.statusCode == 200) {
       List<RecipeCardModel> recipesCards =
       RecipeCardModel.welcomeFromJson(response.body);
-
-      // print(recipesCards);
       return recipesCards;
     }
 
@@ -50,8 +46,6 @@ class RecipeService {
     if (response.statusCode == 200) {
       List<RecipeCardModel> recipesCards =
       RecipeCardModel.welcomeFromJson(response.body);
-
-      // print(recipesCards);
       return recipesCards;
     }
     return [];
