@@ -1,4 +1,5 @@
 import 'package:butler_chef/constants/app_colors.dart';
+import 'package:butler_chef/screens/google_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'address.dart';
 
@@ -70,29 +71,19 @@ class AddressListState extends State<AddressList>
                         color: AppColors.black.withOpacity(0.25),
                         spreadRadius: 0,
                         blurRadius: 8,
-                        offset: const Offset(0, 4), // changes position of shadow
+                        offset:
+                            const Offset(0, 4), // changes position of shadow
                       ),
                     ],
                   ),
                   child: const Center(
-                    child: Text.rich(
-                      TextSpan(
-                        text: '',
-                        style: TextStyle(
-                          color: AppColors.brown,
-                        ),
-                        children: [
-                          WidgetSpan(
-                              child: Icon(
-                                Icons.add,
-                                color: AppColors.brown,
-                                size: 61,
-                              ),
-                              alignment: PlaceholderAlignment.middle),
-                        ],
-                      ),
-                    ),
-                  ),
+                      child: Align(
+                          child: Icon(
+                            Icons.add,
+                            color: AppColors.brown,
+                            size: 61,
+                          ),
+                          alignment: Alignment.center)),
                 ),
               ),
             );
@@ -144,6 +135,15 @@ class AddressListState extends State<AddressList>
     ));
     _selected.add(false);
     setState(() {});
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const GoogleMapScreen();
+        },
+      ),
+    );
   }
 
   @override
