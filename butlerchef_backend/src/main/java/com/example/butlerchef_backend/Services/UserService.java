@@ -33,6 +33,17 @@ public class UserService {
         oldUser.setUpdated_at();
         return userRepository.save(oldUser);
     }
+
+    public User updateName(Long id, String name){
+        User oldUser=userRepository.findById(id).get();
+        String[] newName=name.split("_");
+        oldUser.setFirstName(newName[0]);
+        oldUser.setLastName(newName[1]);
+//        oldUser.setImageUrl(user.getImageUrl());
+        oldUser.setUpdated_at();
+        return userRepository.save(oldUser);
+    }
+
     public void delete(Long id){
         userRepository.deleteById(id);
     }
