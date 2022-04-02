@@ -3,6 +3,7 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/address_list.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/cart_product_list.dart';
+import '../models/shop_product_model.dart';
 import '../widgets/shop_product_item.dart';
 
 class CartScreen extends StatefulWidget {
@@ -15,9 +16,20 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
+  List<ShopProductModel> _ingredients = [];
   String dropdownValue = "Cash On Delivery";
   var paymentOptions = ["Cash On Delivery"];
   double total = 0.0;
+
+  List<ShopProductModel> getIngredients() {
+    return _ingredients;
+  }
+
+  void setIngredients(List<ShopProductModel> i) {
+    setState(() {
+      _ingredients = i;
+    });
+  }
 
   void setTotal(newTotal) {
     setState(() {
@@ -28,9 +40,21 @@ class CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
+    CartProductList(
+      onIngredientsChange: _onIngredientsChange,
+      ingredients: _ingredients,
+      callback: setIngredients,
+      selectedProducts: widget.selectedProducts,
+      callbackTotal: setTotal,
+    );
   }
 
-//
+  void _onIngredientsChange(List<ShopProductModel> ingredients) {
+    setState(() {
+      _ingredients = ingredients;
+    });
+  }
+
   Icon notSelectedIcon =
       const Icon(Icons.check_circle, color: AppColors.grayIcon, size: 35);
   Icon selectedIcon =
@@ -105,8 +129,12 @@ class CartScreenState extends State<CartScreen> {
                 SizedBox(
                   height: 245,
                   child: CartProductList(
-                      selectedProducts: widget.selectedProducts,
-                      callback: setTotal),
+                    onIngredientsChange: _onIngredientsChange,
+                    ingredients: _ingredients,
+                    callback: setIngredients,
+                    selectedProducts: widget.selectedProducts,
+                    callbackTotal: setTotal,
+                  ),
                 ),
 
                 //Delivery To Title
@@ -119,7 +147,7 @@ class CartScreenState extends State<CartScreen> {
                 ),
                 //Delivery To Items
                 const SizedBox(
-                  height: 200,
+                  height: 344,
                   child: AddressList(),
                 ),
 

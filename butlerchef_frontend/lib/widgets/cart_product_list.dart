@@ -3,28 +3,43 @@ import 'package:butler_chef/widgets/shop_product_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
 import '../models/shop_product_model.dart';
 
 class CartProductList extends StatefulWidget {
+  final Function(List<ShopProductModel>) callback;
+  final List<ShopProductModel> ingredients;
+  final void Function(List<ShopProductModel> ingredients)? onIngredientsChange;
   final List<ShopProductItem> selectedProducts;
-  final Function(double) callback;
+  final Function(double) callbackTotal;
 
   const CartProductList({
     Key? key,
-    required this.selectedProducts,
     required this.callback,
+    this.ingredients = const [],
+    this.onIngredientsChange,
+    required this.selectedProducts,
+    required this.callbackTotal,
   }) : super(key: key);
 
   @override
   CartProductListState createState() => CartProductListState();
 }
 
-class CartProductListState extends State<CartProductList> {
-  final key = GlobalKey<AnimatedListState>();
+class CartProductListState extends State<CartProductList>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+//  final key = GlobalKey<AnimatedListState>();
   late final List<ShopProductModel> _products = [];
+  late final List<ShopProductModel> _ingredients = [];
+  late final Animation<double> _animation;
 
   @override
   void initState() {
+    _ingredients.addAll(widget.ingredients);
+    _animation = AnimationController(vsync: this, value: 1);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      widget.callback(_ingredients);
+    });
     for (var i = 0; i < widget.selectedProducts.length; i++) {
       _products.add(ShopProductModel(
         imageUrl: widget.selectedProducts[i].image,
@@ -38,7 +53,7 @@ class CartProductListState extends State<CartProductList> {
     super.initState();
   }
 
-  Widget buildItem(int index, Animation<double> animation) {
+  Widget buildItem(BuildContext context, int index) {
     final item = _products[index];
     return CartProductItem(
       key: UniqueKey(),
@@ -49,7 +64,8 @@ class CartProductListState extends State<CartProductList> {
       name: item.name,
       count: item.count,
       onCountChange: (count) => _onItemCountChange(index, count),
-      onClicked: () => removeItem(index),
+      animation: _animation,
+      onClicked: () => _removeIngredient(index),
     );
   }
 
@@ -65,7 +81,7 @@ class CartProductListState extends State<CartProductList> {
       if (tempCount != null) {
         _products[index].count = tempCount;
       }
-      widget.callback(_getTotal());
+      widget.callbackTotal(_getTotal());
     });
   }
 
@@ -77,27 +93,31 @@ class CartProductListState extends State<CartProductList> {
     return total;
   }
 
-  void removeItem(int index) {
-    key.currentState?.removeItem(
-      index,
-      (context, animation) => buildItem(index, animation),
-    );
+  void _removeIngredient(int index) {
+    _ingredients.removeAt(index);
+    setState(() {});
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Center(
       child: Column(
         children: [
           Expanded(
-            child: AnimatedList(
+            child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                key: key,
-                initialItemCount: _products.length,
-                itemBuilder: (context, index, animation) {
-                  return buildItem(index, animation);
+                separatorBuilder: (BuildContext context, int index) => const Divider(
+                  color: AppColors.backgroundColor,
+                ),
+                itemCount: _products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return buildItem(context, index);
                 }),
           ),
         ],

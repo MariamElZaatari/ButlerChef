@@ -5,6 +5,7 @@ import 'package:butler_chef/models/measurement_model.dart';
 import 'package:butler_chef/models/quantity_model.dart';
 
 class CartProductItem extends StatefulWidget {
+  final Animation<double> _animation;
   final VoidCallback _onClicked;
   final String name;
   final Quantity quantity;
@@ -16,6 +17,7 @@ class CartProductItem extends StatefulWidget {
 
   const CartProductItem({
     Key? key,
+    required animation,
     required onClicked,
     required this.name,
     required this.image,
@@ -24,7 +26,8 @@ class CartProductItem extends StatefulWidget {
     required this.price,
     this.count,
     required this.onCountChange,
-  })  : _onClicked = onClicked,
+  })  : _animation = animation,
+        _onClicked = onClicked,
         super(key: key);
 
   @override
@@ -42,91 +45,104 @@ class CartProductItemState extends State<CartProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-      width: 200,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Align(
-              alignment: Alignment.center,
-              child: Column(
-                children: <Widget>[
-                  ShopProductItem(
-                      productName: widget.name,
-                      image: widget.image,
-                      quantity: widget.quantity,
-                      measurement: widget.measurement,
-                      price: widget.price),
-                  Container(
-                    width: 171,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    height: 32,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Align(
-                            alignment: Alignment.topCenter,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.remove,
-                                size: 18,
-                                color: AppColors.red,
-                              ),
-                              onPressed: () => {
-                                setState(() {
-                                  if (count > 1) {
+    return SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(-1, 0),
+          end: const Offset(0, 0),
+        ).animate(
+          CurvedAnimation(
+            parent: widget._animation,
+            curve: Curves.bounceIn,
+            reverseCurve: Curves.bounceOut,
+          ),
+        ),
+//      sizeFactor: widget._animation,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+          width: 200,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: <Widget>[
+                      ShopProductItem(
+                          productName: widget.name,
+                          image: widget.image,
+                          quantity: widget.quantity,
+                          measurement: widget.measurement,
+                          price: widget.price),
+                      Container(
+                        width: 171,
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        decoration: const BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        height: 32,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Align(
+                                alignment: Alignment.topCenter,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    size: 18,
+                                    color: AppColors.red,
+                                  ),
+                                  onPressed: () => {
                                     setState(() {
-                                      count--;
-                                    });
-                                    widget.onCountChange(count);
-                                  }
-                                })
-                              },
-                            )),
-                        Text(count.toString(),
-                            style: const TextStyle(
-                                fontSize: 21,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.brown)),
-                        Align(
-                            alignment: Alignment.center,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.add,
-                                size: 18,
-                                color: AppColors.green,
-                              ),
-                              onPressed: () => {
-                                setState(() {
-                                  setState(() {
-                                    count++;
-                                  });
-                                  widget.onCountChange(count);
-                                })
-                              },
-                            )),
-                      ],
-                    ),
-                  )
-                ],
-              )),
-          Positioned(
-              right: -12,
-              top: -21,
-              child: IconButton(
-                  icon: const Icon(
-                    Icons.remove_circle_rounded,
-                    color: AppColors.red,
-                    size: 35,
-                  ),
-                  onPressed: () => widget._onClicked)),
-        ],
-      ),
-    );
+                                      if (count > 1) {
+                                        setState(() {
+                                          count--;
+                                        });
+                                        widget.onCountChange(count);
+                                      }
+                                    })
+                                  },
+                                )),
+                            Text(count.toString(),
+                                style: const TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.brown)),
+                            Align(
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.add,
+                                    size: 18,
+                                    color: AppColors.green,
+                                  ),
+                                  onPressed: () => {
+                                    setState(() {
+                                      setState(() {
+                                        count++;
+                                      });
+                                      widget.onCountChange(count);
+                                    })
+                                  },
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
+              Positioned(
+                  right: -12,
+                  top: -21,
+                  child: IconButton(
+                      icon: const Icon(
+                        Icons.remove_circle_rounded,
+                        color: AppColors.red,
+                        size: 35,
+                      ),
+                    onPressed: widget._onClicked,
+                  )),
+            ],
+          ),
+        ));
   }
 }
