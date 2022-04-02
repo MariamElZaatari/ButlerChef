@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier{
 
-  User _user = User(
+  static User _user = User(
     id: -1,
     email: 'none',
     firstName: 'none',

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/profile_nav_bar.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/edit_button.dart';
-
+import 'package:provider/provider.dart';
 import 'package:butler_chef/constants/styles.dart';
+import '../models/user_model.dart';
+import '../providers/user_provider.dart';
+import '../services/user_service.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,10 +16,15 @@ class Profile extends StatefulWidget {
 
 class ProfileState extends State<Profile> {
   late final TextEditingController _controller;
+  late User user;
+  late String name;
 
+  @override
   void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
+    name = user.firstName! + " " + user.lastName!;
+    _controller = TextEditingController(text: name);
     super.initState();
-    _controller = TextEditingController(text: "Mike Cruz");
   }
 
   @override
@@ -26,7 +34,7 @@ class ProfileState extends State<Profile> {
         Stack(
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 181,
                 child: Image.network(
@@ -70,9 +78,10 @@ class ProfileState extends State<Profile> {
                                   builder: (context) => Dialog(
                                         backgroundColor: AppColors.white,
                                         shape: RoundedRectangleBorder(
-                                          side: BorderSide(
+                                          side: const BorderSide(
                                               color: AppColors.green, width: 3),
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -81,25 +90,38 @@ class ProfileState extends State<Profile> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               TextField(
-                                                maxLength: 26,
-                                                textAlign: TextAlign.center,
-                                                style: ThemeText.dialogInput,
-                                                decoration: const InputDecoration(
-                                                    enabledBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: AppColors.brown),
-                                                    ),
-                                                    focusedBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: AppColors.green),
-                                                    ),
-                                                    hintText: 'First and Last Name'),
-                                                controller: _controller,
-                                                onSubmitted: (text) =>
-                                                    Navigator.pop(context),
-                                              ),
+                                                  maxLength: 26,
+                                                  textAlign: TextAlign.center,
+                                                  style: ThemeText.dialogInput,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          enabledBorder:
+                                                              UnderlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color: AppColors
+                                                                    .brown),
+                                                          ),
+                                                          focusedBorder:
+                                                              UnderlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color: AppColors
+                                                                    .green),
+                                                          ),
+                                                          hintText:
+                                                              'First and Last Name'),
+                                                  controller: _controller,
+                                                  onSubmitted: (text) {
+                                                    List<String> newName=text.split(" ");
+                                                    Navigator.pop(context);
+                                                    setState(() async{
+                                                      user = await UserService
+                                                          .updateName(newName[0]+"_"+newName[1]);
+                                                      Provider.of<UserProvider>(
+                                                          context,
+                                                          listen: false)
+                                                          .setUser(user);
+                                                    });
+                                                  }),
                                             ],
                                           ),
                                         ),
@@ -134,8 +156,8 @@ class ProfileState extends State<Profile> {
             )
           ],
         ),
-        const Expanded(
-          child: ProfileNavBar(),
+        Expanded(
+          child: ProfileNavBar(key: ValueKey(user),),
           flex: 4,
         ),
       ],
