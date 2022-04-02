@@ -1,6 +1,5 @@
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-
 import 'address.dart';
 
 class AddressList extends StatefulWidget {
@@ -52,41 +51,46 @@ class AddressListState extends State<AddressList>
           if (index == _addresses.length) {
             return InkWell(
               onTap: _onAddClicked,
-              child: Container(
-                height: 241,
-                margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-
-//                margin: const EdgeInsets.symmetric(vertical: 15),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 61, vertical: 21),
-                decoration: BoxDecoration(
-                  color: AppColors.green,
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withOpacity(0.25),
-                      spreadRadius: 0,
-                      blurRadius: 8,
-                      offset: const Offset(0, 4), // changes position of shadow
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 200,
+                  margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 61, vertical: 21),
+                  decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                          'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg'),
+                      fit: BoxFit.fitHeight,
                     ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text.rich(
-                    TextSpan(
-                      text: '',
-                      style: TextStyle(
-                        color: AppColors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.black.withOpacity(0.25),
+                        spreadRadius: 0,
+                        blurRadius: 8,
+                        offset: const Offset(0, 4), // changes position of shadow
                       ),
-                      children: [
-                        WidgetSpan(
-                            child: Icon(
-                              Icons.add,
-                              color: AppColors.white,
-                            ),
-                            alignment: PlaceholderAlignment.middle),
-                        TextSpan(text: 'Add Address'),
-                      ],
+                    ],
+                  ),
+                  child: const Center(
+                    child: Text.rich(
+                      TextSpan(
+                        text: '',
+                        style: TextStyle(
+                          color: AppColors.brown,
+                        ),
+                        children: [
+                          WidgetSpan(
+                              child: Icon(
+                                Icons.add,
+                                color: AppColors.brown,
+                                size: 61,
+                              ),
+                              alignment: PlaceholderAlignment.middle),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -175,7 +179,6 @@ class AddressListState extends State<AddressList>
         street: street ?? item.street,
         city: city ?? item.city,
         phone: phone ?? item.phone,
-
       );
     });
     widget.onAddressesChange?.call(_addresses);
