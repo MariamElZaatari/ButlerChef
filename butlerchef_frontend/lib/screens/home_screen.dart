@@ -86,7 +86,7 @@ class HomeScreenState extends State<HomeScreen> {
           iconSize: 30,
         ),
       ),
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: _selectedIndex==3? AppColors.fridge:AppColors.backgroundColor,
     );
   }
 }
