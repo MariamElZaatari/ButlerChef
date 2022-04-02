@@ -27,5 +27,5 @@ class AppUrl {
   static const String createCooked = baseUrl + '/cooked/create';
   static const String deleteCooked = baseUrl + '/cooked/delete/';
 
-
+  static const String updateUserName = baseUrl + '/user/update/name/';
 }
