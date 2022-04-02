@@ -44,7 +44,9 @@ class RecipeDirectionsState extends State<RecipeDirections> {
       });
     });
     if (widget.retrievedCooked != null) {
-      _cooked = widget.retrievedCooked == 1 ? true : false;
+      setState(() {
+        _cooked = widget.retrievedCooked == 1 ? true : false;
+      });
     }
     super.initState();
   }
@@ -125,9 +127,6 @@ class RecipeDirectionsState extends State<RecipeDirections> {
                                   child: IconButton(
                                       icon: _cooked ? cookedSolid : cookedOutlined,
                                       onPressed: () => {
-                                      widget.onCookedChange?.call(
-                                        _cooked
-                                      ),
                                       setState(() => {_cooked = !_cooked}),
                                       onCookedChange(),
                                       })))
