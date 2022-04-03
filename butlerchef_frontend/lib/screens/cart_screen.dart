@@ -3,6 +3,7 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/address_list.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/cart_product_list.dart';
+import '../models/address_model.dart';
 import '../models/shop_product_model.dart';
 import '../widgets/shop_product_item.dart';
 
@@ -20,6 +21,7 @@ class CartScreenState extends State<CartScreen> {
   String dropdownValue = "Cash On Delivery";
   var paymentOptions = ["Cash On Delivery"];
   double total = 0.0;
+  late List<Address> addresses=<Address>[];
 
   List<ShopProductModel> getIngredients() {
     return _ingredients;
@@ -39,7 +41,6 @@ class CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    super.initState();
     CartProductList(
       onIngredientsChange: _onIngredientsChange,
       ingredients: _ingredients,
@@ -47,6 +48,8 @@ class CartScreenState extends State<CartScreen> {
       selectedProducts: widget.selectedProducts,
       callbackTotal: setTotal,
     );
+
+    super.initState();
   }
 
   void _onIngredientsChange(List<ShopProductModel> ingredients) {
@@ -125,6 +128,7 @@ class CartScreenState extends State<CartScreen> {
                       style:
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
+                _ingredients.isNotEmpty?
                 //Basket Items
                 SizedBox(
                   height: 245,
@@ -135,7 +139,7 @@ class CartScreenState extends State<CartScreen> {
                     selectedProducts: widget.selectedProducts,
                     callbackTotal: setTotal,
                   ),
-                ),
+                ): const SizedBox(height: 21,),
 
                 //Delivery To Title
                 SizedBox(
@@ -146,8 +150,8 @@ class CartScreenState extends State<CartScreen> {
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
                 //Delivery To Items
-                const SizedBox(
-                  height: 344,
+                SizedBox(
+                  height: 284,
                   child: AddressList(),
                 ),
 
