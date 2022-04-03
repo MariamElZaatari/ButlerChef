@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:geocoding/geocoding.dart';
 import '../constants/app_colors.dart';
 import '../constants/styles.dart';
+import '../models/address_model.dart';
 
 class GoogleMapScreen extends StatefulWidget {
-  const GoogleMapScreen({Key? key}) : super(key: key);
+  final Function(Address) callback;
+  const GoogleMapScreen({Key? key, required this.callback}) : super(key: key);
 
   @override
   GoogleMapScreenState createState() => GoogleMapScreenState();
@@ -107,8 +109,16 @@ class GoogleMapScreenState extends State<GoogleMapScreen> {
                   ),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(1000.0),
-                    onTap: () => {
+                    onTap: () async {
                       //TODO add address geolocation and navigation.pop
+                      List<dynamic> placemarks = await placemarkFromCoordinates(
+                          _deliveryDestination.position.latitude,
+                          _deliveryDestination.position.longitude);
+
+                      widget.callback(Address(
+                        street: placemarks.first.street,
+                        city: placemarks.first.administrativeArea));
+                      Navigator.pop(context);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),

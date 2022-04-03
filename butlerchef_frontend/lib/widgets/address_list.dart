@@ -1,6 +1,8 @@
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/screens/google_map_screen.dart';
 import 'package:flutter/material.dart';
+import '../models/address_model.dart';
+import '../services/address_service.dart';
 import 'address.dart';
 
 class AddressList extends StatefulWidget {
@@ -8,10 +10,8 @@ class AddressList extends StatefulWidget {
       {Key? key,
       this.onAddressesChange,
       this.onSelectedChange,
-      this.addresses = const [],
       this.selected = const []})
       : super(key: key);
-  final List<Address> addresses;
   final void Function(List<Address> addresses)? onAddressesChange;
   final List<bool> selected;
   final void Function(List<bool> selected)? onSelectedChange;
@@ -23,7 +23,14 @@ class AddressList extends StatefulWidget {
 class AddressListState extends State<AddressList>
     with AutomaticKeepAliveClientMixin {
   late final List<bool> _selected = [];
-  late final List<Address> _addresses = [];
+  late List<Address> _addresses = <Address>[];
+  Address address = Address();
+
+  setAddress(newAddress) {
+    setState(() {
+      address = newAddress;
+    });
+  }
 
   Icon notSelectedIcon = const Icon(Icons.check_circle_rounded,
       color: AppColors.grayIcon, size: 35);
@@ -32,13 +39,20 @@ class AddressListState extends State<AddressList>
 
   @override
   void initState() {
-    super.initState();
+    Future.delayed(Duration.zero, () async {
+      await AddressService.getUserAddresses().then((data) {
+        setState(() {
+          _addresses = data;
+        });
+      });
+//      print(_addresses.length);
+    });
     _selected.addAll(widget.selected);
-    _addresses.addAll(widget.addresses);
+    super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {print(_addresses.length);
     super.build(context);
     return Center(
       child: ListView.separated(
@@ -53,9 +67,10 @@ class AddressListState extends State<AddressList>
             return InkWell(
               onTap: _onAddClicked,
               child: Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.topLeft,
                 child: Container(
-                  height: 200,
+                  height: 221,
+                  width: 241,
                   margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 61, vertical: 21),
@@ -71,8 +86,7 @@ class AddressListState extends State<AddressList>
                         color: AppColors.black.withOpacity(0.25),
                         spreadRadius: 0,
                         blurRadius: 8,
-                        offset:
-                            const Offset(0, 4), // changes position of shadow
+                        offset: const Offset(0, 4), // changes position of shadow
                       ),
                     ],
                   ),
@@ -91,11 +105,11 @@ class AddressListState extends State<AddressList>
           return Column(
             children: [
               SizedBox(
-                child: Address(
+                child: AddressItem(
                   title: _addresses[index].title,
                   street: _addresses[index].street,
-                  city: _addresses[index].street,
-                  phone: _addresses[index].street,
+                  city: _addresses[index].city,
+                  phone: _addresses[index].phone,
                   editable: true,
                   onTitleChange: (title) => _onTitleChange(
                     index,
@@ -127,23 +141,23 @@ class AddressListState extends State<AddressList>
   }
 
   void _onAddClicked() {
-    _addresses.add(const Address(
-      title: '',
-      street: '',
-      city: '',
-      phone: '',
-    ));
-    _selected.add(false);
-    setState(() {});
-
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const GoogleMapScreen();
+          return GoogleMapScreen(callback: setAddress);
         },
       ),
-    );
+    ).then((value) {
+      _addresses.add(Address(
+        title: '',
+        street: address.street ?? '',
+        city: address.city ?? '',
+        phone: '',
+      ));
+      _selected.add(false);
+      setState(() {});
+    });
   }
 
   @override
