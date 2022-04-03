@@ -1,10 +1,9 @@
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/constants/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Address extends StatefulWidget {
-  const Address({
+class AddressItem extends StatefulWidget {
+  const AddressItem({
     Key? key,
     this.title = 'Title',
     this.street = 'Street',
@@ -27,10 +26,10 @@ class Address extends StatefulWidget {
   final void Function(String body)? onPhoneChange;
 
   @override
-  AddressState createState() => AddressState();
+  AddressItemState createState() => AddressItemState();
 }
 
-class AddressState extends State<Address> {
+class AddressItemState extends State<AddressItem> {
   late final TextEditingController _titleController;
   late final TextEditingController _streetController;
   late final TextEditingController _cityController;
@@ -49,7 +48,7 @@ class AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 281,
+      height: 221,
       width: 241,
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 21),
@@ -90,94 +89,53 @@ class AddressState extends State<Address> {
                     ),
                   ))),
           Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  const Expanded(
-                      flex: 1,
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Street Address',
-                            style: ThemeText.addressSubtitle,
-                            textAlign: TextAlign.left,
-                          ))),
-                  Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextField(
-                          enabled: _isEnable,
-                          controller: _streetController,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            enabled: widget.editable,
-                            border: InputBorder.none,
-                            hintText: 'Street',
-                            hintStyle: const TextStyle(
-                                color: AppColors.placeholder,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          onEditingComplete: () => widget.onStreetChange?.call(
-                            _streetController.text,
-                          ),
-                          style: ThemeText.directionContent,
-                          textAlign: TextAlign.left,
-                        ),
-                      )),
-                ],
+              flex: 1,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TextField(
+                  enabled: _isEnable,
+                  controller: _streetController,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    enabled: widget.editable,
+                    border: InputBorder.none,
+                    hintText: 'Street',
+                    hintStyle: const TextStyle(
+                        color: AppColors.placeholder,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  onEditingComplete: () => widget.onStreetChange?.call(
+                    _streetController.text,
+                  ),
+                  style: ThemeText.directionContent,
+                  textAlign: TextAlign.left,
+                ),
               )),
           Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'City',
-                        style: ThemeText.addressSubtitle,
-                        textAlign: TextAlign.left,
-                      )),
+              flex: 1,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TextField(
+                  enabled: _isEnable,
+                  controller: _cityController,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                      enabled: widget.editable,
+                      border: InputBorder.none,
+                      hintText: 'City',
+                      hintStyle: const TextStyle(
+                          color: AppColors.placeholder,
+                          fontWeight: FontWeight.normal)),
+                  onEditingComplete: () => widget.onCityChange?.call(
+                    _cityController.text,
+                  ),
+                  style: ThemeText.directionContent,
+                  textAlign: TextAlign.left,
                 ),
-                Expanded(
-                    flex: 1,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextField(
-                        enabled: _isEnable,
-                        controller: _cityController,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            enabled: widget.editable,
-                            border: InputBorder.none,
-                            hintText: 'City',
-                            hintStyle: const TextStyle(
-                                color: AppColors.placeholder,
-                                fontWeight: FontWeight.normal)),
-                        onEditingComplete: () => widget.onCityChange?.call(
-                          _cityController.text,
-                        ),
-                        style: ThemeText.directionContent,
-                        textAlign: TextAlign.left,
-                      ),
-                    ))
-              ],
-            ),
-          ),
+              )),
           Expanded(
-              flex: 2,
-              child: Column(children: [
-                const Expanded(
-                    flex: 1,
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Phone Number',
-                          style: ThemeText.addressSubtitle,
-                          textAlign: TextAlign.left,
-                        ))),
+              flex: 1,
+              child: Row(children: [
                 Expanded(
                     flex: 1,
                     child: Align(
@@ -200,22 +158,28 @@ class AddressState extends State<Address> {
                         textAlign: TextAlign.left,
                       ),
                     )),
+                Expanded(
+                    flex: 1,
+                    child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                            icon: !_isEnable
+                                ? const Icon(
+                                    Icons.edit_location_alt_rounded,
+                                    size: 35,
+                                    color: AppColors.green,
+                                  )
+                                : const Icon(
+                                    Icons.fact_check_rounded,
+                                    size: 35,
+                                    color: AppColors.green,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                _isEnable = !_isEnable;
+                              });
+                            })))
               ])),
-          Expanded(
-              flex: 1,
-              child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.solidEdit,
-                        size: 25,
-                        color: AppColors.green,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isEnable = true;
-                        });
-                      })))
         ],
       ),
     );
