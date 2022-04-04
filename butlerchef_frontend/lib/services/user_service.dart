@@ -21,4 +21,27 @@ class UserService{
     }
     return User();
   }
+
+  static Future<User> updateImage(String image) async {
+    int? loggedUserId = (await UserPreferences().getUser()).id;
+
+    final Map<String, dynamic> data = {
+      'image': image,
+    };
+
+    Response response = await patch(
+      Uri.parse(AppUrl.updateUserImage + loggedUserId.toString()),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      User newUser =
+      User.fromJson(json.decode(response.body));
+      return newUser;
+    }
+    return User();
+  }
 }
