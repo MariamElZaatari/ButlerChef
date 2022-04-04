@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 
@@ -31,10 +33,10 @@ class ShopProductItem extends StatelessWidget {
             Container(
               height: 141,
               width: 171,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        'https://thumbs.dreamstime.com/b/fresh-tomato-isolated-white-background-close-up-fresh-tomato-isolated-white-background-close-up-124753596.jpg'),
+                    image: MemoryImage(
+                      base64Decode(image)),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(5))),
