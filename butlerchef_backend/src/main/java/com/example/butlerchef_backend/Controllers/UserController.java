@@ -51,6 +51,11 @@ public class UserController {
         return userService.updateName(id,name);
     }
 
+    @PatchMapping("/update/image/{id}")
+    public User updateUserImage(@PathVariable Long id, @RequestBody Map<String, String> image){
+        return userService.updateImage(id, image.get("image"));
+    }
+
     @GetMapping("/search/{name}")
     public ResponseEntity<Map<String, Object>> searchUsersByName(@PathVariable String name){
         Collection<User> userCollectionByFirstName = userService.getByName(name);
