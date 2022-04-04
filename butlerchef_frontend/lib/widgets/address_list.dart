@@ -2,7 +2,6 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/screens/google_map_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/address_model.dart';
-import '../services/address_service.dart';
 import 'address.dart';
 
 class AddressList extends StatefulWidget {
@@ -10,8 +9,9 @@ class AddressList extends StatefulWidget {
       {Key? key,
       this.onAddressesChange,
       this.onSelectedChange,
-      this.selected = const []})
+      this.selected = const [], this.addresses=const []})
       : super(key: key);
+  final List<Address> addresses;
   final void Function(List<Address> addresses)? onAddressesChange;
   final List<bool> selected;
   final void Function(List<bool> selected)? onSelectedChange;
@@ -39,20 +39,13 @@ class AddressListState extends State<AddressList>
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
-      await AddressService.getUserAddresses().then((data) {
-        setState(() {
-          _addresses = data;
-        });
-      });
-//      print(_addresses.length);
-    });
     _selected.addAll(widget.selected);
+    _addresses.addAll(widget.addresses);
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {print(_addresses.length);
+  Widget build(BuildContext context) {
     super.build(context);
     return Center(
       child: ListView.separated(
