@@ -141,17 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: AppColors.white),
                           ),
                           onPressed: () {
-//                            if (_formKey.currentState!.validate()) {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                  builder: (context) {
-//                                    return const HomeScreen();
-//                                  },
-//                                ),
-//                              );
-//                            }
-                            AuthService.login("ttt@gmail.com", "Mariam@97")
+                            AuthService.login(email, password)
                                 .then((response) {
                               if (response['status']) {
                                 User user = response['user'];
