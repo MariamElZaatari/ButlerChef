@@ -34,6 +34,7 @@ public class ShopProduct {
     private double price;
 
     @NotEmpty(message = "Image is mandatory.")
+    @Lob
     private String imageUrl;
 
     @Digits(integer = 10, fraction =2, message = "Invalid Stock")

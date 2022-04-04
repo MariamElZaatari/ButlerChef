@@ -42,6 +42,7 @@ public class Recipe {
     private String serving;
 
     @NotEmpty(message = "Image is mandatory.")
+    @Lob
     private String imageUrl;
 
     private int visibility;

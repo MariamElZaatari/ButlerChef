@@ -35,6 +35,7 @@ public class User {
     @NotEmpty(message = "Invalid Last Name", groups = AdvanceInfo.class)
     private String lastName;
 
+    @Lob
     private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.MERGE)
