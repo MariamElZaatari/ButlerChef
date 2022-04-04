@@ -128,7 +128,7 @@ class CartScreenState extends State<CartScreen> {
                       style:
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
-                _ingredients.isNotEmpty?
+
                 //Basket Items
                 SizedBox(
                   height: 245,
@@ -139,7 +139,7 @@ class CartScreenState extends State<CartScreen> {
                     selectedProducts: widget.selectedProducts,
                     callbackTotal: setTotal,
                   ),
-                ): const SizedBox(height: 21,),
+                ),
 
                 //Delivery To Title
                 SizedBox(
@@ -150,7 +150,7 @@ class CartScreenState extends State<CartScreen> {
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                 ),
                 //Delivery To Items
-                SizedBox(
+                const SizedBox(
                   height: 284,
                   child: AddressList(),
                 ),
@@ -232,11 +232,6 @@ class CartScreenState extends State<CartScreen> {
                             onPressed: () {
                               for (ShopProductItem product
                                   in widget.selectedProducts) {}
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => const CartScreen()),
-//                              );
                             },
                             child: RichText(
                               text: TextSpan(
