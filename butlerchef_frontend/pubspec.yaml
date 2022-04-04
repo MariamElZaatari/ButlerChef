@@ -27,11 +27,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  image_picker: ^0.6.7+21
   geocoding: ^1.0.1
   geolocator: ^5.1.5
   google_maps_flutter: ^1.2.0
   font_awesome_flutter: ^8.0.0
-  http: ^0.13.1
+  http: ^0.12.1
   provider: ^5.0.0
   shared_preferences: 2.0.13
   flutter:
