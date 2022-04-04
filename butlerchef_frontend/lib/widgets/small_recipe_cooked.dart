@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/top_recipe_bar.dart';
 import 'package:butler_chef/widgets/bottom_recipe_bar.dart';
@@ -45,11 +47,9 @@ class CookedSmallRecipeState extends State<SmallRecipeCooked> {
                 width: 281,
                 margin: const EdgeInsets.fromLTRB(0, 0, 21, 0),
                 padding: const EdgeInsets.fromLTRB(18, 2, 18, 12),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-//                  TODO recipes[index].recipe.imageUrl
-                    image: NetworkImage(
-                        'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
+                    image: MemoryImage(base64Decode(recipes[index].recipe?.imageUrl ?? '')),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
