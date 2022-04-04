@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../screens/edit_profile_screen.dart';
+import 'package:provider/provider.dart';
 
-class EditButton extends StatelessWidget {
+import '../models/user_model.dart';
+import '../providers/user_provider.dart';
+import '../screens/upload_user_image_screen.dart';
+
+class EditButton extends StatefulWidget {
   const EditButton({
     Key? key,
   }) : super(key: key);
+
+  @override
+  EditButtonState createState() => EditButtonState();
+}
+
+class EditButtonState extends State<EditButton> {
+  User user = User();
+
+  void setUser(newUser) {
+    setState(() {
+      user = newUser;
+      Provider.of<UserProvider>(context, listen: false).setUser(user);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +36,17 @@ class EditButton extends StatelessWidget {
           size: 25,
           color: AppColors.green,
         ),
-        onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const EditProfileScreen();
-            },
-          ),
-        )
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return UploadUserImage(
+                  callback: setUser,
+                );
+              },
+            ),
+          );
         },
       ),
     );
