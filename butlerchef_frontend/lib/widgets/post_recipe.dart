@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:butler_chef/models/recipe_direction_model.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/models/recipe_model.dart';
@@ -6,9 +8,9 @@ import 'package:butler_chef/services/recipe_service.dart';
 import 'package:butler_chef/widgets/post_recipe_directions.dart';
 import 'package:butler_chef/widgets/post_recipe_products.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
+import 'package:butler_chef/screens/upload_recipe_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../models/recipe_product_model.dart';
 import 'package:butler_chef/constants/styles.dart';
 
@@ -59,11 +61,18 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
   String dropdownDifficultyValue = 'Easy';
   String dropdownTimeValue = '5min';
   String dropdownServingValue = '1srv';
+  String image = "";
 
   late final TextEditingController _controller;
   late final List<Widget> _screens;
   List<RecipeProduct> _ingredients = [];
   List<RecipeDirection> _directions = [];
+
+  void setImage(newImage) {
+    setState(() {
+      image = newImage;
+    });
+  }
 
   List<RecipeProduct> getIngredients() {
     return _ingredients;
@@ -96,7 +105,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
     dropdownTimeValue = widget.time ?? '5min';
     dropdownServingValue = widget.serving ?? '1srv';
 
-    _controller = TextEditingController(text: "Set Recipe Name");
+    _controller = TextEditingController(text: "Recipe Name");
     _screens = [
       PostRecipeIngredients(
         onIngredientsChange: _onIngredientsChange,
@@ -121,10 +130,15 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200,
-              child: Image.network(
-                'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
-                fit: BoxFit.cover,
-              ),
+              child: image.isEmpty
+                  ? Image.network(
+                      'https://thumbs.dreamstime.com/b/summer-bbq-picnic-food-top-border-over-rustic-wood-banner-background-various-grilled-meats-vegetables-fruits-salad-183772823.jpg',
+                      fit: BoxFit.cover,
+                    )
+                  : Image.memory(
+                      base64Decode(image),
+                      fit: BoxFit.cover,
+                    ),
             ),
             Container(
                 width: MediaQuery.of(context).size.width,
@@ -392,6 +406,28 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                 ),
               ),
             ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.solidEdit,
+                  size: 25,
+                  color: AppColors.green,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return UploadRecipeImage(
+                          callback: setImage,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
         flex: 2,
@@ -409,27 +445,28 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
       level: dropdownDifficultyValue,
       time: dropdownTimeValue,
       rate: 3,
-      imageUrl: "no Img",
+      imageUrl: image,
       serving: dropdownServingValue,
       visibility: 1,
     );
 
     List<RecipeProduct> products = getIngredients();
 
-    bool success=false;
+    bool success = false;
 
+    success = (await RecipeService.createRecipe(
+        recipeModel, products, recipeDirections));
 
-    success=(await RecipeService.createRecipe(recipeModel, products, recipeDirections));
-
-
-    success? Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const HomeScreen();
-        },
-      ),
-    ): _showAlertDialog("Failed to create recipe.");
+    success
+        ? Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const HomeScreen();
+              },
+            ),
+          )
+        : _showAlertDialog("Failed to create recipe.");
   }
 
   void _showAlertDialog(String message) async {
@@ -449,7 +486,6 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
   }
 
   void _onDirectionsChange(List<RecipeDirection> directions) {
-    print(directions);
     setState(() {
       _directions = directions;
     });
