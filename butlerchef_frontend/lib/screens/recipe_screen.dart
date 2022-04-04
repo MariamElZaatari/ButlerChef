@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:butler_chef/widgets/recipe_nav_bar.dart';
 import 'package:butler_chef/constants/app_colors.dart';
@@ -28,9 +30,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
-                  //TODO widget.image.toString()
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
+                  child: Image.memory(
+                    base64Decode(widget.image!),
                     fit: BoxFit.cover,
                   ),
                 ),
