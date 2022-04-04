@@ -27,21 +27,19 @@ class HomeRecipeState extends State<HomeRecipe> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      if(recipeName.isNotEmpty){
-      await RecipeService.getRecipesByRecipeName(recipeName).then((data) {
-        setState(() {
-          recipes = data;
+      if (recipeName.isNotEmpty) {
+        await RecipeService.getRecipesByRecipeName(recipeName).then((data) {
+          setState(() {
+            recipes = data;
+          });
         });
-      });
-      } else{
+      } else {
         await RecipeService.getAllRecipes().then((data) {
           setState(() {
             recipes = data;
           });
         });
-
       }
-      print(recipes.length);
     });
     super.initState();
   }
