@@ -164,7 +164,7 @@ class _PostRecipeScreenState extends State<PostRecipeScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      width: 300,
+                      width: 321,
                       child: Text.rich(
                         TextSpan(
                           text: _controller.text,
