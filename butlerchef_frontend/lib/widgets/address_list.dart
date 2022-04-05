@@ -95,38 +95,40 @@ class AddressListState extends State<AddressList>
               ),
             );
           }
-          return Column(
-            children: [
-              SizedBox(
-                child: AddressItem(
-                  title: _addresses[index].title,
-                  street: _addresses[index].street,
-                  city: _addresses[index].city,
-                  phone: _addresses[index].phone,
-                  editable: true,
-                  onTitleChange: (title) => _onTitleChange(
-                    index,
-                    title,
-                  ),
-                  onStreetChange: (street) => _onStreetChange(
-                    index,
-                    street,
-                  ),
-                  onCityChange: (city) => _onCityChange(
-                    index,
-                    city,
-                  ),
-                  onPhoneChange: (phone) => _onPhoneChange(
-                    index,
-                    phone,
+          return Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  child: AddressItem(
+                    title: _addresses[index].title,
+                    street: _addresses[index].street,
+                    city: _addresses[index].city,
+                    phone: _addresses[index].phone,
+                    editable: true,
+                    onTitleChange: (title) => _onTitleChange(
+                      index,
+                      title,
+                    ),
+                    onStreetChange: (street) => _onStreetChange(
+                      index,
+                      street,
+                    ),
+                    onCityChange: (city) => _onCityChange(
+                      index,
+                      city,
+                    ),
+                    onPhoneChange: (phone) => _onPhoneChange(
+                      index,
+                      phone,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                  child: IconButton(
-                      icon: _selected[index] ? selectedIcon : notSelectedIcon,
-                      onPressed: () => {_onSelectedChange(index)})),
-            ],
+                Center(
+                    child: IconButton(
+                        icon: _selected[index] ? selectedIcon : notSelectedIcon,
+                        onPressed: () => {_onSelectedChange(index)})),
+              ],
+            ),
           );
         },
       ),

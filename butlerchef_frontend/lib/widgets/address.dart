@@ -48,7 +48,7 @@ class AddressItemState extends State<AddressItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 221,
+      height: 292,
       width: 241,
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 21),
@@ -89,73 +89,95 @@ class AddressItemState extends State<AddressItem> {
                     ),
                   ))),
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: TextField(
-                  enabled: _isEnable,
-                  controller: _streetController,
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                    enabled: widget.editable,
-                    border: InputBorder.none,
-                    hintText: 'Street',
-                    hintStyle: const TextStyle(
-                        color: AppColors.placeholder,
-                        fontWeight: FontWeight.normal),
-                  ),
-                  onEditingComplete: () => widget.onStreetChange?.call(
-                    _streetController.text,
-                  ),
-                  style: ThemeText.directionContent,
-                  textAlign: TextAlign.left,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Street', style: ThemeText.addressSubtitle, textAlign: TextAlign.left,),
+                    TextField(
+                      enabled: _isEnable,
+                      controller: _streetController,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        enabled: widget.editable,
+                        border: InputBorder.none,
+                        hintText: 'Street',
+                        hintStyle: const TextStyle(
+                            color: AppColors.placeholder,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      onEditingComplete: () => widget.onStreetChange?.call(
+                        _streetController.text,
+                      ),
+                      style: ThemeText.directionContent,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
               )),
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: TextField(
-                  enabled: _isEnable,
-                  controller: _cityController,
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                      enabled: widget.editable,
-                      border: InputBorder.none,
-                      hintText: 'City',
-                      hintStyle: const TextStyle(
-                          color: AppColors.placeholder,
-                          fontWeight: FontWeight.normal)),
-                  onEditingComplete: () => widget.onCityChange?.call(
-                    _cityController.text,
-                  ),
-                  style: ThemeText.directionContent,
-                  textAlign: TextAlign.left,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('City', style: ThemeText.addressSubtitle, textAlign: TextAlign.left,),
+                    TextField(
+                      enabled: _isEnable,
+                      controller: _cityController,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                          enabled: widget.editable,
+                          border: InputBorder.none,
+                          hintText: 'City',
+                          hintStyle: const TextStyle(
+                              color: AppColors.placeholder,
+                              fontWeight: FontWeight.normal)),
+                      onEditingComplete: () => widget.onCityChange?.call(
+                        _cityController.text,
+                      ),
+                      style: ThemeText.directionContent,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
               )),
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Row(children: [
                 Expanded(
                     flex: 1,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: TextField(
-                        enabled: _isEnable,
-                        controller: _phoneController,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            enabled: widget.editable,
-                            border: InputBorder.none,
-                            hintText: '01234567',
-                            hintStyle: const TextStyle(
-                                color: AppColors.placeholder,
-                                fontWeight: FontWeight.normal)),
-                        onEditingComplete: () => widget.onPhoneChange?.call(
-                          _phoneController.text,
-                        ),
-                        style: ThemeText.directionContent,
-                        textAlign: TextAlign.left,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Phone', style: ThemeText.addressSubtitle, textAlign: TextAlign.left,),
+                          TextField(
+                            autofocus: true,
+                            enabled: _isEnable,
+                            controller: _phoneController,
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                                enabled: widget.editable,
+                                border: InputBorder.none,
+                                hintText: '01234567',
+                                hintStyle: const TextStyle(
+                                    color: AppColors.placeholder,
+                                    fontWeight: FontWeight.normal)),
+                            onEditingComplete: () => widget.onPhoneChange?.call(
+                              _phoneController.text,
+                            ),
+                            style: ThemeText.directionContent,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
                       ),
                     )),
                 Expanded(
