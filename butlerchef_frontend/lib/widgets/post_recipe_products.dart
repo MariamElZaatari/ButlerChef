@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:butler_chef/models/quantity_model.dart';
 import 'package:butler_chef/models/measurement_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../models/recipe_product_model.dart';
 import 'package:butler_chef/constants/styles.dart';
 
 class PostRecipeIngredients extends StatefulWidget {
-
   final Function(List<RecipeProduct>) callback;
   final List<RecipeProduct> ingredients;
   final void Function(List<RecipeProduct> ingredients)? onIngredientsChange;
@@ -30,7 +28,6 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
   late final List<RecipeProduct> _ingredients = [];
   late final List<List<Quantity>> _listOfQuantities = [];
   late final Animation<double> _animation;
-
 
   @override
   void initState() {
@@ -55,52 +52,52 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
         itemBuilder: (BuildContext context, int index) {
           if (index == _ingredients.length) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ElevatedButton(
-                onPressed: _addIngredient,
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0))),
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(AppColors.green),
-                    overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-              if (states.contains(MaterialState.focused) ||
-              states.contains(MaterialState.pressed)) {
-              return AppColors.white.withOpacity(0.12);
-              }
-              return null;
-              },
-              ),
-            ),
-          child: RichText(
-          text: const TextSpan(children: [
-          WidgetSpan(
-          child: FaIcon(FontAwesomeIcons.plus,
-          color: AppColors.white, size: 21),
-          ),
-          TextSpan(
-          text: " Add Ingredient", style: ThemeText.buttonText)
-          ]))));
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ElevatedButton(
+                    onPressed: _addIngredient,
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0))),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(AppColors.green),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.focused) ||
+                              states.contains(MaterialState.pressed)) {
+                            return AppColors.white.withOpacity(0.12);
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    child: RichText(
+                        text: const TextSpan(children: [
+                      WidgetSpan(
+                        child: FaIcon(FontAwesomeIcons.plus,
+                            color: AppColors.white, size: 21),
+                      ),
+                      TextSpan(
+                          text: " Add Ingredient", style: ThemeText.buttonText)
+                    ]))));
           }
           final item = _ingredients[index];
           final quantityItem = _listOfQuantities[index];
           Widget child = AddProductsItem(
-          key: UniqueKey(),
-          name: item.name,
-          currentMeasurement: item.measurement,
-          currentQuantity: item.quantity,
-          currentQuantityList: quantityItem,
-          animation: _animation,
-          onClicked: () => _removeIngredient(index),
-          onNameChange: (name) => _onItemNameChange(index, name),
-          onMeasurementChange: (Measurement m) =>
-          _onItemMeasurementChange(index, m),
-          onQuantityChange: (quantity) =>
-          _onItemQuantityChange(index, quantity),
-          onQuantityListChange: (quantities) =>
-          _setQuantitiesList(index, quantities),
+            key: UniqueKey(),
+            name: item.name,
+            currentMeasurement: item.measurement,
+            currentQuantity: item.quantity,
+            currentQuantityList: quantityItem,
+            animation: _animation,
+            onClicked: () => _removeIngredient(index),
+            onNameChange: (name) => _onItemNameChange(index, name),
+            onMeasurementChange: (Measurement m) =>
+                _onItemMeasurementChange(index, m),
+            onQuantityChange: (quantity) =>
+                _onItemQuantityChange(index, quantity),
+            onQuantityListChange: (quantities) =>
+                _setQuantitiesList(index, quantities),
           );
           return child;
         },
@@ -135,8 +132,7 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
     _onItemChange(index, tempName: name);
   }
 
-  void _onItemMeasurementChange(
-      int index, Measurement m) {
+  void _onItemMeasurementChange(int index, Measurement m) {
     _onItemChange(index, measurement: m);
   }
 
@@ -144,24 +140,18 @@ class PostRecipeIngredientsState extends State<PostRecipeIngredients>
     _onItemChange(index, quantity: quantity);
   }
 
-  void _onItemChange(
-      int index, {
-        String? tempName,
-        Measurement? measurement,
-        Quantity? quantity
-      }) {
-
+  void _onItemChange(int index,
+      {String? tempName, Measurement? measurement, Quantity? quantity}) {
     setState(() {
-      if(tempName != null){
+      if (tempName != null) {
         _ingredients[index].name = tempName;
       }
-      if(measurement != null){
+      if (measurement != null) {
         _ingredients[index].measurement = measurement;
       }
-      if(quantity != null){
+      if (quantity != null) {
         _ingredients[index].quantity = quantity;
       }
-
     });
   }
 
