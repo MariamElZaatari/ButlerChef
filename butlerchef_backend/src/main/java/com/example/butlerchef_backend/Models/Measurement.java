@@ -30,6 +30,7 @@ public class Measurement {
             joinColumns = { @JoinColumn(name = "measurement_id") },
             inverseJoinColumns = { @JoinColumn(name = "quantity_id") }
     )
+    @OrderBy(value = "id")
     @JsonIgnoreProperties({"created_at","updated_at"})
     Set<Quantity> quantities = new HashSet<>();
 
