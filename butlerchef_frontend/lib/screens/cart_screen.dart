@@ -3,6 +3,8 @@ import 'package:butler_chef/constants/app_colors.dart';
 import 'package:butler_chef/widgets/address_list.dart';
 import 'package:butler_chef/widgets/custom_back_button.dart';
 import 'package:butler_chef/widgets/cart_product_list.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../constants/styles.dart';
 import '../models/address_model.dart';
 import '../models/shop_product_model.dart';
 import '../widgets/shop_product_item.dart';
@@ -21,7 +23,7 @@ class CartScreenState extends State<CartScreen> {
   String dropdownValue = "Cash On Delivery";
   var paymentOptions = ["Cash On Delivery"];
   double total = 0.0;
-  late List<Address> addresses=<Address>[];
+  late List<Address> addresses = <Address>[];
 
   List<ShopProductModel> getIngredients() {
     return _ingredients;
@@ -66,7 +68,7 @@ class CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
         padding: EdgeInsets.zero,
@@ -151,7 +153,7 @@ class CartScreenState extends State<CartScreen> {
                 ),
                 //Delivery To Items
                 const SizedBox(
-                  height: 284,
+                  height: 363,
                   child: AddressList(),
                 ),
 
@@ -166,6 +168,7 @@ class CartScreenState extends State<CartScreen> {
 
                 //Payment Method DropDown
                 Container(
+                    margin: const EdgeInsets.symmetric(vertical: 15),
                     padding: const EdgeInsets.symmetric(horizontal: 92),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -202,66 +205,65 @@ class CartScreenState extends State<CartScreen> {
                       ),
                     )),
 
+                //Total
+                Container(
+                  margin: const EdgeInsets.only(right: 4),
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Total',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 21, fontWeight: FontWeight.w800)),
+                      Text("\$" + total.toString(),
+                          style: const TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.brown,
+                          )),
+                    ],
+                  ),
+                ),
+
                 //Place Order Button
                 Align(
-                    alignment: Alignment.bottomCenter,
+                    alignment: Alignment.center,
                     child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 15),
-                        width: 341,
-                        height: 41,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50.0))),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.green),
-                              overlayColor:
-                                  MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.focused) ||
-                                      states.contains(MaterialState.pressed)) {
-                                    return AppColors.white.withOpacity(0.12);
-                                  }
-                                  return null;
-                                },
-                              ),
+                      margin: const EdgeInsets.symmetric(vertical: 15),
+                      child: ElevatedButton(
+                          onPressed: () => {},
+                          style: ButtonStyle(
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(321, 2)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.green),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed)) {
+                                  return AppColors.white.withOpacity(0.12);
+                                }
+                                return null;
+                              },
                             ),
-                            onPressed: () {
-                              for (ShopProductItem product
-                                  in widget.selectedProducts) {}
-                            },
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                      text: "Total",
-                                      style: TextStyle(
-                                        fontSize: 21,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColors.white,
-                                      )),
-                                  const TextSpan(text: "        "),
-                                  const TextSpan(
-                                      text: "Place Order",
-                                      style: TextStyle(
-                                          fontSize: 21,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.white,
-                                          letterSpacing: 4)),
-                                  const TextSpan(text: "        "),
-                                  TextSpan(
-                                      text: "\$" + total.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 21,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColors.white,
-                                      )),
-                                ],
-                              ),
-                            )))),
+                          ),
+                          child: RichText(
+                              text: const TextSpan(children: [
+                            WidgetSpan(
+                              child: FaIcon(FontAwesomeIcons.check,
+                                  color: AppColors.white, size: 21),
+                            ),
+                            TextSpan(
+                                text: " Place Order",
+                                style: ThemeText.buttonText)
+                          ]))),
+                    )),
               ])),
         ],
       ),
