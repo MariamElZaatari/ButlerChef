@@ -4,7 +4,7 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.  
 
-**[PROJECT PHILOSOPHY](https://github.com/julescript/well_app#-project-philosophy) • [WIREFRAMES](https://github.com/julescript/well_app#-wireframes) • [TECH STACK](https://github.com/julescript/well_app#-tech-stack) • [IMPLEMENTATION](https://github.com/julescript/well_app#-impplementation) • [HOW TO RUN?](https://github.com/julescript/well_app#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/MariamElZaatari/ButlerChef#-project-philosophy) • [WIREFRAMES](https://github.com/MariamElZaatari/ButlerChef#-wireframes) • [TECH STACK](https://github.com/MariamElZaatari/ButlerChef#-tech-stack) • [IMPLEMENTATION](https://github.com/MariamElZaatari/ButlerChef#-impplementation) • [HOW TO RUN?](https://github.com/MariamElZaatari/ButlerChef#-how-to-run)**
 
 </div>
 
@@ -31,6 +31,8 @@
 - As a user, I want to search for recipes by name, to find recipes faster.
 - As a user, I want to store my fridge items, to browse related recipes or order missing ingredients of a recipe.
 - As a user, I want to order missing ingredients from the recipe, to not waste time searching elsewhere.
+- As a user, I want to get my address using Google Maps, for a faster shopping process.
+- As a user, I want to add either my current location or any other location for delivery, for a more convenient and personalized experience.
 
 
 
@@ -39,19 +41,17 @@
 
 
 <br><br>
-<!-- 
+
 <img src="./readme/title3.svg"/>
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
 Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Landing  | Home/Search  |
-| -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| Login  | Home/Search  | Shop | Checkout |
+| ----| ----| ----| ----|
+| <p align="center"> <img src="./readme/Figma_Login.png"/> </p>| <p align="center"> <img src="./readme/Figma_Home.png" height="87%" width="87%"/> </p>| <p align="center"> <img src="./readme/Figma_Shop.png"/> </p>| <p align="center"> <img src="./readme/Figma_Checkout.png" height="93%" width="93%"/> </p>
 
-| Artists results  | Artist's Albums  |
-| -----------------| -----|
-| ![Artists results](https://github.com/julescript/spotifyndr/blob/master/demo/Artists_Page.jpg) | ![Artist's Albums](https://github.com/julescript/spotifyndr/blob/master/demo/Albums_Page.jpg) | -->
+
 
 
 <br><br>
@@ -66,47 +66,55 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 - The app uses the font ["Roboto"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
 
 
-
-<!-- <br><br>
+<br><br>
 <img src="./readme/title5.svg"/>
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing  | Home/Search  |
-| -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+
+| Login</b>  | Home/Search  | Shop | Checkout |
+| ----| ----| ----| ----|
+| <p align="center"> <img src="./readme/Implementation_Login.png"/> </p>| <p align="center"> <img src="./readme/Implementation_Home.png" height="80%" width="80%"/> </p>| <p align="center"> <img src="./readme/Implementation_Shop.png"/> </p>| <p align="center"> <img src="./readme/Implementation_Checkout.png" height="88%" width="88%"/> </p>
+
+| Google Maps  |  Post Recipe | Fridge | Profile |
+| ----| ----| ----| ----|
+| <p align="center"> <img src="./readme/Implementation_GoogleMaps.png"/> </p>| <p align="center"> <img src="./readme/Implementation_PostRecipe.png" /> </p>| <p align="center"> <img src="./readme/Implementation_Fridge.png"/> </p>| <p align="center"> <img src="./readme/Implementation_Profile.png"/> </p>
 
 
 <br><br>
 <img src="./readme/title6.svg"/>
 
-
-> This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+* java 1.8
   ```sh
-  npm install npm@latest -g
+  https://java.com/en/download/help/windows_manual_download.html
   ```
+* xampp
+  ```sh
+  https://www.apachefriends.org/download_success.html
+  ```
+* Android Studio
+  ```sh
+  https://developer.android.com/studio
+  ```
+* Flutter
+  ```sh
+  docs.flutter.dev/get-started/install/windows
+  ```
+
+
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+1. Clone the repo
+   ```sh
+   git clone https://github.com/MariamElZaatari/ButlerChef.git
+   ```
+2. Flutter Get Dependencies
+   ```sh
+   flutter pub get
+   ```
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
- -->
