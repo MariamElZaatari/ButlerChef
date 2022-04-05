@@ -8,7 +8,6 @@ import '../models/quantity_model.dart';
 import '../services/measurement_service.dart';
 
 // ProductWidget
-
 class AddProductsItem extends StatefulWidget {
 //  final Product item;
   final Animation<double> _animation;
@@ -95,7 +94,6 @@ class AddProductsItemState extends State<AddProductsItem> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: TextField(
-//                        key: ValueKey(1),
                     key: UniqueKey(),
                     controller: _controller,
                     onEditingComplete: () {
