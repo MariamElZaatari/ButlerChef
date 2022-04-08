@@ -85,7 +85,7 @@ class AddressItemState extends State<AddressItem> {
                         _titleController.text,
                       ),
                       style: ThemeText.directionTitle,
-                      textAlign: TextAlign.left,
+                      textAlign: TextAlign.center,
                     ),
                   ))),
           Expanded(

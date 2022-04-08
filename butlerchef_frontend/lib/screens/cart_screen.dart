@@ -8,6 +8,7 @@ import '../constants/styles.dart';
 import '../models/address_model.dart';
 import '../models/shop_product_model.dart';
 import '../widgets/shop_product_item.dart';
+import 'home_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final List<ShopProductItem> selectedProducts;
@@ -232,7 +233,16 @@ class CartScreenState extends State<CartScreen> {
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
                       child: ElevatedButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const HomeScreen();
+                                    },
+                                  ),
+                                )
+                              },
                           style: ButtonStyle(
                             fixedSize:
                                 MaterialStateProperty.all(const Size(321, 2)),
