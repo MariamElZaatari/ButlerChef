@@ -15,9 +15,9 @@
 
 > ButlerChef allows people on-the-go to maintain their eating habits in a fast-paced and easy-manner, through the shop, fridge, and simply by browsing recipes.
 > 
-> It provides the user with his own fridge to store items and track feasible recipes.
-> The user can browse recipes, and mark recipes as favorite and as cooked for  later reference.
-> The user can purchase missing ingredients from the ButlerChef shop.
+> ButlerChef provides the user with his own fridge to store items and track feasible recipes. 
+> The user can browse recipes and mark them as favorite and as cooked for later reference. 
+> Finally, the user can purchase missing ingredients from the ButlerChef shop.
 
 ### User Stories
 - As a user, I want to browse a recipe, to see further details.
