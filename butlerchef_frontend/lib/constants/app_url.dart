@@ -1,6 +1,6 @@
 class AppUrl {
 
-  static const String baseUrl = 'http://10.0.2.2:8080/api';
+  static const String baseUrl = 'http://ec2-user@ec2-3-145-212-80.us-east-2.compute.amazonaws.com:3000/api';
   static const String login = baseUrl + '/auth/login';
   static const String register = baseUrl + '/auth/register';
 
