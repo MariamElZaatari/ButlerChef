@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
+@Table(indexes = @Index(name ="idx_favorite_recipe_user_id_recipe_id", columnList = "user_id, recipe_id", unique = true))
 public class FavoriteRecipe {
 
     @Id

@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(indexes = @Index(name ="idx_recipe_product_recipe_id", columnList = "recipe_id"))
 public class RecipeProduct {
 
     @Id

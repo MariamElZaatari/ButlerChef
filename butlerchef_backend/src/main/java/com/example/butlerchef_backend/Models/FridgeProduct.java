@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(indexes = @Index(name ="idx_fridge_product_user_id", columnList = "user_id"))
 public class FridgeProduct {
 
     @Id
