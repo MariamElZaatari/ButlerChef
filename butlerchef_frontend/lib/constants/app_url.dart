@@ -33,4 +33,6 @@ class AppUrl {
   static const String getAddresses = baseUrl + '/address/';
   static const String createAddress = baseUrl + '/address/create';
   static const String updateAddress = baseUrl + '/address/update';
+
+  static const String getShopProducts = baseUrl + '/shopProduct/';
 }

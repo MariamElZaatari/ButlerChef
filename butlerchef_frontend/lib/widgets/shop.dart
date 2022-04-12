@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'package:butler_chef/models/shop_product_model.dart';
+import 'package:butler_chef/services/shop_product_service.dart';
 import 'package:butler_chef/widgets/shop_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:butler_chef/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:butler_chef/screens/cart_screen.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:butler_chef/constants/styles.dart';
 
 class Shop extends StatefulWidget {
@@ -14,20 +12,6 @@ class Shop extends StatefulWidget {
 
   @override
   ShopState createState() => ShopState();
-}
-
-Future<List<ShopProductModel>> fetchShopProducts() async {
-  final response =
-      await http.get(Uri.parse('http://10.0.2.2:8080/api/shopProduct/'));
-
-//  print(response.body);
-  if (response.statusCode == 200) {
-    ShopProductResponse tempRes =
-        ShopProductResponse.fromJson(jsonDecode(response.body));
-    return tempRes.data;
-  } else {
-    throw Exception('Failed to load album');
-  }
 }
 
 class ShopState extends State<Shop> {
@@ -38,7 +22,7 @@ class ShopState extends State<Shop> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      await fetchShopProducts().then((data) {
+      await ShopProductService.getShopProducts().then((data) {
         setState(() {
           shopProducts = data;
         });
